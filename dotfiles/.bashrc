@@ -271,4 +271,7 @@ fi
 unset __conda_setup
 # <<< conda initialize <<<
 
+# fzf
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
+
 source "$HOME/.utils"

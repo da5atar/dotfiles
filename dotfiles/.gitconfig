@@ -203,7 +203,7 @@
   insteadOf = "gist:"
 
 [user]
-	name = Massamba Sow
-	email = mass.sow@gmail.com
+	name = msict4d
+	email = ms.ict4d@gmail.com
 [credential]
 	helper = store
