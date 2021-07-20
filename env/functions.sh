@@ -357,16 +357,33 @@ py_info() {
   local NOCOLOR='\033[0m'
   printf "=====\n"
   echo "${GREEN}Using: ${NOCOLOR}"
-  # which python
-  echo "$PYTHON"
+  which python
   echo "${GREEN}Version: ${NOCOLOR}"
-  $PYTHON --version
+  python --version
   echo "${GREEN}with: ${NOCOLOR}"
-  $VIRTUALENV --version
+  python -m virtualenv --version
   echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
-  $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location
+  python -m pip show virtualenvwrapper | grep -e Version -e Location
   echo "${GREEN}and: ${NOCOLOR}"
-  $PYTHON -m pip --version
+  python -m pip --version
+  echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
+  printf "=====\n"
+}
+
+pyenv_info() {
+  local GREEN="\033[0;32m"
+  local NOCOLOR='\033[0m'
+  printf "=====\n"
+  echo "${GREEN}Using: ${NOCOLOR}"
+  pyenv which python
+  echo "${GREEN}Version: ${NOCOLOR}"
+  $(pyenv which python) --version
+  echo "${GREEN}with: ${NOCOLOR}"
+  $(pyenv which virtualenv) --version
+  echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
+  $(pyenv which python) -m pip show virtualenvwrapper | grep -e Version -e Location
+  echo "${GREEN}and: ${NOCOLOR}"
+  $(pyenv which python) -m pip --version
   echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
   printf "=====\n"
 }
@@ -396,7 +413,7 @@ save_pyenv_info() {
   VIRTUALENV=$(pyenv which virtualenv)
   export VIRTUALENV
   set_venv
-  pyenv_info=$(py_info)
+  pyenv_info=$(pyenv_info)
   echo "$pyenv_info"
 }
 
