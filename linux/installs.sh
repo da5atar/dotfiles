@@ -21,3 +21,8 @@ sudo curl \
 # Tera
 brew tap shinokada/tera
 brew install tera
+
+# Bash-it
+git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it
+cd ~/.bash_it
+source install.sh 
