@@ -21,7 +21,7 @@ then
     # Dropbox folder
     export DROPBOX_FOLDER=$HOME"/Dropbox";
     # Git repos folder
-    export GITHUB_FOLDER=$DROPBOX_FOLDER"/Dev/GitHub";
+    export GITHUB_FOLDER=$DROPBOX_FOLDER"/Projects/Dev/GitHub";
 else
     # Git repos folder
     export GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub";

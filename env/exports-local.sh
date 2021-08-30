@@ -47,3 +47,6 @@ alias vpn-torrent-list='cyberghostvpn --torrent --country-code'
 
 ### US
 alias vpn-torrent-connect-us='sudo cyberghostvpn --torrent --country-code US --connect'
+
+# text notes
+export NOTES_DIRECTORY="/mnt/c/Users/masow/OneDrive/Notebooks/text"
