@@ -144,3 +144,6 @@ alias del='sudo rm -f'
 
 # Radiohead
 alias radio='tera'
+
+# Better find
+alias fd='find'

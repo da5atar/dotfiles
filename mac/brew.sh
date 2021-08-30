@@ -51,6 +51,10 @@ brew install task
 brew install thefuck
 brew install tldr
 brew install z
+brew install fd
+brew install tokei
+brew install dust
+brew install exa
 
 
 # Dev

@@ -27,6 +27,10 @@ brew install lynx
 brew install howdoi
 brew install tldr
 brew install xclip
+brew install fd
+brew install tokei
+brew install dust
+brew install exa
 
 # Python:
 brew install python
