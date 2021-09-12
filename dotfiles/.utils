@@ -43,6 +43,9 @@ if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)
 # WTF
 eval "$(thefuck --alias)"
 
+# autojump - https://github.com/wting/autojump
+[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+
 # z - Fast navigation, see [this gist](https://gist.github.com/mischah/8149239)
 if command -v brew >/dev/null 2>&1; then
   # Load rupa's z if installed

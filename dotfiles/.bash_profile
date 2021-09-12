@@ -6,6 +6,11 @@ case $- in
     *) return;;
 esac
 
+# Run .bashrc
+if [ -f ~/.bashrc ]; then
+  . ~/.bashrc
+fi
+
 # Path to the bash it configuration
 export BASH_IT="$HOME/.bash_it"
 
