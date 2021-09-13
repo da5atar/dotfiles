@@ -8,7 +8,7 @@
 source $HOME/.init
 
 ##############################
-# SOURCED ALIAS'S AND SCRIPTS 
+# SOURCED ALIAS'S AND SCRIPTS
 ##############################
 # Source global definitions
 if [ -f /etc/bashrc ]; then
@@ -37,87 +37,16 @@ export LS_COLORS='no=00:fi=00:di=00;34:ln=01;36:pi=40;33:so=01;35:do=01;35:bd=40
 # alias grep="/bin/grep $GREP_OPTIONS"
 unset GREP_OPTIONS
 
-# Only on Linux or if bash-it is not installed
+# Only on Linux and if bash-it is not installed
 
-if [ -f /etc/os-release ]; then
-
-	#######################################################
-	# SPECIAL FUNCTIONS
-	#######################################################
-
-	# Edit the Apache configuration
-	apacheconfig ()
-	{
-		if [ -f /etc/httpd/conf/httpd.conf ]; then
-			sedit /etc/httpd/conf/httpd.conf
-		elif [ -f /etc/apache2/apache2.conf ]; then
-			sedit /etc/apache2/apache2.conf
-		else
-			echo "Error: Apache config file could not be found."
-			echo "Searching for possible locations:"
-			sudo updatedb && locate httpd.conf && locate apache2.conf
-		fi
-	}
-
-	# Edit the PHP configuration file
-	phpconfig ()
-	{
-		if [ -f /etc/php.ini ]; then
-			sedit /etc/php.ini
-		elif [ -f /etc/php/php.ini ]; then
-			sedit /etc/php/php.ini
-		elif [ -f /etc/php5/php.ini ]; then
-			sedit /etc/php5/php.ini
-		elif [ -f /usr/bin/php5/bin/php.ini ]; then
-			sedit /usr/bin/php5/bin/php.ini
-		elif [ -f /etc/php5/apache2/php.ini ]; then
-			sedit /etc/php5/apache2/php.ini
-		else
-			echo "Error: php.ini file could not be found."
-			echo "Searching for possible locations:"
-			sudo updatedb && locate php.ini
-		fi
-	}
-
-	# Edit the MySQL configuration file
-	mysqlconfig ()
-	{
-		if [ -f /etc/my.cnf ]; then
-			sedit /etc/my.cnf
-		elif [ -f /etc/mysql/my.cnf ]; then
-			sedit /etc/mysql/my.cnf
-		elif [ -f /usr/local/etc/my.cnf ]; then
-			sedit /usr/local/etc/my.cnf
-		elif [ -f /usr/bin/mysql/my.cnf ]; then
-			sedit /usr/bin/mysql/my.cnf
-		elif [ -f ~/my.cnf ]; then
-			sedit ~/my.cnf
-		elif [ -f ~/.my.cnf ]; then
-			sedit ~/.my.cnf
-		else
-			echo "Error: my.cnf file could not be found."
-			echo "Searching for possible locations:"
-			sudo updatedb && locate my.cnf
-		fi
-	}
-
-	# For some reason, rot13 pops up everywhere
-	rot13 () {
-		if [ $# -eq 0 ]; then
-			tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
-		else
-			echo $* | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
-		fi
-	}
-
+if [ -f /etc/os-release ] && [ ! -d ~/.bash-it ]; then
 
 	#######################################################
 	# Set the ultimate amazing command prompt
 	#######################################################
 
 	alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
-	function __setprompt
-	{
+	function __setprompt {
 		local LAST_COMMAND=$? # Must come first!
 
 		# Define colors
@@ -183,7 +112,7 @@ if [ -f /etc/os-release ]; then
 
 		# Date
 		PS1+="\[${DARKGRAY}\](\[${CYAN}\]\$(date +%a) $(date +%b-'%-m')" # Date
-		PS1+="${BLUE} $(date +'%-I':%M:%S%P)\[${DARKGRAY}\])-" # Time
+		PS1+="${BLUE} $(date +'%-I':%M:%S%P)\[${DARKGRAY}\])-"           # Time
 
 		# CPU
 		PS1+="(\[${MAGENTA}\]CPU $(cpu)%"
@@ -199,7 +128,7 @@ if [ -f /etc/os-release ]; then
 		# User and server
 		local SSH_IP=$(echo $SSH_CLIENT | awk '{ print $1 }')
 		local SSH2_IP=$(echo $SSH2_CLIENT | awk '{ print $1 }')
-		if [ $SSH2_IP ] || [ $SSH_IP ] ; then
+		if [ $SSH2_IP ] || [ $SSH_IP ]; then
 			PS1+="(\[${RED}\]\u@\h"
 		else
 			PS1+="(\[${RED}\]\u"
@@ -239,11 +168,11 @@ if [ -f /etc/os-release ]; then
 
 	# If it's an xterm compatible terminal, set the title to user@host: dir.
 	case "$TERM" in
-	xterm*|rxvt*)
-    	PS1="\[\e]0;\u@\h: \w\a\]$PS1"
-    	;;
-	*)
-    	;;
+	xterm* | rxvt*)
+		PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+		;;
+	*) ;;
+
 	esac
 fi
 

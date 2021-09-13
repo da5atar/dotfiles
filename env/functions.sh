@@ -214,44 +214,44 @@ init_virtualenvwrapper() { # modified 2021-04-01
   export WORKON_HOME=$VENV_FOLDER
   export PROJECT_HOME=$DEV_WORKSPACE/Python/Projects
   if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix)" ]; then
-      if [ "$(which python)" ]; then
-        PYTHON=$(which python)
-        echo "Setting PYTHON to $(which python)"
-      elif [ "$(which python3)" ]; then
-        PYTHON=$(which python3)
-        echo "Setting PYTHON to $(which python3)"
-      else
-        echo "No python or python3 found"
-      fi    
-      export PYTHON
-      echo "Homebrew Prefix is unset. Defaulting to '$PYTHON'";
-      export VIRTUALENVWRAPPER_PYTHON=$PYTHON
-      if [ "$(which virtualenv)" ]; then
-        # Save which virtualenv
-        VIRTUALENV=$(which virtualenv)
-        export VIRTUALENV 
-        echo "Virtualenv is set to '$VIRTUALENV'"; 
-        export VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
-        printf "Attempting to source virtualenvwrapper:\n"
-        source "$(which virtualenvwrapper.sh)"
-      else
-        echo "Virtualenv not set"
-      fi
+    if [ "$(which python)" ]; then
+      PYTHON=$(which python)
+      echo "Setting PYTHON to $(which python)"
+    elif [ "$(which python3)" ]; then
+      PYTHON=$(which python3)
+      echo "Setting PYTHON to $(which python3)"
+    else
+      echo "No python or python3 found"
+    fi
+    export PYTHON
+    echo "Homebrew Prefix is unset. Defaulting to '$PYTHON'"
+    export VIRTUALENVWRAPPER_PYTHON=$PYTHON
+    if [ "$(which virtualenv)" ]; then
+      # Save which virtualenv
+      VIRTUALENV=$(which virtualenv)
+      export VIRTUALENV
+      echo "Virtualenv is set to '$VIRTUALENV'"
+      export VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
+      printf "Attempting to source virtualenvwrapper:\n"
+      source "$(which virtualenvwrapper.sh)"
+    else
+      echo "Virtualenv not set"
+    fi
   else
-      # Save Homebrew Python
-      # See https://docs.brew.sh/Homebrew-and-Python
-      HOMEBREW_PYTHON="$(brew --prefix)/opt/python/libexec/bin/python" # unversioned symlink for python
-      export HOMEBREW_PYTHON
-      export PYTHON=$HOMEBREW_PYTHON
-      echo "Python is set to '$HOMEBREW_PYTHON'"; 
-      export VIRTUALENVWRAPPER_PYTHON=$HOMEBREW_PYTHON
-      #Save Homebrew virtualenv
-      HOMEBREW_VIRTUALENV="$(brew --prefix)/bin/virtualenv"
-      export HOMEBREW_VIRTUALENV
-      echo "Virtualenv is set to '$HOMEBREW_VIRTUALENV'"; 
-      export VIRTUALENVWRAPPER_VIRTUALENV=$HOMEBREW_VIRTUALENV
-      # source Homebrew's virtualenvwrapper
-      source "$(brew --prefix)/bin/virtualenvwrapper.sh"
+    # Save Homebrew Python
+    # See https://docs.brew.sh/Homebrew-and-Python
+    HOMEBREW_PYTHON="$(brew --prefix)/opt/python/libexec/bin/python" # unversioned symlink for python
+    export HOMEBREW_PYTHON
+    export PYTHON=$HOMEBREW_PYTHON
+    echo "Python is set to '$HOMEBREW_PYTHON'"
+    export VIRTUALENVWRAPPER_PYTHON=$HOMEBREW_PYTHON
+    #Save Homebrew virtualenv
+    HOMEBREW_VIRTUALENV="$(brew --prefix)/bin/virtualenv"
+    export HOMEBREW_VIRTUALENV
+    echo "Virtualenv is set to '$HOMEBREW_VIRTUALENV'"
+    export VIRTUALENVWRAPPER_VIRTUALENV=$HOMEBREW_VIRTUALENV
+    # source Homebrew's virtualenvwrapper
+    source "$(brew --prefix)/bin/virtualenvwrapper.sh"
   fi
 }
 
@@ -388,7 +388,6 @@ pyenv_info() {
   printf "=====\n"
 }
 
-
 # Save Python info
 save_py_info() {
   local py_info
@@ -416,7 +415,6 @@ save_pyenv_info() {
   pyenv_info=$(pyenv_info)
   echo "$pyenv_info"
 }
-
 
 # Set virtualenv and virtualenvwrapper helper fn
 set_venv() {
@@ -666,12 +664,12 @@ dsync() {
 
   # run the sync
   rsync -ar --delete \
-  --filter=':- .gitignore' \
-  --exclude='node_modules' \
-  --exclude='.git' \
-  --exclude='.DS_Store' \
-  --chmod='F-w' \
-  "$src_dir" "$dest_dir"
+    --filter=':- .gitignore' \
+    --exclude='node_modules' \
+    --exclude='.git' \
+    --exclude='.DS_Store' \
+    --chmod='F-w' \
+    "$src_dir" "$dest_dir"
 }
 
 # Works on hidden files, directories and regular files
@@ -702,5 +700,71 @@ clear_dir() {
     # Remove all files including hidden .files
     rm -vrf "${PWD:?}/"* # this form ensures it never expand to root folder
     rm -vrf "${PWD:?}/".*
+  fi
+}
+
+#######################################################
+# SPECIAL LAMP FUNCTIONS
+#######################################################
+
+# Edit the Apache configuration
+apacheconfig() {
+  if [ -f /etc/httpd/conf/httpd.conf ]; then
+    sedit /etc/httpd/conf/httpd.conf
+  elif [ -f /etc/apache2/apache2.conf ]; then
+    sedit /etc/apache2/apache2.conf
+  else
+    echo "Error: Apache config file could not be found."
+    echo "Searching for possible locations:"
+    sudo updatedb && locate httpd.conf && locate apache2.conf
+  fi
+}
+
+# Edit the PHP configuration file
+phpconfig() {
+  if [ -f /etc/php.ini ]; then
+    sedit /etc/php.ini
+  elif [ -f /etc/php/php.ini ]; then
+    sedit /etc/php/php.ini
+  elif [ -f /etc/php5/php.ini ]; then
+    sedit /etc/php5/php.ini
+  elif [ -f /usr/bin/php5/bin/php.ini ]; then
+    sedit /usr/bin/php5/bin/php.ini
+  elif [ -f /etc/php5/apache2/php.ini ]; then
+    sedit /etc/php5/apache2/php.ini
+  else
+    echo "Error: php.ini file could not be found."
+    echo "Searching for possible locations:"
+    sudo updatedb && locate php.ini
+  fi
+}
+
+# Edit the MySQL configuration file
+mysqlconfig() {
+  if [ -f /etc/my.cnf ]; then
+    sedit /etc/my.cnf
+  elif [ -f /etc/mysql/my.cnf ]; then
+    sedit /etc/mysql/my.cnf
+  elif [ -f /usr/local/etc/my.cnf ]; then
+    sedit /usr/local/etc/my.cnf
+  elif [ -f /usr/bin/mysql/my.cnf ]; then
+    sedit /usr/bin/mysql/my.cnf
+  elif [ -f ~/my.cnf ]; then
+    sedit ~/my.cnf
+  elif [ -f ~/.my.cnf ]; then
+    sedit ~/.my.cnf
+  else
+    echo "Error: my.cnf file could not be found."
+    echo "Searching for possible locations:"
+    sudo updatedb && locate my.cnf
+  fi
+}
+
+# For some reason, rot13 pops up everywhere
+rot13() {
+  if [ $# -eq 0 ]; then
+    tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+  else
+    echo $* | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
   fi
 }
