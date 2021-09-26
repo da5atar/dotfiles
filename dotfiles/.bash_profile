@@ -12,7 +12,8 @@ if [ -f ~/.bashrc ]; then
 fi
 
 # check if bash-it is installed
-if [ -d ~/.bash-it ]; then
+if [ ! -d ~/.bash-it ]; then
+  echo "bash-it found!"
   # Path to the bash it configuration
   export BASH_IT="$HOME/.bash_it"
 
