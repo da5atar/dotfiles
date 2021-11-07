@@ -205,150 +205,76 @@ timestamp() {
 
 #--- Python
 
+# Save python version output in a variable
+pyversion() {
+  _pyversion=$(python --version 2>&1) # needs redirect because defaults to stderr
+  echo "$_pyversion"
+}
+
+# helper to add underscore to a string
+add_underscore() {
+  str=$1
+  echo "${str// /_}"
+}
+
+# Returns Python version with underscore
+_add_underscore_pyversion() {
+  pyv=$(pyversion)
+  add_underscore "$pyv"
+}
+
 # virtualenvwrapper initializer
 init_virtualenvwrapper() { # modified 2021-04-01
-  # set custom virtual environments location
-  export VENV_FOLDER=$DEV_WORKSPACE/Python/Virtualenvs/
   echo "Initializing Virtualenvwrapper"
-  # set virtualenvwrapper env variables
-  export WORKON_HOME=$VENV_FOLDER
-  export PROJECT_HOME=$DEV_WORKSPACE/Python/Projects
   if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix)" ]; then
-    if [ "$(which python)" ]; then
-      PYTHON=$(which python)
-      echo "Setting PYTHON to $(which python)"
-    elif [ "$(which python3)" ]; then
-      PYTHON=$(which python3)
-      echo "Setting PYTHON to $(which python3)"
+    test python && PYTHON=$(which python) || PYTHON=$(which python3)
+    echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
+    if [ "$($PYTHON -m virtualenv)" ]; then
+        # Save which virtualenv
+        VIRTUALENV=$($PYTHON -m virtualenv)
+        echo "Virtualenv is set to '$VIRTUALENV'"
+        export VIRTUALENVWRAPPER_SCRIPT_PREFIX="/usr/local/bin"
     else
-      echo "No python or python3 found"
-    fi
-    export PYTHON
-    echo "Homebrew Prefix is unset. Defaulting to '$PYTHON'"
-    export VIRTUALENVWRAPPER_PYTHON=$PYTHON
-    if [ "$(which virtualenv)" ]; then
-      # Save which virtualenv
-      VIRTUALENV=$(which virtualenv)
-      export VIRTUALENV
-      echo "Virtualenv is set to '$VIRTUALENV'"
-      export VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
-      printf "Attempting to source virtualenvwrapper:\n"
-      source "$(which virtualenvwrapper.sh)"
-    else
-      echo "Virtualenv not set"
+        echo "Virtualenv is not set"
+        return
     fi
   else
     # Save Homebrew Python
     # See https://docs.brew.sh/Homebrew-and-Python
     HOMEBREW_PYTHON="$(brew --prefix)/opt/python/libexec/bin/python" # unversioned symlink for python
     export HOMEBREW_PYTHON
-    export PYTHON=$HOMEBREW_PYTHON
-    echo "Python is set to '$HOMEBREW_PYTHON'"
-    export VIRTUALENVWRAPPER_PYTHON=$HOMEBREW_PYTHON
-    #Save Homebrew virtualenv
-    HOMEBREW_VIRTUALENV="$(brew --prefix)/bin/virtualenv"
+    PYTHON=$HOMEBREW_PYTHON
+    echo "Using Homebrew's '$HOMEBREW_PYTHON'"
     export HOMEBREW_VIRTUALENV
-    echo "Virtualenv is set to '$HOMEBREW_VIRTUALENV'"
-    export VIRTUALENVWRAPPER_VIRTUALENV=$HOMEBREW_VIRTUALENV
-    # source Homebrew's virtualenvwrapper
-    source "$(brew --prefix)/bin/virtualenvwrapper.sh"
+    HOMEBREW_VIRTUALENV=$(brew --prefix)/bin/virtualenv
+    VIRTUALENV=$HOMEBREW_VIRTUALENV
+    echo "Using Homebrew's '$HOMEBREW_VIRTUALENV'"
+    export VIRTUALENVWRAPPER_SCRIPT_PREFIX=$(brew --prefix)"/bin"
   fi
+  _set_virtualenvwrapper
+  printf "Attempting to source virtualenvwrapper.sh at $VIRTUALENVWRAPPER_SCRIPT_PREFIX:\n"
+  _source_virtualenvwrapper
 }
 
-# Pyenv helper functions (modified 2021-03-07):
-
-# Set the Shell to latest Python2 from pyenv.
-# Installs virtualenv and virtualenvwrapper if not already installed
-python2.latest() {
-  pyenv shell 2.7.18
-  pip install virtualenv virtualenvwrapper
-  pyenv virtualenvwrapper
-  echo "Set Python version to $(pyversion)"
+# Set virtualenvwrapper helper fn
+_set_virtualenvwrapper() {
+  PROJECT_HOME="$DEV_WORKSPACE/Python/Projects"
+  WORKON_HOME=$VENV_FOLDER
+  VIRTUALENVWRAPPER_SCRIPT=$VIRTUALENVWRAPPER_SCRIPT_PREFIX"/virtualenvwrapper.sh"
+  VIRTUALENVWRAPPER_PYTHON=$PYTHON
+  VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
 }
 
-# Set the Shell to preferred Python3 from pyenv.
-# Installs virtualenv and virtualenvwrapper if not already installed
-python3.base() {
-  pyenv shell 3.8.6
-  pip install virtualenv virtualenvwrapper
-  pyenv virtualenvwrapper
-  echo "Set Python version to $(pyversion)"
-}
-
-# Set the Shell to latest Python3 from pyenv.
-# Installs virtualenv and virtualenvwrapper if not already installed
-# This function requires https://github.com/momo-lab/pyenv-install-latest
-python3.latest() {
-  pyenv install-latest
-  pyenv shell "$(pyenv install-latest --print)"
-  pip install virtualenv virtualenvwrapper
-  pyenv virtualenvwrapper
-  echo "Set Python version to latest: $(pyversion)"
-}
-
-# Save python -V output in a variable
-pyversion() {
-  pyversion=$(python --version 2>&1) # needs redirect because defaults to stderr
-  echo "$pyversion"
-}
-
-# helper to add underscore to a string
-add.underscore() {
-  str=$1
-  echo "${str// /_}"
-}
-
-# Returns Python version with underscore
-add.underscore.pyversion() {
-  pyv=$(pyversion)
-  add.underscore "$pyv"
-}
-
-# pyenv and pyenv-virtualenvwrapper related functions
-
-# Redefines $WORKON_HOME to isolate virtual environments by python version:
-### py_venv()
-# This function takes one parameter:
-# $1 is the name of the virtual environment to create
-# -- Echoes python related and virtual environment related info
-py_venv() {
-  save_py_info # saving the python environment so that next created virtual env uses the same
-  printf "=====\n"
-  printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" "$WORKON_HOME"
-  printf "=====\n"
-  if [ "$1" ]; then
-    echo "Creating $1 environment with $(pyversion)"
-    mkvirtualenv "$1_venv"
-  else
-    echo "Creating test environment with $(pyversion)"
-    mkvirtualenv "test_$(add.underscore.pyversion)_venv"
-  fi
-  printf "=====\n"
-  echo "Done."
-}
-
-# Activate a test env using latest Python3 from Pyenv
-### py3_venv()
-# This function takes one parameter:
-# $1 is the name of the virtual environment to create
-# depends on python3.latest function
-py3_venv() {
-  # default to Python 3
-  project_name=$1
-  python3.base # change to python3.base if needed and source functions.sh and $SHELL to use
-  py_venv "$project_name"
-}
-
-# Activate a test env using latest Python2 from Pyenv
-### py3_venv()
-# This function takes one parameter:
-# $1 is the name of the virtual environment to create
-# depends on python2.latest function
-py2_venv() {
-  # default to Python 2
-  project_name="$1"
-  python2.latest
-  py_venv "$project_name"
+# Source virtualenvwrapper.sh
+_source_virtualenvwrapper() {
+    if [ -z "${VIRTUALENVWRAPPER_SCRIPT_PREFIX+x}" ]; then
+        echo "VIRTUALENVWRAPPER_SCRIPT_PREFIX is unset."
+    elif [ -f "$VIRTUALENVWRAPPER_SCRIPT_PREFIX/virtualenvwrapper.sh" ]; then
+        source "$VIRTUALENVWRAPPER_SCRIPT_PREFIX/virtualenvwrapper_lazy.sh"
+        echo "Successfully initialized virtualenvwrapper"
+    else
+        echo "virtualenvwrapper.sh not found"
+    fi
 }
 
 # Print python info
@@ -357,17 +283,85 @@ py_info() {
   local NOCOLOR='\033[0m'
   printf "=====\n"
   echo "${GREEN}Using: ${NOCOLOR}"
-  which python
+  which "$PYTHON"
   echo "${GREEN}Version: ${NOCOLOR}"
-  python --version
+  $PYTHON --version
   echo "${GREEN}with: ${NOCOLOR}"
-  python -m virtualenv --version
+  $VIRTUALENV --version
   echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
-  python -m pip show virtualenvwrapper | grep -e Version -e Location
+  echo "$VIRTUALENVWRAPPER_SCRIPT"
   echo "${GREEN}and: ${NOCOLOR}"
-  python -m pip --version
+  $PYTHON -m pip --version
   echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
   printf "=====\n"
+}
+
+## Pyenv helper functions :
+
+# Initializes pyenv
+### _init_pyenv()
+_init_pyenv() {
+  export PYENV_ROOT="$HOME/.pyenv"
+  export PATH="$PYENV_ROOT/bin:$PATH"
+  if command -v pyenv 1>/dev/null 2>&1; then
+    eval "$(pyenv init --path)"
+  fi
+}
+
+_set_pyenv_virtualenvwrapper() {
+  WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
+  VIRTUALENVWRAPPER_PYTHON=$(pyenv which python)
+  VIRTUALENVWRAPPER_VIRTUALENV=$(pyenv which virtualenv)
+}
+
+_init_pyenv_virtualenvwrapper() {
+    echo "Initializing pyenv virtualenvwrapper"
+    _set_pyenv_virtualenvwrapper
+    source $(pyenv which virtualenvwrapper.sh)
+}
+
+_pyenv_installed() {
+    if [ -d "$HOME/.pyenv" ]; then
+        echo "Pyenv is installed"
+        return 0
+    else
+        echo "Pyenv is not installed"
+        return 1
+    fi
+}
+
+_set_pyenv() {
+    if _pyenv_installed; then
+        pyenv install "$PYENV_VERSION"
+    fi
+    pyenv shell "$PYENV_VERSION"
+    pip install virtualenv virtualenvwrapper
+    _init_pyenv_virtualenvwrapper
+    echo "Set Python version to $(pyversion)"
+    pyenv_info # saving the python environment so that next created virtual env uses the same
+}
+
+# Set the Shell to latest Python2 from pyenv.
+# Installs virtualenv and virtualenvwrapper if not already installed
+python2_latest() {
+    PYENV_VERSION=$PYENV_VERSION_2
+    _set_pyenv
+}
+
+# Set the Shell to preferred Python3 from pyenv.
+# Installs virtualenv and virtualenvwrapper if not already installed
+python3_base() {
+    PYENV_VERSION=$PYENV_VERSION_3
+    _set_pyenv
+}
+
+# Set the Shell to latest Python3 from pyenv.
+# Installs virtualenv and virtualenvwrapper if not already installed
+# This function requires https://github.com/momo-lab/pyenv-install-latest
+python3_latest() {
+    pyenv install-latest
+    PYENV_VERSION="$(pyenv install-latest --print)"
+    _set_pyenv
 }
 
 pyenv_info() {
@@ -388,39 +382,48 @@ pyenv_info() {
   printf "=====\n"
 }
 
-# Save Python info
-save_py_info() {
-  local py_info
-  PYTHON=$(which python)
-  export PYTHON
-  PIP=$(which pip)
-  export PIP
-  VIRTUALENV=$(which virtualenv)
-  export VIRTUALENV
-  set_venv
-  py_info=$(py_info)
-  echo "$py_info"
+# Redefines $WORKON_HOME to isolate virtual environments by python version:
+### create.pyenv.venv()
+# This function takes two parameters:
+# $1 is the python version for the environment
+# $2 is the name of the virtual environment
+# Example: create.pyenv.venv 3.8.6 myvenv
+# -- Echoes python and virtual environment related info
+_create_pyenv_venv() {
+    case "${1}" in
+        2)
+            python2_latest
+        ;;
+        3)
+            python3_base
+        ;;
+        *)
+            echo "defaulting to $(pyversion)"
+    esac
+    printf "=====\n"
+    printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" "$WORKON_HOME"
+    printf "=====\n"
+    if [ "$2" ]; then
+        echo "Creating $2 environment with $(pyversion)"
+        mkvirtualenv "$2_venv"
+    else
+        echo "Creating test environment with $(pyversion)"
+        mkvirtualenv "test_$(_add_underscore_pyversion)_venv"
+    fi
+    printf "=====\n"
+    echo "Done."
 }
 
-# Save pyenv info
-save_pyenv_info() {
-  local pyenv_info
-  PYTHON=$(pyenv which python)
-  export PYTHON
-  PIP=$(pyenv which pip)
-  export PIP
-  VIRTUALENV=$(pyenv which virtualenv)
-  export VIRTUALENV
-  set_venv
-  pyenv_info=$(pyenv_info)
-  echo "$pyenv_info"
-}
-
-# Set virtualenv and virtualenvwrapper helper fn
-set_venv() {
-  WORKON_HOME=$VENV_FOLDER$(add.underscore.pyversion)
-  VIRTUALENVWRAPPER_PYTHON=$PYTHON
-  VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
+pyenv_venv() {
+    if [ -z "$1" ]; then
+        echo "Please select enter '2' or '3' for the python version"
+    else
+        if [ -z "$2" ]; then
+            _create_pyenv_venv "$1"
+        else
+            _create_pyenv_venv "$1" "$2"
+        fi
+    fi
 }
 
 #--- Text Editors
@@ -609,6 +612,8 @@ if [ $? -eq 0 ]; then
   }
 fi
 
+# -- $PATH
+
 # function to remove duplicates in and echo $PATH
 ### no_dupes_path()
 # Note: Inspired from https://www.linuxjournal.com/content/removing-duplicate-path-entries
@@ -632,16 +637,6 @@ set_no_dupes_path() {
   PATH=$(no_dupes_path)
   export PATH
   show_path
-}
-
-# Set pyenv
-### set_pyenv()
-set_pyenv() {
-  export PYENV_ROOT="$HOME/.pyenv"
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  if command -v pyenv 1>/dev/null 2>&1; then
-    eval "$(pyenv init --path)"
-  fi
 }
 
 # Function to sync two folders using rsync
