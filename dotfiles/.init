@@ -14,6 +14,9 @@ export MACHINE
 # Dropbox needs to be installed on Mac
 export HOSTNAME="$(hostname)"
 
+# Dev Workspace folder for dev envs
+export DEV_WORKSPACE=$HOME"/Dev_workspace";
+
 if [[ "$MACHINE" == "Mac" ]]
 then
     # Dropbox folder
