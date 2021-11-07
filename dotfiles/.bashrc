@@ -5,7 +5,7 @@
 # however I added or modifief many things, please read carefully and adapt before using
 
 # Source shared .bash and .zshconfiguration (.rc)
-source $HOME/.init
+source "$HOME/.init"
 
 ##############################
 # SOURCED ALIAS'S AND SCRIPTS
@@ -119,6 +119,8 @@ fi
 
 # Only on Linux and if bash-it is not installed
 if [ -f /etc/os-release ] && [ ! -d ~/.bash_it ]; then
+	# linuxbrew
+	eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 
 	#######################################################
 	# Set the ultimate amazing command prompt

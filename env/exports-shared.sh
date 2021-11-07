@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Save Homebrew’s installed location.
-export BREW_PREFIX=$(brew --prefix)
+export BREW_PREFIX=$(brew --prefix &>/dev/null)
 
 # Current Dev Project folder
 export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project/"
