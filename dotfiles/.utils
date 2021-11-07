@@ -27,12 +27,11 @@ fi
 # # --
 
 # See function definition in ../env/functions.sh
-set_pyenv
+_init_pyenv
 
 # # Commenting out `eval "$(pyenv init -)"` and python related functions in 'env/functions.sh'
 # # file should revert the system back to the system-wide installation of Python installed
 # # via Homebrew.
-
 eval "$(pyenv init -)"
 
 # pyenv-virtualenv
@@ -74,4 +73,7 @@ fi
 # Go to https://newsapi.org/register URL and register a free account to get the API key.
 # $CLINEWS_API_KEY is declared in env/keys.sh
 
-export IN_API_KEY="$CLINEWS_API_KEY"
+# export IN_API_KEY="$CLINEWS_API_KEY"
+
+# Ensure no dupes in $PATH
+set_no_dupes_path &>/dev/null

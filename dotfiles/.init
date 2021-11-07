@@ -13,8 +13,6 @@ export MACHINE
 # Set Dropbox and Dev Workspace folders
 # Dropbox needs to be installed on Mac
 export HOSTNAME="$(hostname)"
-# Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$HOME"/Dev_workspace";
 
 if [[ "$MACHINE" == "Mac" ]]
 then
@@ -42,5 +40,5 @@ fi
 source "$PROJECT_ROOT/env/aliases-shared.sh"
 source "$PROJECT_ROOT/env/exports-shared.sh"
 source "$PROJECT_ROOT/env/functions.sh"
-source "$PROJECT_ROOT/env/keys.sh"
+# source "$PROJECT_ROOT/env/keys.sh"
 source "$PROJECT_ROOT/env/exports-local.sh"
