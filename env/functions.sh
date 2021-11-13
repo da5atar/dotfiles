@@ -311,7 +311,9 @@ _init_pyenv() {
 _set_pyenv_virtualenvwrapper() {
   WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
   VIRTUALENVWRAPPER_PYTHON=$(pyenv which python)
+  PYTHON=$VIRTUALENVWRAPPER_PYTHON
   VIRTUALENVWRAPPER_VIRTUALENV=$(pyenv which virtualenv)
+  VIRTUALENV=$VIRTUALENVWRAPPER_VIRTUALENV
 }
 
 _init_pyenv_virtualenvwrapper() {
@@ -335,6 +337,7 @@ _set_pyenv() {
         pyenv install "$PYENV_VERSION"
     fi
     pyenv shell "$PYENV_VERSION"
+    python -m pip install --upgrade pip
     pip install virtualenv virtualenvwrapper
     _init_pyenv_virtualenvwrapper
     echo "Set Python version to $(pyversion)"
