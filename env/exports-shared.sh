@@ -9,7 +9,7 @@ export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project/"
 # Python Projects
 export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/"
 export PYTHON
-export PIP
+export PIP="$PYTHON -m pip"
 export VIRTUALENV
 
 # Pyenv
