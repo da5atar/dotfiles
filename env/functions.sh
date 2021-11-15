@@ -334,11 +334,15 @@ _pyenv_installed() {
 
 _set_pyenv() {
     if _pyenv_installed; then
+      if $PYENV_VERSION -ne "$(pyenv shell)" 2>/dev/null; then
         pyenv install "$PYENV_VERSION"
+      fi
     fi
     pyenv shell "$PYENV_VERSION"
+    echo "pyenv shell is set to $(pyenv shell)"
     python -m pip install --upgrade pip
     pip install virtualenv virtualenvwrapper
+    echo "Done installing virtualenv and virtualenvwrapper"
     _init_pyenv_virtualenvwrapper
     echo "Set Python version to $(pyversion)"
     pyenv_info # saving the python environment so that next created virtual env uses the same
@@ -373,14 +377,17 @@ pyenv_info() {
   printf "=====\n"
   echo "${GREEN}Using: ${NOCOLOR}"
   pyenv which python
+  export PYTHON="$(pyenv which python)"
+  export PIP="$(pyenv which pip)"
   echo "${GREEN}Version: ${NOCOLOR}"
-  $(pyenv which python) --version
+  $PYTHON --version
   echo "${GREEN}with: ${NOCOLOR}"
-  $(pyenv which virtualenv) --version
+  export VIRTUALENV="$(pyenv which virtualenv)"
+  $VIRTUALENV --version
   echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
-  $(pyenv which python) -m pip show virtualenvwrapper | grep -e Version -e Location
+  $PIP show virtualenvwrapper | grep -e Version -e Location
   echo "${GREEN}and: ${NOCOLOR}"
-  $(pyenv which python) -m pip --version
+  $PIP --version
   echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
   printf "=====\n"
 }
@@ -692,7 +699,7 @@ function isEmpty() {
 # This function takes one parameter:
 # $1 is the directory to clear or defaults to current directory
 # -- Calls isEmpty to check if directory contains files
-clear_dir() {
+clean_dir() {
   if ! (isEmpty "${@:-"$PWD"}"); then
     ls -la
     # Remove all files including hidden .files
