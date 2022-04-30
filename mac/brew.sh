@@ -38,11 +38,11 @@ brew install wget #--with-iri # FIX 1 option generates error
 
 
 # Install useful binaries.
-# system monitoring
+## system monitoring
 brew install htop
 brew install osx-cpu-temp # bpytop dependency
 
-# Productivity
+## Productivity
 brew install ack
 brew install autojump
 brew install ncdu
@@ -58,19 +58,29 @@ brew install exa
 
 
 # Dev
-# Docker
+
+## pyenv build environment
+brew install openssl 
+brew install readline 
+brew install sqlite3 
+brew install xz 
+brew install zlib
+
+## Docker
 brew install docker-completion
 brew install docker-compose-completion
 brew install docker-machine-completion
+
+## Kubernetes
 # brew install kubectl # Kubernetes CLI
 # brew install minikube # runs a single-node Kubernetes cluster inside a VM
 
-# Git
+## Git
 brew install git
 brew install git-lfs
 brew install github/gh/gh
 
-# Git-toolbelt
+## Git-toolbelt
 brew install fzf
 brew tap nvie/tap
 brew install nvie/tap/git-toolbelt
@@ -83,7 +93,7 @@ brew install node
 
 # Python:
 brew install python
-#brew install anaconda
+# brew install anaconda
 brew install pyenv # python version management
 brew install virtualenv
 brew install virtualenvwrapper

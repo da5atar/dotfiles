@@ -17,7 +17,7 @@ brew update
 # Upgrade any already-installed formulae.
 brew upgrade
 
-# Save Homebrew’s installed location.
+# Save Homebrew's installed location.
 BREW_PREFIX=$(brew --prefix)
 
 # Binaries
@@ -31,6 +31,18 @@ brew install fd
 brew install tokei
 brew install dust
 brew install exa
+
+# Development
+## pyenv build environment
+brew install bzip2
+brew install libffi
+brew install libxml2
+brew install libxmlsec1
+brew install openssl
+brew install readline
+brew install sqlite
+brew install xz
+brew install zlib
 
 # Python:
 brew install python
