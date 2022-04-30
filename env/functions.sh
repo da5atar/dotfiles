@@ -241,13 +241,14 @@ init_virtualenvwrapper() { # modified 2021-04-01
         HOMEBREW_PYTHON="$(brew --prefix)/opt/python/libexec/bin/python" # unversioned symlink for python
         export HOMEBREW_PYTHON
         PYTHON=$HOMEBREW_PYTHON
-        echo "Using Homebrew's '$HOMEBREW_PYTHON'"
+        echo "Using Homebrew's $($HOMEBREW_PYTHON --version)"
         export HOMEBREW_VIRTUALENV
         HOMEBREW_VIRTUALENV=$(brew --prefix)/bin/virtualenv
         VIRTUALENV=$HOMEBREW_VIRTUALENV
         echo "Using Homebrew's '$HOMEBREW_VIRTUALENV'"
         export VIRTUALENVWRAPPER_SCRIPT_PREFIX=$(brew --prefix)"/bin"
     fi
+
     _set_virtualenvwrapper
     printf "Attempting to source virtualenvwrapper.sh at $VIRTUALENVWRAPPER_SCRIPT_PREFIX:\n"
     _source_virtualenvwrapper
@@ -379,6 +380,15 @@ python3_latest() {
 }
 
 pyenv_info() {
+    # check if $PYENV_VERSION is set and if pyenv is installed
+    if [ -z "$PYENV_VERSION" ]; then
+        echo "PYENV_VERSION is not set"
+        return
+    fi
+    if ! _pyenv_installed; then
+        echo "Pyenv is not installed"
+        return
+    fi
     local GREEN="\033[0;32m"
     local NOCOLOR='\033[0m'
 
