@@ -109,7 +109,7 @@ alias copy="tr -d '\n' | pbcopy"
 # #########
 
 # Set python alias if python is not found
-if ! python --version >/dev/null 2>&1; then
+if ! python --version &> /dev/null; then
     alias python='python3'
     alias pip='pip3'
 fi

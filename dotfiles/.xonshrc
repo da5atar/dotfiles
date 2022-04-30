@@ -1,0 +1,47 @@
+# XONSH WIZARD START
+#
+# This script is used to configure xonsh for use with the dotfiles
+
+# xontribs
+xontrib load abbrevs \
+             autovox \
+             avox_poetry \
+             back2dir \
+             cd \
+             cmd_done \
+             commands \
+             coreutils \
+             jupyter \
+             fzf-widgets \
+             gitinfo \
+             history_encrypt \
+             hist_navigator \
+             histcpy \
+             homebrew \
+             jedi \
+             macro_lib \
+             output_search \
+             pipeliner \
+             powerline_binding \
+             prompt_bar \
+             prompt_ret_code \
+             pyenv \
+             pyrtn \
+             readable-traceback \
+             sh \
+             ssh_agent \
+             up \
+             vox \
+             vox_tabcomplete \
+             z
+# xontribs configuration
+# starship
+# execx($(starship init xonsh))
+# load 'xontrib load prompt_starship'
+#\XONSH\WIZARD\\nEND
+
+# other stuff to load but that generate errors
+# powerline
+# onepath
+# xo
+# schedule

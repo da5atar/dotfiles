@@ -42,3 +42,6 @@ else
     export NOTES_DIRECTORY=${HOME}"/notes"
 fi
 
+# Starship
+export STARSHIP_CONFIG_PATH="$HOME/.starship.toml"
+export STARSHIP_CONFIG="$HOME/.starship.toml"
