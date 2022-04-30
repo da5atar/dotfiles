@@ -47,10 +47,3 @@ alias vpn-torrent-list='cyberghostvpn --torrent --country-code'
 
 ### US
 alias vpn-torrent-connect-us='sudo cyberghostvpn --torrent --country-code US --connect'
-
-# text notes
-if [[ "$MACHINE" == "Mac" || "$MACHINE" == "Linux" ]]; then
-    export NOTES_DIRECTORY="$DROPBOX_FOLDER/Areas/Personal/Notes"
-else
-    export NOTES_DIRECTORY="/mnt/c/Users/masow/OneDrive/Notebooks/text"
-fi

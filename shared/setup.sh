@@ -65,6 +65,13 @@ echo "====================\n"
 
 source link-dotfiles.sh
 
+# Clone repos
+echo "===================="
+echo "Cloning repos"
+echo "====================\n"
+
+source shared/clone-repos.sh
+
 echo "===================="
 echo "Setup is done!"
 echo "====================\n"

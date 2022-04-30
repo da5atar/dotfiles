@@ -2,11 +2,11 @@
 
 unameOut="$(uname -s)"
 case "${unameOut}" in
-    Linux*)     MACHINE=Linux;;
-    Darwin*)    MACHINE=Mac;;
-    CYGWIN*)    MACHINE=Cygwin;;
-    MINGW*)     MACHINE=MinGw;;
-    *)          MACHINE="UNKNOWN:${unameOut}"
+Linux*) MACHINE=Linux ;;
+Darwin*) MACHINE=Mac ;;
+CYGWIN*) MACHINE=Cygwin ;;
+MINGW*) MACHINE=MinGw ;;
+*) MACHINE="UNKNOWN:${unameOut}" ;;
 esac
 export MACHINE
 
@@ -15,24 +15,23 @@ export MACHINE
 export HOSTNAME="$(hostname)"
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$HOME"/Dev_workspace";
+export DEV_WORKSPACE=$HOME"/Dev_workspace"
 
-if [[ "$MACHINE" == "Mac" ]]
-then
-    # Dropbox folder
-    export DROPBOX_FOLDER=$HOME"/Dropbox";
-    # Git repos folder
-    export GITHUB_FOLDER=$DROPBOX_FOLDER"/Projects/Dev/GitHub";
-else
-    # Git repos folder
-    export GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub";
-fi
+# Dropbox folder
+export DROPBOX_FOLDER=$HOME"/Dropbox"
 
+# Dev projects backup folder
+export DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev/"
+
+# Git repos folder
+export GITHUB_FOLDER=$DEV_PROJECTS"/GitHub"
+
+# These dotfiles
 PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
 
 # Source aliases and exports
 # For a full list of active aliases, run `alias`.
-if [[ "$MACHINE" == "Linux" ]];then
+if [[ "$MACHINE" == "Linux" ]]; then
   source "$PROJECT_ROOT/env/aliases-linux.sh"
   source "$PROJECT_ROOT/env/exports-linux.sh"
 elif [[ "$MACHINE" == "Mac" ]]; then
@@ -44,4 +43,4 @@ source "$PROJECT_ROOT/env/aliases-shared.sh"
 source "$PROJECT_ROOT/env/exports-shared.sh"
 source "$PROJECT_ROOT/env/functions.sh"
 # source "$PROJECT_ROOT/env/keys.sh"
-source "$PROJECT_ROOT/env/exports-local.sh"
+# source "$PROJECT_ROOT/env/exports-local.sh"

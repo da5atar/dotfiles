@@ -66,8 +66,9 @@ alias countfiles="for t in files links directories; do echo \`find . -type \${t:
 # To see if a command is aliased, a file, or a built-in command
 alias checkcommand="type -t"
 
+# TODO 9: Refactor ipview alias
 # Show current network connections to the server
-alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
+# alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 
 # Show open ports
 alias openports='netstat -nape --inet'
@@ -103,17 +104,14 @@ alias pbcopy='xclip -selection clipboard'
 alias pbpaste='xclip -selection clipboard -o'
 alias copy="tr -d '\n' | pbcopy"
 
-# Shortcuts WSL
-alias cdrive="/mnt/c/Users/Mass"
-alias c="$cdrive"
-# alias d="cd $cdrive/Dropbox"
-alias dl="cd $cdrive/Downloads"
-alias dt="cd $cdrive/Desktop"
-
 # #########
 # Python
 # #########
 
 # Set python alias if python is not found
-# alias python='python3'
-# alias pip='pip3'
+if ! python --version 2>/dev/null; then
+    alias python='python3'
+    alias pip='pip3'
+fi
+# Show version information
+python --version 2>/dev/null

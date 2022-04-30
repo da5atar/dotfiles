@@ -69,7 +69,7 @@
 	pus = push --set-upstream
 
 	# Remove branches that have already been merged with master
-	# a.k.a. ‘delete merged’
+	# a.k.a. 'delete merged'
 	dm = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"
 
 	# List contributors with number of commits
@@ -205,6 +205,6 @@
 [user]
 	name = Massamba Sow
 	email = mass.sowd@gmail.com
-	
+
 [credential]
 	helper = store

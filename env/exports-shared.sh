@@ -1,7 +1,8 @@
 #!/bin/bash
 
-# Save Homebrew’s installed location.
-export BREW_PREFIX=$(brew --prefix &>/dev/null)
+# Save Homebrew's installed location.
+export BREW_PREFIX
+BREW_PREFIX=$(brew --prefix &>/dev/null)
 
 # Current Dev Project folder
 export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project/"
@@ -13,9 +14,9 @@ export PIP="$PYTHON -m pip"
 export VIRTUALENV
 
 # Pyenv
-export PYENV_VERSION=3.8.6
+unset PYENV_VERSION
 export PYENV_VERSION_2=2.7.18
-export PYENV_VERSION_3=3.8.6
+export PYENV_VERSION_3=3.9.7
 export VENV_FOLDER
 VENV_FOLDER=$DEV_WORKSPACE"/Python/Virtualenvs"
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
@@ -34,4 +35,10 @@ export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
 
 # Directory for notes
-export NOTES_DIRECTORY=${HOME}"/notes"
+# text notes
+if [[ "$MACHINE" == "Mac" || "$MACHINE" == "Linux" ]]; then
+    export NOTES_DIRECTORY="$DROPBOX_FOLDER/Areas/Personal/Notes"
+else
+    export NOTES_DIRECTORY=${HOME}"/notes"
+fi
+
