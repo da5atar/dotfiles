@@ -23,7 +23,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ "$MACHINE" == "Mac" ]];then
     # Starship command prompt
     # Change default starship.toml file location with STARSHIP_CONFIG environment variable
-    export STARSHIP_CONFIG="$HOME/.starship";
+    export STARSHIP_CONFIG="$HOME/.starship.toml";
     eval "$(starship init zsh)"
 
     # userpath
