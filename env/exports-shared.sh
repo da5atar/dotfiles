@@ -14,11 +14,11 @@ export PIP="$PYTHON -m pip"
 export VIRTUALENV
 
 # Pyenv
-unset PYENV_VERSION
 export PYENV_VERSION_2=2.7.18
 export PYENV_VERSION_3=3.9.7
 export VENV_FOLDER
 VENV_FOLDER=$DEV_WORKSPACE"/Python/Virtualenvs"
+export VIRTUALENV_HOME=$VENV_FOLDER
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
 
 # Set the default editor
