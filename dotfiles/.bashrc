@@ -1,3 +1,8 @@
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the start of this file.
+[ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+#### END FIG ENV VARIABLES ####
 #!/usr/bin/env bash
 
 # Original base file credits: https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c
@@ -259,3 +264,8 @@ fi
 
 # Source utilities pyenv, anaconda, thefuck, z, fzf...
 source "$HOME/.utils"
+
+#### FIG ENV VARIABLES ####
+# Please make sure this block is at the end of this file.
+[ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+#### END FIG ENV VARIABLES ####
