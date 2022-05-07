@@ -1,5 +1,15 @@
+# #!/usr/bin/env bash
+
 # Source shared .bash and .zshconfiguration (.rc)
 source "$HOME/.init"
+
+if [[ "$MACHINE" == "Mac" ]];then
+    # See https://fig.io/
+    #### FIG ENV VARIABLES ####
+    # Please make sure this block is at the start of this file.
+    [ -s ~/.fig/shell/pre.sh ] && source ~/.fig/shell/pre.sh
+    #### END FIG ENV VARIABLES ####
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
@@ -23,7 +33,7 @@ source $ZSH/oh-my-zsh.sh
 if [[ "$MACHINE" == "Mac" ]];then
     # Starship command prompt
     # Change default starship.toml file location with STARSHIP_CONFIG environment variable
-    export STARSHIP_CONFIG="$HOME/.starship.toml";
+    export STARSHIP_CONFIG="$HOME/.starship";
     eval "$(starship init zsh)"
 
     # userpath
@@ -51,3 +61,9 @@ fi
 source "$HOME/.utils"
 
 
+if [[ "$MACHINE" == "Mac" ]];then
+    #### FIG ENV VARIABLES ####
+    # Please make sure this block is at the end of this file.
+    [ -s ~/.fig/fig.sh ] && source ~/.fig/fig.sh
+    #### END FIG ENV VARIABLES ####
+fi

@@ -152,9 +152,12 @@ brew install --cask spotify
 brew install --cask boostnote
 # brew install --cask dash
 brew install --cask docker # Docker desktop
+
 # Terminal
 brew install --cask hyper
 brew install --cask iterm2
+brew install --cask fig
+
 # Python-Javascript
 brew install --cask kite
 # MongoDB
@@ -177,4 +180,3 @@ brew cleanup
 
 # Security
 brew install mailtrackerblocker
-

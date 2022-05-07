@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change this value your custom location
-CLONE_PATH=$GITHUB_FOLDER
+CLONE_PATH=$GITHUB_REPOS
 
 function clone () {
 	# CD to folder where git repos are kept
@@ -20,7 +20,7 @@ function clone () {
 
   # Plugins
     # pyenv-install-latest
-    git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest 
+    git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
 }
 
 clone
