@@ -11,7 +11,7 @@ test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew
 test -r ~/.bash_profile && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.bash_profile
 echo "eval \$($(brew --prefix)/bin/brew shellenv)" >>~/.profile
 
-# Make sure we’re using the latest Homebrew.
+# Make sure we're using the latest Homebrew.
 brew update
 
 # Upgrade any already-installed formulae.
