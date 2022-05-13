@@ -509,7 +509,7 @@ pyenv_venv() {
 _pyenv_version_selection() {
     local -a versions
 
-    for version in $(pyenv versions --bare); do
+    for version in $(pyenv versions --bare --skip-aliases); do
         versions+=("$version")
     done
 
