@@ -9,7 +9,7 @@ echo "Installing Homebrew."
 # echo 'eval $(/opt/homebrew/bin/brew shellenv)' >> /Users/mass/.zprofile
 # eval $(/opt/homebrew/bin/brew shellenv)
 
-# Make sure we’re using the latest Homebrew.
+# Make sure we're using the latest Homebrew.
 brew update
 
 # Upgrade any already-installed formulae.
@@ -22,7 +22,7 @@ brew upgrade
 # sudo chown -R `id -un` /System/Volumes/Data/data/db
 
 # Install GNU core utilities (those that come with macOS are outdated).
-# Don’t forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
+# Don't forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
 brew install coreutils
 ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
 
@@ -60,10 +60,10 @@ brew install exa
 # Dev
 
 ## pyenv build environment
-brew install openssl 
-brew install readline 
-brew install sqlite3 
-brew install xz 
+brew install openssl
+brew install readline
+brew install sqlite3
+brew install xz
 brew install zlib
 
 ## Docker
@@ -102,6 +102,7 @@ brew install ruby
 brew install shellcheck
 brew install ssh-copy-id
 brew install tmux
+brew install xonsh
 
 # Utilities
 # brew install ffmpeg
@@ -151,9 +152,12 @@ brew install --cask spotify
 brew install --cask boostnote
 # brew install --cask dash
 brew install --cask docker # Docker desktop
+
 # Terminal
 brew install --cask hyper
 brew install --cask iterm2
+brew install --cask fig
+
 # Python-Javascript
 brew install --cask kite
 # MongoDB
@@ -176,4 +180,3 @@ brew cleanup
 
 # Security
 brew install mailtrackerblocker
-

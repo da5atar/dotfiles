@@ -11,7 +11,7 @@ esac
 export MACHINE
 
 # Set Dropbox and Dev Workspace folders
-# Dropbox needs to be installed on Mac
+# Dropbox needs to be installed
 export HOSTNAME="$(hostname)"
 
 # Dev Workspace folder for dev envs
@@ -23,8 +23,11 @@ export DROPBOX_FOLDER=$HOME"/Dropbox"
 # Dev projects backup folder
 export DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev/"
 
-# Git repos folder
-export GITHUB_FOLDER=$DEV_PROJECTS"/GitHub"
+# GitHub repos folder
+export GITHUB_REPOS=$DEV_PROJECTS"/GitHub"
+
+# GitHub working folder
+export GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub"
 
 # These dotfiles
 PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
@@ -32,11 +35,11 @@ PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
 # Source aliases and exports
 # For a full list of active aliases, run `alias`.
 if [[ "$MACHINE" == "Linux" ]]; then
-  source "$PROJECT_ROOT/env/aliases-linux.sh"
-  source "$PROJECT_ROOT/env/exports-linux.sh"
+    source "$PROJECT_ROOT/env/aliases-linux.sh"
+    source "$PROJECT_ROOT/env/exports-linux.sh"
 elif [[ "$MACHINE" == "Mac" ]]; then
-  source "$PROJECT_ROOT/env/aliases-mac.sh"
-  source "$PROJECT_ROOT/env/exports-mac.sh"
+    source "$PROJECT_ROOT/env/aliases-mac.sh"
+    source "$PROJECT_ROOT/env/exports-mac.sh"
 fi
 
 source "$PROJECT_ROOT/env/aliases-shared.sh"
