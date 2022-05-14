@@ -347,16 +347,28 @@ _pyenv_installed() {
     fi
 }
 
+_virtualenvwrapper_installed() {
+    if [ -f "$HOME/.pyenv/plugins/virtualenvwrapper/bin/virtualenvwrapper.sh" ]; then
+        echo "Virtualenvwrapper is installed"
+        return 0
+    else
+        echo "Virtualenvwrapper is not installed"
+        return 1
+    fi
+}
+
 _set_pyenv_venv() {
     printf "=====\n"
     echo "Setting and initializing pyenv virtual environment"
     pyenv shell "$PYENV_VERSION"
     python -m pip install --upgrade pip
     # install virtualenv and virtualenvwrapper if not found
-    if ! command -v virtualenvwrapper.sh 1>/dev/null 2>&1; then
+
+    if ! _virtualenvwrapper_installed &>/dev/null; then
         python -m pip install virtualenv
         python -m pip install virtualenvwrapper
     fi
+
     printf "====>\n"
     _init_pyenv_virtualenvwrapper
 
@@ -432,9 +444,9 @@ pyenv_venv() {
     printf "Enter your choice: "
     read -r selection
     case $selection in
-    1) printf "====>\n" && python3_latest && _set_pyenv_venv || return 1;;
-    2) printf "====>\n" && python2_latest && _set_pyenv_venv ;;
-    3) printf "====>\n" && python3_base && _set_pyenv_venv ;;
+    1) printf "====>\n" && python3_latest || return 1 ;;
+    2) printf "====>\n" && python2_latest || return 1 ;;
+    3) printf "====>\n" && python3_base || return 1 ;;
     s) printf "====>\n" && _pyenv_version_selection || return 1 ;;
     q) return ;;
     *) echo "invalid choice" && return 1 ;;
@@ -447,11 +459,20 @@ pyenv_venv() {
     read -r new_venv
     case $new_venv in
     y | yes) # Enter virtual environment name or press enter to use default
+        if [[ "$(pyenv version-name)" =~ 'system' ]]; then
+            echo "Creating virtual environment with system-wide python"
+            mkvirtualenv "$venv_name" && workon "$venv_name"
+            printf "====>\n"
+            py_info
+        else
+            echo "Creating virtual environment with pyenv"
+            printf "====>\n"
+            _set_pyenv_venv
+        fi
         printf "---->\n"
         echo "Enter virtual environment name (optional): "
         local venv_name
         read -r venv_name
-
         # Create or enter project folder
         echo "Enter project folder name (optional): "
         local project_folder
@@ -472,31 +493,22 @@ pyenv_venv() {
         # Check if project folder exists
         printf "====>\n"
         isEmpty && echo "Creating project folder" || echo "Project already exists"
-
-        if [[ "$(pyenv version-name)" =~ 'system' ]]; then
-            echo "Creating virtual environment with system-wide python"
-            mkvirtualenv "$venv_name" && workon "$venv_name"
-            printf "====>\n"
-            py_info
-        else
-            echo "Creating virtual environment with pyenv"
-            printf "====>\n"
-            _set_pyenv_venv
-            printf "====>\n"
-            _create_pyenv_venv "$(pyversion)" "$venv_name"
-            printf "====>\n"
-            pyenv_info
-        fi
+        printf "====>\n"
+        _create_pyenv_venv "$(pyversion)" "$venv_name"
+        printf "====>\n"
+        pyenv_info
         ;;
-    n | no) echo "Not creating new virtual environment" &&
-        if [[ "$(pyenv version-name)" =~ 'system' ]]; then
-            echo "Using system-wide python" &&
-                printf "====>\n" && _set_python_alias && py_info
-        else
-            WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
-            printf "====>\n" &&
-                _set_pyenv_venv && printf "====>\n" && pyenv_info
-        fi ;;
+    n | no)
+        echo "Not creating new virtual environment" &&
+            if [[ "$(pyenv version-name)" =~ 'system' ]]; then
+                echo "Using system-wide python" &&
+                    printf "====>\n" && _set_python_alias && py_info
+            else
+                WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
+                printf "====>\n" &&
+                    _set_pyenv_venv && printf "====>\n" && pyenv_info
+            fi
+        ;;
     q | Q) echo "Exiting..." && return 1 ;;
     *) echo "Invalid choice" ;;
     esac
@@ -575,11 +587,11 @@ _create_pyenv_venv() {
     fi
 
     # Create and activate virtual environment
-    pyenv virtualenv "$venv_name"
-    pyenv activate "$venv_name"
+    # pyenv virtualenv "$venv_name"
+    # pyenv activate "$venv_name"
     # Alternatively, use virtualenvwrapper. Conmment the two previous lines to use this.
-    # mkvirtualenv "$venv_name"
-    # workon "$venv_name"
+    mkvirtualenv "$venv_name"
+    workon "$venv_name"
 
     echo "Done activating virtual environment: $venv_name."
     printf "=====\n"
