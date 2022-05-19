@@ -10,7 +10,7 @@ case "${unameOut}" in
   *)          MACHINE="UNKNOWN:${unameOut}"
 esac
 
-echo "You apper to be using a $MACHINE computer"
+echo "You appear to be using a $MACHINE computer"
 
 echo "-----------------------"
 
@@ -29,14 +29,15 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
   fi
 fi
 
-# Assumes default ZSH installation
-ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+echo "-----------------------"
+
 
 # Installs plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+printf "Done installing Oh My Zsh!\n"
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+source ~/.zshrc
 
-# Fix permissions
-chmod 700 ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+source shared/install-zsh-plugins.sh
+
+
 
