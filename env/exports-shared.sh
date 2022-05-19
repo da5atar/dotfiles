@@ -38,9 +38,12 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # Directory for notes
 # text notes
 if [[ "$MACHINE" == "Mac" || "$MACHINE" == "Linux" ]]; then
-    export NOTES_DIRECTORY="$DROPBOX_FOLDER/Areas/Personal/Notes"
-else
-    export NOTES_DIRECTORY=${HOME}"/notes"
+    # if Dropbox folder exists
+    if [ -d "$DROPBOX_FOLDER" ]; then
+        export NOTES_DIR="$DROPBOX_FOLDER/Areas/Personal/Notes"
+    else
+        export NOTES_DIR=$HOME/Notes
+    fi
 fi
 
 # Starship
