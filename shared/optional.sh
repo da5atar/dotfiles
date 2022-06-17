@@ -17,3 +17,7 @@ source install.sh
 # SDK manager
 # https://sdkman.io/usage
 curl -s "https://get.sdkman.io" | bash
+
+# CLI tool to manage multiple GitHub repositories
+brew tap alajmo/mani
+brew install mani

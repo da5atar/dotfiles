@@ -14,6 +14,11 @@ function clone () {
     git clone https://github.com/vinta/awesome-python.git
     git clone https://github.com/trimstray/the-book-of-secret-knowledge.git
 
+    #Microsoft
+    git clone https://github.com/microsoft/Web-Dev-For-Beginners.git
+    git clone https://github.com/microsoft/Data-Science-For-Beginners.git
+    git clone https://github.com/microsoft/ML-For-Beginners.git
+
   # Blog
 
   # Products
