@@ -144,3 +144,6 @@ alias radio='tera'
 
 # Better find
 alias fd='find'
+
+# gitignore
+alias gi='gitignore'

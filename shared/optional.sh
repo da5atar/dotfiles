@@ -21,3 +21,7 @@ curl -s "https://get.sdkman.io" | bash
 # CLI tool to manage multiple GitHub repositories
 brew tap alajmo/mani
 brew install mani
+
+# Get public ip
+# https://github.com/sindresorhus/public-ip-cli
+npm install --global public-ip-cli
