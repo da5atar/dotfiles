@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Change this value your custom location
-CLONE_PATH=$GITHUB_REPOS
+CLONE_PATH=$GITHUB_REPOS # set in .init
 
 function clone () {
 	# CD to folder where git repos are kept
