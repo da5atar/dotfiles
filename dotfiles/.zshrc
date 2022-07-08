@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
-#
+if [[ "$MACHINE" == "Mac" ]]; then
+    . "$HOME/.fig/shell/zshrc.pre.zsh"
+fi
 
 # Source shared .bash and .zshconfiguration (.rc)
 source "$HOME/.init"
@@ -56,4 +57,6 @@ fi
 source "$HOME/.utils"
 
 # Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/zshrc.post.zsh"
+if [[ "$MACHINE" == "Mac" ]]; then
+    . "$HOME/.fig/shell/zshrc.post.zsh"
+fi
