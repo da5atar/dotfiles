@@ -70,7 +70,7 @@ echo "===================="
 echo "Cloning repos"
 echo "====================\n"
 
-source shared/clone-repos.sh
+# source shared/clone-repos.sh
 
 echo "===================="
 echo "Setup is done!"

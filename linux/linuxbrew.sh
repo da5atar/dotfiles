@@ -47,6 +47,8 @@ brew install zlib
 # Python:
 brew install python
 brew install pyenv # python version management
+brew install --HEAD pyenv-virtualenv
+brew install --HEAD pyenv-virtualenvwrapper
 brew install virtualenv
 brew install virtualenvwrapper
 

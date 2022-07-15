@@ -15,6 +15,7 @@ sudo npm i -g standard
 sudo npm i -g svgo
 sudo npm i -g trash-cli
 sudo npm i -g wikit # Wikipedia summaries in the terminal
+sudo npm i docsify-cli -g # https://github.com/docsifyjs/docsify/
 
 # News
 # https://www.npmjs.com/package/newsroom-cli
