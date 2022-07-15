@@ -301,7 +301,8 @@ py_info() {
 _set_python_alias() {
     # Set python alias if python command is not found
     if ! python --version &>/dev/null; then
-        if $PYTHON --version &>/dev/null; then
+        if python3 --version &>/dev/null; then
+            export PYTHON=python3
             alias python='$PYTHON'
         fi
     fi
@@ -347,30 +348,52 @@ _pyenv_installed() {
     fi
 }
 
-_virtualenvwrapper_installed() {
-    if [ -f "$HOME/.pyenv/plugins/virtualenvwrapper/bin/virtualenvwrapper.sh" ]; then
-        echo "Virtualenvwrapper is installed"
+_pyenv_virtualenv_installed() {
+    if ! isEmpty "$(pyenv root)/plugins/pyenv-virtualenv"; then
+        echo "Pyenv-virtualenv is installed"
         return 0
     else
-        echo "Virtualenvwrapper is not installed"
+        echo "Pyenv-virtualenv is not installed"
+        return 1
+    fi
+}
+
+# https://github.com/pyenv/pyenv-virtualenv
+_install_pyenv_virtualenv() {
+    if ! _pyenv_virtualenv_installed; then
+        echo "Installing pyenv-virtualenv"
+        git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+        git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper # optional
+    else
+        return 0
+    fi
+}
+
+_pyenv_virtualenvwrapper_installed() {
+    if [ -d "$(pyenv root)/plugins/pyenv-virtualenvwrapper/bin/" ]; then
+        echo "pyenv-virtualenvwrapper is installed"
+        return 0
+    else
+        echo "pyenv-virtualenvwrapper is not installed"
         return 1
     fi
 }
 
 _set_pyenv_venv() {
     printf "=====\n"
-    echo "Setting and initializing pyenv virtual environment"
+    echo "Setting and initializing pyenv virtual environment with pyenv"
     pyenv shell "$PYENV_VERSION"
     python -m pip install --upgrade pip
-    # install virtualenv and virtualenvwrapper if not found
-
-    if ! _virtualenvwrapper_installed &>/dev/null; then
-        python -m pip install virtualenv
-        python -m pip install virtualenvwrapper
+    # install pyenv-virtualenv if not found
+    if ! _pyenv_virtualenv_installed &>/dev/null; then
+        _install_pyenv_virtualenv
     fi
 
     printf "====>\n"
-    _init_pyenv_virtualenvwrapper
+    if _pyenv_virtualenvwrapper_installed; then
+        printf "====>\n"
+        _init_pyenv_virtualenvwrapper
+    fi
 
     echo "Done."
     printf "=====\n"
@@ -402,16 +425,31 @@ python3_latest() {
     pyenv shell "$PYENV_VERSION"
 }
 
+# Set the Shell to the system Python
+set_system_python() {
+    pyenv global system
+    pyenv shell system
+}
+
 pyenv_info() {
     # check if $PYENV_VERSION is set and if pyenv is installed
-    if [ -z "$PYENV_VERSION" ]; then
-        echo "PYENV_VERSION is not set"
-        return
-    fi
     if ! _pyenv_installed &>/dev/null; then
         echo "Seems that pyenv is not installed"
         return
     fi
+
+    if [[ "$(pyenv version-name)" =~ 'system' ]]; then
+        echo "Using system python"
+        print "====>\n" && py_info
+        printf "=====\n"
+        return
+    fi
+
+    if [ -z "$PYENV_VERSION" ]; then
+        echo "PYENV_VERSION is not set"
+        return
+    fi
+
     local GREEN="\033[0;32m"
     local NOCOLOR='\033[0m'
 
@@ -422,11 +460,30 @@ pyenv_info() {
     echo "${GREEN}Version: ${NOCOLOR}"
     $(pyenv which python) --version
     echo "${GREEN}with: ${NOCOLOR}"
+    # pyenv virtualenv --version
     $(pyenv which virtualenv) --version
     echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
     $(pyenv which python) -m pip show virtualenvwrapper | grep -e Version -e Location
     echo "${GREEN}and: ${NOCOLOR}"
     $(pyenv which python) -m pip --version
+    echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
+    printf "=====\n"
+}
+
+_venv_info() {
+    local GREEN="\033[0;32m"
+    local NOCOLOR='\033[0m'
+
+    echo "${GREEN}Virtual environment Info: ${NOCOLOR}"
+    printf "-----\n"
+    echo "${GREEN}Using: ${NOCOLOR}"
+    PYTHON=$(pyenv which python)
+    echo "$PYTHON"
+    echo "${GREEN}Version: ${NOCOLOR}"
+    $PYTHON --version
+    echo "${GREEN}and: ${NOCOLOR}"
+    PIP=$(pyenv which pip)
+    $PIP --version
     echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
     printf "=====\n"
 }
@@ -459,50 +516,37 @@ pyenv_venv() {
     read -r new_venv
     case $new_venv in
     y | yes) # Enter virtual environment name or press enter to use default
-        if [[ "$(pyenv version-name)" =~ 'system' ]]; then
-            echo "Creating virtual environment with system-wide python"
-            mkvirtualenv "$venv_name" && workon "$venv_name"
-            printf "====>\n"
-            py_info
-        else
-            echo "Creating virtual environment with pyenv"
-            printf "====>\n"
-            _set_pyenv_venv
-        fi
         printf "---->\n"
         echo "Enter virtual environment name (optional): "
         local venv_name
         read -r venv_name
-        # Create or enter project folder
-        echo "Enter project folder name (optional): "
-        local project_folder
-        read -r project_folder
 
-        printf "====>\n"
-        echo "Going to projects directory: $project_folder"
-        if [ "$project_folder" ]; then
-            goto_dir "$PROJECT_HOME/$project_folder"
-        elif [ "$venv_name" ]; then
-            goto_dir "$PROJECT_HOME/$venv_name"
-        else
-            project_folder="test_$(_add_underscore_pyversion)"
-            venv_name="$project_folder"
-            goto_dir "$PROJECT_HOME/$project_folder"
+        if [ "$venv_name" ]; then
+            echo "Naming environment as: $venv_name"
+        else # use default name
+            echo "Using default name"
         fi
 
-        # Check if project folder exists
+        # Create virtual environment
+        if [[ "$(pyenv version-name)" =~ 'system' ]]; then
+            printf "====>\n"
+            mkvenv "$venv_name"
+        else
+            printf "====>\n"
+            _set_pyenv_venv
+            printf "====>\n"
+            echo "Creating virtual environment with pyenv"
+            _create_pyenv_venv "$(pyenv version-name)" "$venv_name"
+        fi
+
         printf "====>\n"
-        isEmpty && echo "Creating project folder" || echo "Project already exists"
-        printf "====>\n"
-        _create_pyenv_venv "$(pyversion)" "$venv_name"
-        printf "====>\n"
-        pyenv_info
+        _venv_info
         ;;
     n | no)
         echo "Not creating new virtual environment" &&
             if [[ "$(pyenv version-name)" =~ 'system' ]]; then
                 echo "Using system-wide python" &&
-                    printf "====>\n" && _set_python_alias && py_info
+                    printf "====>\n" && _set_python_alias && printf "====>\n" && py_info
             else
                 WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
                 printf "====>\n" &&
@@ -571,29 +615,61 @@ _pyenv_version_selection() {
 # Usage: _create_pyenv_venv <python version> [<virtual environment name>]
 # Example: _create_pyenv_venv 3.8.6 [myvenv]
 _create_pyenv_venv() {
-    # set $WORKON_HOME to the correct folder
-    WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
+    PYENV_VERSION="$1"
 
-    # Ensure the correct $PYENV_VERSION is set
-    pyenv shell "$PYENV_VERSION" &&
-        printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" \
-            "$WORKON_HOME"
-
-    echo "Creating $2 environment with $(pyversion)"
     if [ "$2" ]; then
         venv_name="$2_venv"
     else
         venv_name="test_$(_add_underscore_pyversion)_venv"
     fi
 
+    # set $WORKON_HOME to the correct folder
+    WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
+
+    printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" \
+        "$WORKON_HOME"
+
+    printf "---->\n"
+    echo "Enter project folder name (optional) - Enter to use the default name: "
+    local project_folder
+    read -r project_folder
+
+    if [ -z "$project_folder" ]; then
+        project_folder="test_$(_add_underscore_pyversion)"
+    fi
+
+    printf "====>\n"
+    isEmpty "$project_folder" && echo "Creating project folder" || echo "Project already exists"
+    echo "Going to projects directory: $project_folder"
+    printf "====>\n"
+    goto_dir "$PROJECT_HOME/$project_folder"
+
+    printf "---->\n"
+    echo "Creating $venv_name environment with $(pyversion)"
     # Create and activate virtual environment
-    # pyenv virtualenv "$venv_name"
-    # pyenv activate "$venv_name"
-    # Alternatively, use virtualenvwrapper. Conmment the two previous lines to use this.
-    mkvirtualenv "$venv_name"
-    workon "$venv_name"
+    pyenv virtualenv "$PYENV_VERSION" "$venv_name"
+    pyenv activate "$venv_name"
+    # Alternatively, use available virtualenvwrapper. Conmment the two previous lines to use this.
+    # mkvirtualenv "$venv_name"
+    # workon "$venv_name"
 
     echo "Done activating virtual environment: $venv_name."
+    echo "To delete the virtual environment, run: pyenv uninstall $venv_name"
+    echo "To deactivate the virtual environment, run: pyenv deactivate"
+    printf "=====\n"
+}
+
+# Usage: mkvenv <virtual environment name>
+mkvenv() {
+    set_system_python
+    if [ "$1" ]; then
+        venv_name="$1_venv"
+    else
+        venv_name="test_$(_add_underscore_pyversion)_venv"
+    fi
+
+    echo "Creating virtual environment with system-wide python"
+    mkvirtualenv "$venv_name" && workon "$venv_name"
     printf "=====\n"
 }
 
@@ -719,9 +795,10 @@ here() {
 # Automatically do an ls after each cd
 cd() {
     if [ -n "$1" ]; then
-        builtin cd "$@" && echo "Listing Directory" && ls
+        builtin cd "$@" && printf "Listing Directory:\n" && ls
     else
-        builtin cd ~ && echo "Listing Directory" && ls
+        echo "No directory specified - defaulting to $HOME"
+        builtin cd ~ && printf "Listing Directory:\n" && ls
     fi
 }
 
@@ -767,7 +844,9 @@ function isEmpty() {
     dir="${1:-"$PWD"}" # defaults to current dir if no argument
 
     if [ "$(ls -A "$dir")" ]; then
-        echo "The directory contains files"
+        echo "The directory $dir contains files:"
+        ls -A "$dir"
+        echo "-----"
         return 1
     else
         echo "The directory is empty (or doesn't exist on this path)"
