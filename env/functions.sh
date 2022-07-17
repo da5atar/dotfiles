@@ -673,6 +673,42 @@ mkvenv() {
     printf "=====\n"
 }
 
+### docker-py-env()
+# This function takes one parameter:
+# $1 is the name of the virtual environment (optional)
+# Usage: docker-py-env [<virtual environment name>]
+# Example: docker-py-env myvenv
+docker-py-env() {
+    echo "Creating python environment with docker"
+    if [ "$1" ]; then
+        goto_dir "$PROJECT_HOME/$1"
+    fi
+    docker run --rm --name "$(slug "$(here)")" -it -v "$(here)_python-env":/usr/local/lib -v "${PWD}":/usr/src/app -w /usr/src/app python:latest bash
+}
+
+
+### docker-py3.8-env()
+# This function takes one parameter:
+# $1 is the name of the virtual environment (optional)
+# Usage: docker-py-env [<virtual environment name>]
+# Example: docker-py-env myvenv
+docker-py3.8-env() {
+    echo "Creating python 3.8 environment with docker"
+    if [ "$1" ]; then
+        goto_dir "$PROJECT_HOME/$1"
+    fi
+    docker run --rm --name "$(slug "$(here)")" -it -v "$(here)_python-env":/usr/local/lib -v "${PWD}":/usr/src/app -w /usr/src/app python:3.8 bash
+}
+
+
+### docker-py-env-del()
+# This function takes one parameter:
+# $1 is the name of the virtual environment (optional)
+# Usage: docker-py-env-del [<virtual environment name>]
+docker-py-env-del() {
+    docker volume rm "$(here)_python-env"
+}
+
 #--- Text Editors
 
 # Use the best version of pico installed
@@ -710,6 +746,14 @@ trim() {
     var="${var#"${var%%[![:space:]]*}"}" # remove leading whitespace characters
     var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
     echo -n "$var"
+}
+
+slugify() {
+    echo "$1" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9-]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
+}
+
+slug() {
+    echo $(slugify ${${1:-$PWD}: -200})
 }
 
 #--- Directories
@@ -785,12 +829,15 @@ up() {
     cd $d
 }
 
+
+
 # Get current directory name without full path
 ### here()
 here() {
     local here=${PWD##*/}
     printf '%q\n' "$here"
 }
+
 
 # Automatically do an ls after each cd
 cd() {

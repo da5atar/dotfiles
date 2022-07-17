@@ -145,5 +145,22 @@ alias radio='tera'
 # Better find
 alias fd='find'
 
+# Git
+alias clone='git clone'
+
 # gitignore
 alias gi='gitignore'
+
+# Docker
+
+## commands
+alias docker-containers='docker ps -a'
+
+## Bind mounts
+alias docker-python3.8='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.8 python'
+alias docker-python3.9='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.9 python'
+alias docker-python3.10='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.10 python'
+alias docker-python='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:latest python'
+
+## Volumes
+alias docker-python-vol='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app -v python-dev-vol:/usr/local/lib python:latest python'

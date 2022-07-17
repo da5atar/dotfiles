@@ -5,10 +5,10 @@ export BREW_PREFIX
 BREW_PREFIX=$(brew --prefix &>/dev/null)
 
 # Current Dev Project folder
-export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project/"
+export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project"
 
 # Python Projects
-export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/"
+export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/Projects"
 export PYTHON
 export PIP="$PYTHON -m pip"
 export VIRTUALENV
