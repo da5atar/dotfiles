@@ -144,6 +144,30 @@ add_underscore() {
 
 #--- Processes
 
+# continue
+_proceed () {
+    printf "Continue? [y/n] "
+    read -r response
+    case $response in
+        y | Y) return 0;;
+        n | N) return 1;;
+        * ) echo "Please answer yes or no.";;
+    esac
+}
+
+# See https://intoli.com/blog/exit-on-errors-in-bash-scripts/
+### _exit_on_error
+# Usage: _exit_on_error $? !!
+_exit_on_error() {
+    exit_code=$1
+    last_command=${@:2}
+    if [ $exit_code -ne 0 ]; then
+        >&2 echo "\"${last_command}\" command exited with code ${exit_code}."
+        exit "$exit_code"
+    fi
+}
+
+
 # Find port in use (used to kill pid)
 function findpid() {
     lsof -i tcp:"$*"
@@ -515,7 +539,7 @@ pyenv_venv() {
     local new_venv
     read -r new_venv
     case $new_venv in
-    y | yes) # Enter virtual environment name or press enter to use default
+     y | Y) # Enter virtual environment name or press enter to use default
         printf "---->\n"
         echo "Enter virtual environment name (optional): "
         local venv_name
@@ -542,7 +566,7 @@ pyenv_venv() {
         printf "====>\n"
         _venv_info
         ;;
-    n | no)
+    n | N)
         echo "Not creating new virtual environment" &&
             if [[ "$(pyenv version-name)" =~ 'system' ]]; then
                 echo "Using system-wide python" &&
@@ -618,9 +642,9 @@ _create_pyenv_venv() {
     PYENV_VERSION="$1"
 
     if [ "$2" ]; then
-        venv_name="$2_venv"
+        venv_name="$2"
     else
-        venv_name="test_$(_add_underscore_pyversion)_venv"
+        venv_name="test_$(_add_underscore_pyversion)"
     fi
 
     # set $WORKON_HOME to the correct folder
@@ -635,7 +659,7 @@ _create_pyenv_venv() {
     read -r project_folder
 
     if [ -z "$project_folder" ]; then
-        project_folder="test_$(_add_underscore_pyversion)"
+        project_folder=$venv_name
     fi
 
     printf "====>\n"
@@ -647,7 +671,7 @@ _create_pyenv_venv() {
     printf "---->\n"
     echo "Creating $venv_name environment with $(pyversion)"
     # Create and activate virtual environment
-    pyenv virtualenv "$PYENV_VERSION" "$venv_name"
+    pyenv virtualenv "$PYENV_VERSION" "${venv_name}_venv"
     pyenv activate "$venv_name"
     # Alternatively, use available virtualenvwrapper. Conmment the two previous lines to use this.
     # mkvirtualenv "$venv_name"

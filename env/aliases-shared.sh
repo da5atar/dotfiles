@@ -156,11 +156,17 @@ alias gi='gitignore'
 ## commands
 alias docker-containers='docker ps -a'
 
-## Bind mounts
+## Python Bind Mounts
 alias docker-python3.8='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.8 python'
 alias docker-python3.9='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.9 python'
 alias docker-python3.10='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.10 python'
 alias docker-python='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:latest python'
 
-## Volumes
+## Python with Volumes
 alias docker-python-vol='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app -v python-dev-vol:/usr/local/lib python:latest python'
+
+## Ubuntu
+alias docker-ubuntu='docker run --rm -it -hostname ubuntu -v "${DEV_PROJECTS}":/ -w / ubuntu:latest -v docker-vol'
+
+## source bash config
+alias bashcfg='source ~/.bashcfg'

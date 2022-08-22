@@ -15,6 +15,9 @@ function clone() {
   git clone https://github.com/vinta/awesome-python.git
   git clone https://github.com/trimstray/the-book-of-secret-knowledge.git
 
+  # bash
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git ~/.bash_it # install with ~/.bash_it/install.sh
+
   #Microsoft
   git clone https://github.com/microsoft/Web-Dev-For-Beginners.git
   git clone https://github.com/microsoft/Data-Science-For-Beginners.git

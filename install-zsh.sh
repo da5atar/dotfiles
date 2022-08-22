@@ -3,14 +3,14 @@
 # Detect machine
 unameOut="$(uname -s)"
 case "${unameOut}" in
-  Linux*)     MACHINE="Linux";;
-  Darwin*)    MACHINE="Mac";;
-  CYGWIN*)    MACHINE="Cygwin";;
-  MINGW*)     MACHINE="MinGw";;
-  *)          MACHINE="UNKNOWN:${unameOut}"
+Linux*) MACHINE="Linux" ;;
+Darwin*) MACHINE="Mac" ;;
+CYGWIN*) MACHINE="Cygwin" ;;
+MINGW*) MACHINE="MinGw" ;;
+*) MACHINE="UNKNOWN:${unameOut}" ;;
 esac
 
-echo "You apper to be using a $MACHINE computer"
+echo "You appeaar to be using a $MACHINE computer"
 
 echo "-----------------------"
 
@@ -23,20 +23,17 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   # Installs Oh my ZSH with Linux
   fi
-  if [[ $MACHINE == "Linux" ]]; then  
+  if [[ $MACHINE == "Linux" ]]; then
     sudo apt install zsh -y
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi
 fi
 
-# Assumes default ZSH installation
-ZSH_CUSTOM="$HOME/.oh-my-zsh/custom"
+echo "-----------------------"
 
 # Installs plugins
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+printf "Done installing Oh My Zsh!\n"
 
-git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
+source ~/.zshrc
 
-# Fix permissions
-chmod 700 ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-
+source shared/install-zsh-plugins.sh

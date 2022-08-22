@@ -21,21 +21,22 @@ sudo apt-get update && sudo apt-get install -y \
   autojump \
   tree \
   xclip \
-  youtube-dl
-  build-essential \
+  youtube-dl \
   procps \
   file \
   gcc \
   snapd \
-  flatpak
+  flatpak \
+  gnome-tweaks \
+  barrier
 
 # Python
 # Install [Python build dependencies](https://github.com/pyenv/pyenv/wiki#suggested-build-environment) before attempting to install a new Python version with pyenv:
-	
-sudo apt install --no-install-recommends make \
-build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
-libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
-libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+
+sudo apt install \
+  make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
+  libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
+  libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
 
 # Install FZF (fuzzy finder on the terminal and used by a Vim plugin).
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
@@ -58,11 +59,11 @@ sudo apt-get install -y autoconf bison libssl-dev libyaml-dev \
 # asdf install ruby 2.7.1
 # asdf global ruby 2.7.1
 
-# Node 
+# Node
 curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
 sudo apt-get install nodejs -y
 
-# MongoDB for Ubuntu 18.04. 
+# MongoDB for Ubuntu 18.04.
 # Installation instructions: https://docs.mongodb.com/manual/administration/install-on-linux/
 # wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
 # echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list

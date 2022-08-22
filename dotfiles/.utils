@@ -5,7 +5,7 @@
 # Initialize virtualenvwrapper
 init_virtualenvwrapper
 
-if [[ "$MACHINE" == "Mac" ]];then
+if [[ "$MACHINE" == "Mac" ]]; then
   # Anaconda3 (Homebrew)
   # >>> conda initialize >>>
   # !! Contents within this block are managed by 'conda init' !!
@@ -51,15 +51,15 @@ if command -v brew >/dev/null 2>&1; then
   [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
 fi
 
-if [[ "$MACHINE" == "Mac" ]];then
+if [[ "$MACHINE" == "Mac" ]]; then
   # Load GNU core utilities installed from Homebrew
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
 # asdf
-if [[ "$MACHINE" == "Linux" ]];then
-# Enable asdf to manage various programming runtime versions.
-# Requires: https://asdf-vm.com/#/
+if [[ "$MACHINE" == "Linux" ]]; then
+  # Enable asdf to manage various programming runtime versions.
+  # Requires: https://asdf-vm.com/#/
   source "$HOME"/.asdf/asdf.sh
 fi
 
@@ -77,3 +77,28 @@ fi
 
 # Ensure no dupes in $PATH
 set_no_dupes_path &>/dev/null
+
+# Better history
+# See https://blog.sanctum.geek.nz/better-bash-history/
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+# shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Use one command per line
+shopt -s cmdhist
+
+# Allow a larger history file
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+
+# ignore certain commands, duplicates and commands that start with a space in history
+HISTCONTROL=ignoreboth
+HISTIGNORE='ls:bg:fg:history'
+
+# Store history immediately
+PROMPT_COMMAND='history -a'
