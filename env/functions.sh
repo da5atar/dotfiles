@@ -275,7 +275,7 @@ init_virtualenvwrapper() { # modified 2021-04-01
     fi
 
     _set_virtualenvwrapper
-    printf "Attempting to source virtualenvwrapper.sh at $VIRTUALENVWRAPPER_SCRIPT_PREFIX:\n"
+    printf "Attempting to source virtualenvwrapper.sh at %s:\n" "$VIRTUALENVWRAPPER_SCRIPT_PREFIX"
     _source_virtualenvwrapper
 }
 
@@ -654,7 +654,7 @@ _create_pyenv_venv() {
         "$WORKON_HOME"
 
     printf "---->\n"
-    echo "Enter project folder name (optional) - Enter to use the default name: "
+    echo "Enter project folder name (optional) - Enter to use the default name: ($venv_name)"
     local project_folder
     read -r project_folder
 
@@ -663,15 +663,16 @@ _create_pyenv_venv() {
     fi
 
     printf "====>\n"
-    isEmpty "$project_folder" && echo "Creating project folder" || echo "Project already exists"
-    echo "Going to projects directory: $project_folder"
+    isEmpty "$project_folder"
     printf "====>\n"
+    echo "project folder will be: '$project_folder'"
     goto_dir "$PROJECT_HOME/$project_folder"
 
     printf "---->\n"
     echo "Creating $venv_name environment with $(pyversion)"
     # Create and activate virtual environment
-    pyenv virtualenv "$PYENV_VERSION" "${venv_name}_venv"
+    venv_name="${venv_name}_venv"
+    pyenv virtualenv "$PYENV_VERSION" "$venv_name"
     pyenv activate "$venv_name"
     # Alternatively, use available virtualenvwrapper. Conmment the two previous lines to use this.
     # mkvirtualenv "$venv_name"
