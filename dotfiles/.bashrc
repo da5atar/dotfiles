@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Fig pre block. Keep at the top of this file.
+if [[ "$MACHINE" == "Mac" ]]; then
+    [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
+fi
+
 # Original base file credits: https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c
 # with some adaptations from [Nick Janetakis's dotfiles](https://github.com/nickjj/dotfiles.git),
 # however I added or modified ~many~ most things. Please read carefully and adapt before using.
@@ -271,4 +276,9 @@ else
 
     # Source utilities pyenv, anaconda, thefuck, z, fzf...
     source "$HOME/.utils"
+fi
+
+# Fig post block. Keep at the bottom of this file.
+if [[ "$MACHINE" == "Mac" ]]; then
+    [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 fi
