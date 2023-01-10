@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 # Fig pre block. Keep at the top of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
-    . "$HOME/.fig/shell/zshrc.pre.zsh"
+    [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -74,5 +75,6 @@ source "$HOME/.utils"
 
 # Fig post block. Keep at the bottom of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
-    . "$HOME/.fig/shell/zshrc.post.zsh"
+    [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 fi
+

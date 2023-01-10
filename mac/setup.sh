@@ -34,7 +34,7 @@ echo "===================="
 echo "Cloning repos"
 echo "====================\n"
 
-source shared/clone-repos.sh
+# source shared/clone-repos.sh
 
 # Configure MacOS defaults.
 # You only want to run this once during setup. Additional runs may reset changes you make manually.
@@ -53,6 +53,3 @@ source mac/iterm/gem
 echo "===================="
 echo "Setup is done!"
 echo "====================\n"
-
-
-

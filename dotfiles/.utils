@@ -102,3 +102,6 @@ HISTIGNORE='ls:bg:fg:history'
 
 # Store history immediately
 PROMPT_COMMAND='history -a'
+
+# Rust
+. "$HOME/.cargo/env"

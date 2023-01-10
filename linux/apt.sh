@@ -13,6 +13,7 @@ sudo apt-get update && sudo apt-get install -y \
   git \
   gpg \
   curl \
+  wget \
   rsync \
   unzip \
   htop \
@@ -30,59 +31,81 @@ sudo apt-get update && sudo apt-get install -y \
   gnome-tweaks \
   barrier
 
-# Python
-# Install [Python build dependencies](https://github.com/pyenv/pyenv/wiki#suggested-build-environment) before attempting to install a new Python version with pyenv:
+# ############
+# Dependencies
+# ############
 
-sudo apt install \
-  make build-essential libssl-dev zlib1g-dev libbz2-dev libreadline-dev \
-  libsqlite3-dev wget curl llvm libncurses5-dev xz-utils tk-dev \
-  libxml2-dev libxmlsec1-dev libffi-dev liblzma-dev -y
+# System dependencies for Python, Ruby etc. in alphabetical order.
+sudo apt-get install -y \
+  autoconf \
+  bison \
+  build-essential \
+  libbz2-dev \
+  libdb-dev \
+  libffi-dev \
+  libgdbm6 \
+  liblzma-dev \
+  libncurses5-dev \
+  libncursesw5-dev \
+  libreadline-dev \
+  libsqlite3-dev \
+  libssl-dev \
+  libreadline-dev \
+  libreadline6-dev \
+  libxml2-dev \
+  libxmlsec1-dev \
+  libyaml-dev \
+  libbz2-dev \
+  liblzma-dev \
+  llvm \
+  make \
+  python-openssl \
+  tk-dev \
+  wget \
+  xz-utils \
+  zlib1g-dev
 
-# Install FZF (fuzzy finder on the terminal and used by a Vim plugin).
-git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+# ###########
+# Development
+# ###########
 
 # Install ASDF (version manager which I use for non-Dockerized apps).
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf
+git clone https://github.com/asdf-vm/asdf.git ~/.asdf # --branch v0.8.1
 
 # Install Node through ASDF.
-# asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git
-# bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-# asdf install nodejs 12.17.0
-# asdf global nodejs 12.17.0
-
-# Install system dependencies for Ruby.
-sudo apt-get install -y autoconf bison libssl-dev libyaml-dev \
-  libreadline6-dev zlib1g-dev libncurses5-dev libffi-dev libgdbm6 libgdbm-dev libdb-dev
+asdf plugin-add nodejs
+bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
+asdf install nodejs 18.9.0
+asdf global nodejs 18.9.0
 
 # Install Ruby through ASDF.
-# asdf plugin-add ruby https://github.com/asdf-vm/asdf-ruby.git
-# asdf install ruby 2.7.1
-# asdf global ruby 2.7.1
+asdf plugin-add ruby
+asdf install ruby 3.0.2
+asdf global ruby 3.0.2
 
-# Node
-curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install nodejs -y
+# Install Go through ASDF.
+asdf plugin-add golang
+asdf install golang 1.17.1
+asdf global golang 1.17.1
 
-# MongoDB for Ubuntu 18.04.
-# Installation instructions: https://docs.mongodb.com/manual/administration/install-on-linux/
-# wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-# echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
-# sudo apt update
-# sudo apt install -y mongodb-org
+# MongoDB
+# sudo apt-get install -y mongodb
 
-# Install Ansible.
-# pip3 install --user ansible
-
-# Install AWS CLI v2.
-# curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip" \
-#   && unzip awscliv2.zip && sudo ./aws/Install && rm awscliv2.zip
-
-# # Install Terraform.
-# curl "https://releases.hashicorp.com/terraform/0.12.26/terraform_0.12.26_linux_amd64.zip" -o "terraform.zip" \
-#   && unzip terraform.zip && chmod +x terraform \
-#   && mv terraform ~/.local/bin && rm terraform.zip
+# Postgres
+sudo apt-get install -y postgresql postgresql-contrib
 
 # ubuntu-make
 sudo add-apt-repository -y ppa:lyzardking/ubuntu-make
 sudo apt-get -y update
 sudo apt-get -y install ubuntu-make
+
+# #########
+# Utilities
+# #########
+
+# Install FZF (fuzzy finder on the terminal and used by a Vim plugin).
+git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
+
+# cleanup
+sudo apt-get autoremove -y
+sudo apt-get clean -y
