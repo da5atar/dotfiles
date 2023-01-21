@@ -7,8 +7,8 @@ cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 ~/.dropbox-dist/dropboxd
 
 # Nerd Fonts
-cd $HOME && git clone https://github.com/ryanoasis/nerd-fonts
-cd nerd-fonts
+cd "$HOME" && git clone https://github.com/ryanoasis/nerd-fonts
+cd nerd-fonts || exit
 sudo ./install.sh Hack
 sudo ./install.sh FiraCode
 cd "$HOME" && rm -rf nerd-fonts
