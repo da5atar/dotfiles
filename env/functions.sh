@@ -215,10 +215,10 @@ _add_underscore_pyversion() {
 
 ## Virtualenv
 _is_virtualenv() {
-    if [ "$($PYTHON -m virtualenv)" ]; then
+    if [ "$($PYTHON -m virtualenv --version)" ]; then
         echo "Virtualenv is installed for $($PYTHON -V 2>&1 | head -n 1)"
         # Save which virtualenv
-        VIRTUALENV=$($PYTHON -m virtualenv)
+        VIRTUALENV=$(which virtualenv)
         return 0
     else
         echo "Virtualenv is not installed for this Python version"
@@ -242,12 +242,13 @@ _virtualenvwrapper_info() {
 }
 
 # virtualenvwrapper initializer
-init_virtualenvwrapper() { # modified 2021-04-01
+init_virtualenvwrapper() { # modified 2023-01-21
     echo "Initializing Virtualenvwrapper"
-    if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix)" ]; then
-        test python && SYS_PYTHON=$(which python) || SYS_PYTHON=$(which python3)
-        PYTHON="$SYS_PYTHON"
+    # if homebrew is not installed
+    if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix &>/dev/null)" ]; then
         echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
+        SYS_PYTHON=$(which python3)
+        PYTHON="$SYS_PYTHON"
         if [ ! "$(_is_virtualenv)" ]; then
             echo "Virtualenv is not set. Installing..."
             $PYTHON -m pip install virtualenv
@@ -257,8 +258,9 @@ init_virtualenvwrapper() { # modified 2021-04-01
                 $PYTHON -m pip install virtualenvwrapper
             fi
         else
-            export VIRTUALENVWRAPPER_SCRIPT_PREFIX="/usr/local/bin"
-            return
+            export VIRTUALENV_PREFIX="$HOME/.local/bin/"
+            export VIRTUALENV=$VIRTUALENV_PREFIX"/virtualenv"
+            export VIRTUALENVWRAPPER_SCRIPT_PREFIX="$HOME/.local/bin/"
         fi
     else
         # Save Homebrew Python
@@ -273,7 +275,6 @@ init_virtualenvwrapper() { # modified 2021-04-01
         echo "Using Homebrew's '$HOMEBREW_VIRTUALENV'"
         export VIRTUALENVWRAPPER_SCRIPT_PREFIX=$(brew --prefix)"/bin"
     fi
-
     _set_virtualenvwrapper
     printf "Attempting to source virtualenvwrapper.sh at %s:\n" "$VIRTUALENVWRAPPER_SCRIPT_PREFIX"
     _source_virtualenvwrapper
