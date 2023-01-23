@@ -40,7 +40,8 @@ if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)
 ##
 
 # WTF
-eval "$(thefuck --alias)"
+# Uncomment if https://github.com/nvbn/thefuck is installed
+# eval "$(thefuck --alias)"
 
 # autojump - https://github.com/wting/autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
