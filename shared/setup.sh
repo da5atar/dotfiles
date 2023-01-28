@@ -30,11 +30,17 @@ echo "===================="
 echo "Running linux/linuxbrew.sh"
 echo "====================\n"
 
-source linux/linuxbrew.sh
-
-echo "===================="
-echo "Done running linux/linuxbrew.sh"
-echo "====================\n"
+# if architecture is intel
+if [[ $(uname -m) == "x86_64" ]]; then
+  source linux/linuxbrew.sh
+  echo "===================="
+  echo "Done running linux/linuxbrew.sh"
+  echo "====================\n"
+else # if architecture is arm
+  echo "===================="
+  echo "Skipping linuxbrew.sh - ARM arch detected"
+  echo "====================\n"
+fi
 
 # Install apps and binaries with Snap
 echo "===================="
@@ -52,7 +58,7 @@ echo "===================="
 echo "Running linux/flatpak.sh"
 echo "====================\n"
 
-source linux/flatpak.sh
+# source linux/flatpak.sh
 
 echo "===================="
 echo "Done running linux/flatpak.sh"

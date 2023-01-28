@@ -55,7 +55,7 @@ if [[ "$MACHINE" == "Mac" ]]; then
     # colorls
     source $(dirname $(gem which colorls))/tab_complete.sh
 
-elif [[ "$MACHINE" == "Linux" ]]; then
+elif [[ "$MACHINE" == "Linux" ]] && [[ $(uname -m) == "x86_64" ]]; then
     # linuxbrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
