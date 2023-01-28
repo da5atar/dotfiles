@@ -245,7 +245,7 @@ _virtualenvwrapper_info() {
 init_virtualenvwrapper() { # modified 2023-01-21
     echo "Initializing Virtualenvwrapper"
     # if homebrew is not installed
-    if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix &>/dev/null)" ]; then
+    if [ -z "${HOMEBREW_PREFIX+x}" ] && ! brew --prefix &>/dev/null; then
         echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
         SYS_PYTHON=$(which python3)
         PYTHON="$SYS_PYTHON"
