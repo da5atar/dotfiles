@@ -222,6 +222,20 @@ _is_virtualenv() {
         return 0
     else
         echo "Virtualenv is not installed for this Python version"
+        return 1
+    fi
+}
+
+## Virtualenvwrapper
+_is_virtualenvwrapper() {
+    if [ "$(which virtualenvwrapper.sh)" ]; then
+        echo "Virtualenvwrapper is installed for $($PYTHON -V 2>&1 | head -n 1)"
+        # Save which virtualenv
+        VIRTUALENVWRAPPER=$(which virtualenvwrapper.sh)
+        return 0
+    else
+        echo "Virtualenvwrapper is not installed for this Python version"
+        return 1
     fi
 }
 
@@ -246,14 +260,14 @@ init_virtualenvwrapper() { # modified 2023-01-21
     echo "Initializing Virtualenvwrapper"
     # if homebrew is not installed
     if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix &>/dev/null)" ]; then
-        echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
         SYS_PYTHON=$(which python3)
         PYTHON="$SYS_PYTHON"
+        echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
         if [ ! "$(_is_virtualenv)" ]; then
             echo "Virtualenv is not set. Installing..."
             $PYTHON -m pip install virtualenv
             # if virtualenvwrapper is not installed
-            if [ ! "$(which virtualenvwrapper.sh)" ]; then
+            if [ ! $(_is_virtualenvwrapper) ]; then
                 echo "virtualenvwrapper is not installed. Installing..."
                 $PYTHON -m pip install virtualenvwrapper
             fi

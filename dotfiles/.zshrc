@@ -27,8 +27,10 @@ ZSH_THEME="agnoster"
 # plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
-    git
     autojump
+    git
+    python
+    z
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
