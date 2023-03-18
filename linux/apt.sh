@@ -69,7 +69,7 @@ sudo apt-get install -y \
   xz-utils \
   zlib1g-dev
 
-  sudo unminimize
+sudo unminimize
 
 # ###########
 # Development
@@ -78,11 +78,16 @@ sudo apt-get install -y \
 # Python
 curl https://pyenv.run | bash
 
-# MongoDB
-# sudo apt-get install -y mongodb
-
 # Postgres
 sudo apt-get install -y postgresql postgresql-contrib
+
+# Install Node.js 18 (LTS) and NPM.
+# Maintened until April 2025 (https://nodejs.org/en/about/releases/)
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# MongoDB
+# sudo apt-get install -y mongodb
 
 # ubuntu-make
 sudo add-apt-repository -y ppa:lyzardking/ubuntu-make

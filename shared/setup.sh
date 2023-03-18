@@ -6,78 +6,78 @@ sudo apt update && sudo apt upgrade -y
 # Install binaries via apt
 echo "===================="
 echo "Running linux/apt.sh"
-echo "====================\n"
+printf "====================\n"
 
 source linux/apt.sh
 
 echo "===================="
 echo "Done running linux/apt.sh"
-echo "====================\n"
+printf "====================\n"
 
 # Set npm permissions and install npm binaries
 echo "===================="
 echo "Running shared/npm.sh"
-echo "====================\n"
+printf "====================\n"
 
 source shared/npm.sh
 
 echo "===================="
 echo "Done running shared/npm.sh"
-echo "====================\n"
+printf "====================\n"
 
 # Install apps and binaries with Brew
 echo "===================="
 echo "Running linux/linuxbrew.sh"
-echo "====================\n"
+printf "====================\n"
 
 # if architecture is intel
 if [[ $(uname -m) == "x86_64" ]]; then
   source linux/linuxbrew.sh
   echo "===================="
   echo "Done running linux/linuxbrew.sh"
-  echo "====================\n"
+  printf "====================\n"
 else # if architecture is arm
   echo "===================="
   echo "Skipping linuxbrew.sh - ARM arch detected"
-  echo "====================\n"
+  printf "====================\n"
 fi
 
 # Install apps and binaries with Snap
 echo "===================="
 echo "Running linux/snap.sh"
-echo "====================\n"
+printf "====================\n"
 
 source linux/snap.sh
 
 echo "===================="
 echo "Done running linux/snap.sh"
-echo "====================\n"
+printf "====================\n"
 
 # Install apps and binaries with Flatpak
 echo "===================="
 echo "Running linux/flatpak.sh"
-echo "====================\n"
+printf "====================\n"
 
 # source linux/flatpak.sh
 
 echo "===================="
 echo "Done running linux/flatpak.sh"
-echo "====================\n"
+printf "====================\n"
 
 # Create symlinks for dotfiles
 echo "===================="
 echo "Linking dotfiles"
-echo "====================\n"
+printf "====================\n"
 
 source link-dotfiles.sh
 
 # Clone repos
 echo "===================="
 echo "Cloning repos"
-echo "====================\n"
+printf "====================\n"
 
 # source shared/clone-repos.sh
 
 echo "===================="
 echo "Setup is done!"
-echo "====================\n"
+printf "====================\n"

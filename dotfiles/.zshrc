@@ -44,9 +44,6 @@ if [[ "$MACHINE" == "Mac" ]]; then
     export STARSHIP_CONFIG="$HOME/.starship"
     eval "$(starship init zsh)"
 
-    # userpath
-    export PATH="$USER_PATH:$PATH"
-
     # Find brew utilities in /user/local/sbin
     export PATH="/usr/local/sbin:$PATH"
 
@@ -61,6 +58,9 @@ elif [[ "$MACHINE" == "Linux" ]] && [[ $(uname -m) == "x86_64" ]]; then
     # linuxbrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# userpath
+export PATH="$USER_PATH:$PATH"
 
 # default to base Python 3 installed with Homebrew
 # python3_base
