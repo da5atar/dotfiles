@@ -52,6 +52,7 @@ sudo apt-get install -y \
   libssl-dev \
   libreadline-dev \
   libreadline6-dev \
+  libsqlite3-dev \
   libxml2-dev \
   libxmlsec1-dev \
   libyaml-dev \
@@ -59,40 +60,34 @@ sudo apt-get install -y \
   liblzma-dev \
   llvm \
   make \
-  python-openssl \
+  python3-dev \
+  python3-openssl \
+  python3-pip \
+  python3-setuptools \
   tk-dev \
   wget \
   xz-utils \
   zlib1g-dev
 
+sudo unminimize
+
 # ###########
 # Development
 # ###########
 
-# Install ASDF (version manager which I use for non-Dockerized apps).
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf # --branch v0.8.1
-
-# Install Node through ASDF.
-asdf plugin-add nodejs
-bash ~/.asdf/plugins/nodejs/bin/import-release-team-keyring
-asdf install nodejs 18.9.0
-asdf global nodejs 18.9.0
-
-# Install Ruby through ASDF.
-asdf plugin-add ruby
-asdf install ruby 3.0.2
-asdf global ruby 3.0.2
-
-# Install Go through ASDF.
-asdf plugin-add golang
-asdf install golang 1.17.1
-asdf global golang 1.17.1
-
-# MongoDB
-# sudo apt-get install -y mongodb
+# Python
+curl https://pyenv.run | bash
 
 # Postgres
 sudo apt-get install -y postgresql postgresql-contrib
+
+# Install Node.js 18 (LTS) and NPM.
+# Maintened until April 2025 (https://nodejs.org/en/about/releases/)
+curl -sL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+# MongoDB
+# sudo apt-get install -y mongodb
 
 # ubuntu-make
 sudo add-apt-repository -y ppa:lyzardking/ubuntu-make

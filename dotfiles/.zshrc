@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
+
 # Fig pre block. Keep at the top of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
-    . "$HOME/.fig/shell/zshrc.pre.zsh"
+    [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
 fi
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
@@ -26,8 +27,10 @@ ZSH_THEME="agnoster"
 # plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
-    git
     autojump
+    git
+    python
+    z
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -41,9 +44,6 @@ if [[ "$MACHINE" == "Mac" ]]; then
     export STARSHIP_CONFIG="$HOME/.starship"
     eval "$(starship init zsh)"
 
-    # userpath
-    export PATH="$USER_PATH:$PATH"
-
     # Find brew utilities in /user/local/sbin
     export PATH="/usr/local/sbin:$PATH"
 
@@ -54,10 +54,13 @@ if [[ "$MACHINE" == "Mac" ]]; then
     # colorls
     source $(dirname $(gem which colorls))/tab_complete.sh
 
-elif [[ "$MACHINE" == "Linux" ]]; then
+elif [[ "$MACHINE" == "Linux" ]] && [[ $(uname -m) == "x86_64" ]]; then
     # linuxbrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# userpath
+export PATH="$USER_PATH:$PATH"
 
 # default to base Python 3 installed with Homebrew
 # python3_base
@@ -74,5 +77,6 @@ source "$HOME/.utils"
 
 # Fig post block. Keep at the bottom of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
-    . "$HOME/.fig/shell/zshrc.post.zsh"
+    [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 fi
+

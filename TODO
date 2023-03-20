@@ -1,2 +1,8 @@
-Todo:
+TODO:
 
+20230318
+    Refactor pyenv_venv and related functions to:
+        ✔ Refactor python3_latest @done(23-03-18 18:18)
+        ✔ Ensure the selected python version is set before creating the virtual environment @done(23-03-18 18:15)
+        ✔ Activate the virtual env upon selection of an existing environment, ask for creation otherwise @done(23-03-18 18:15)
+        ✔ Provide a message for deactivation of the virtual environment @done(23-03-18 18:15)
