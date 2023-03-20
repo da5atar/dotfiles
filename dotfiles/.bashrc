@@ -282,4 +282,7 @@ fi
 if [[ "$MACHINE" == "Mac" ]]; then
     [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 fi
-. "$HOME/.cargo/env"
+
+# Source cargo environment variables
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+

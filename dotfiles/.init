@@ -12,24 +12,35 @@ export MACHINE
 
 # Set Dropbox and Dev Workspace folders
 # Dropbox needs to be installed
-export HOSTNAME="$(hostname)"
+export HOSTNAME
+HOSTNAME="$(hostname)"
+
+# override for VMs
+export WORKSPACE
+# WORKSPACE=/media/psf/Workspace # change as needed
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$HOME"/Dev_workspace"
+export DEV_WORKSPACE=$HOME"/Dev_workspace" # default
+# export DEV_WORKSPACE=$WORKSPACE
 
 # Dropbox folder
-export DROPBOX_FOLDER=$HOME"/Dropbox"
+export DROPBOX_FOLDER
+DROPBOX_FOLDER=$HOME"/Dropbox"
 
 # Dev projects backup folder
-export DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev/"
+export DEV_PROJECTS
+DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev/"
 
 # GitHub repos folder
-export GITHUB_REPOS=$DEV_PROJECTS"/GitHub"
+export GITHUB_REPOS
+GITHUB_REPOS=$DEV_PROJECTS"/GitHub"
 
 # GitHub working folder
-export GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub"
+export GITHUB_FOLDER
+GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub"
 
 # These dotfiles
+export PROJECT_ROOT
 PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
 
 # Source aliases and exports

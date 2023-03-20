@@ -222,6 +222,20 @@ _is_virtualenv() {
         return 0
     else
         echo "Virtualenv is not installed for this Python version"
+        return 1
+    fi
+}
+
+## Virtualenvwrapper
+_is_virtualenvwrapper() {
+    if [ "$(which virtualenvwrapper.sh)" ]; then
+        echo "Virtualenvwrapper is installed for $($PYTHON -V 2>&1 | head -n 1)"
+        # Save which virtualenv
+        VIRTUALENVWRAPPER=$(which virtualenvwrapper.sh)
+        return 0
+    else
+        echo "Virtualenvwrapper is not installed for this Python version"
+        return 1
     fi
 }
 
@@ -246,6 +260,8 @@ init_virtualenvwrapper() { # modified 2023-01-21
     echo "Initializing Virtualenvwrapper"
     # if homebrew is not installed
     if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix &>/dev/null)" ]; then
+        SYS_PYTHON=$(which python3)
+        PYTHON="$SYS_PYTHON"
         echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
         SYS_PYTHON=$(which python3)
         PYTHON="$SYS_PYTHON"
@@ -253,7 +269,7 @@ init_virtualenvwrapper() { # modified 2023-01-21
             echo "Virtualenv is not set. Installing..."
             $PYTHON -m pip install virtualenv
             # if virtualenvwrapper is not installed
-            if [ ! "$(which virtualenvwrapper.sh)" ]; then
+            if [ ! $(_is_virtualenvwrapper) ]; then
                 echo "virtualenvwrapper is not installed. Installing..."
                 $PYTHON -m pip install virtualenvwrapper
             fi
@@ -387,8 +403,8 @@ _pyenv_virtualenv_installed() {
 _install_pyenv_virtualenv() {
     if ! _pyenv_virtualenv_installed; then
         echo "Installing pyenv-virtualenv"
-        git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
-        git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git $(pyenv root)/plugins/pyenv-virtualenvwrapper # optional
+        git clone https://github.com/pyenv/pyenv-virtualenv.git "$(pyenv root)"/plugins/pyenv-virtualenv
+        git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git "$(pyenv root)"/plugins/pyenv-virtualenvwrapper # optional
     else
         return 0
     fi
@@ -439,14 +455,17 @@ python3_base() {
 }
 
 # Set the Shell to latest Python3 from pyenv.
-# Installs virtualenv and virtualenvwrapper if not already installed
 # This function requires https://github.com/momo-lab/pyenv-install-latest
 python3_latest() {
-    if ! [ "$(pyenv install-latest --print)" = "$PYENV_VERSION" ]; then
-        echo "Latest python version not installed. Installing..."
-        pyenv install-latest || return 1
-        PYENV_VERSION="$(pyenv install-latest --print)"
+    PYENV_VERSION_3_LATEST=$(pyenv install-latest -l | grep -E '^\s+[0-9]+\.[0-9]+\.[0-9]+$' | tail -1 | xargs)
+    # check if latest python version is installed with pyenv
+    if pyenv versions | grep -q "$PYENV_VERSION_3_LATEST"; then
+        echo "Latest python version ($PYENV_VERSION_3_LATEST) is already installed"
+    else
+        echo "Installing latest python version"
+        pyenv install-latest "$PYENV_VERSION_3_LATEST"
     fi
+    PYENV_VERSION=$PYENV_VERSION_3_LATEST
     pyenv shell "$PYENV_VERSION"
 }
 
@@ -540,7 +559,7 @@ pyenv_venv() {
     local new_venv
     read -r new_venv
     case $new_venv in
-     y | Y) # Enter virtual environment name or press enter to use default
+    y | Y) # Enter virtual environment name or press enter to use default
         printf "---->\n"
         echo "Enter virtual environment name (optional): "
         local venv_name
@@ -595,8 +614,10 @@ _pyenv_version_selection() {
     done
 
     echo "There are ${#versions[*]} versions available."
+
     # display array
     # echo "${versions[@]}"
+
     # Display the active version
     local current_version
     current_version=$(pyenv version-name)
@@ -607,9 +628,20 @@ _pyenv_version_selection() {
     select version in "${versions[@]}"; do
         if [ -n "$version" ]; then
             echo "You selected: $version"
-            pyenv shell "$version" &&
+            # check if the version is from an existing virtual environment
+            if [[ "$version" =~ 'venv' ]]; then
+                echo "This is an existing virtual environment. Activating..."
+                pyenv activate "$version"
+                echo "To deactivate the virtual environment, run: pyenv deactivate"
+                printf "====>\n"
+                _venv_info
+                printf "=====\n"
+                return 1
+            else
+                pyenv shell "$version" &&
                 echo "current shell version is now: $PYENV_VERSION" &&
                 break
+            fi
         elif [ "$REPLY" = "q" ]; then
             return 1
         # TODO detect if user pressed enter

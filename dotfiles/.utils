@@ -57,12 +57,12 @@ if [[ "$MACHINE" == "Mac" ]]; then
   export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
-# asdf
-if [[ "$MACHINE" == "Linux" ]]; then
-  # Enable asdf to manage various programming runtime versions.
-  # Requires: https://asdf-vm.com/#/
-  source "$HOME"/.asdf/asdf.sh
-fi
+# asdf - Uncomment if asdf is installed
+# if [[ "$MACHINE" == "Linux" ]]; then
+#   # Enable asdf to manage various programming runtime versions.
+#   # Requires: https://asdf-vm.com/#/
+#   source "$HOME"/.asdf/asdf.sh
+# fi
 
 # fzf
 if [ -n "$BASH_VERSION" ]; then
@@ -104,5 +104,5 @@ HISTIGNORE='ls:bg:fg:history'
 # Store history immediately
 PROMPT_COMMAND='history -a'
 
-# Rust
-. "$HOME/.cargo/env"
+# Rust - Uncomment if Rust is installed
+# . "$HOME/.cargo/env"
