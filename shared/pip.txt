@@ -1,0 +1,4 @@
+## Tools
+### https://github.com/xonsh/xonsh or
+
+python -m pip install 'xonsh[full]'

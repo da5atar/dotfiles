@@ -167,6 +167,26 @@ _exit_on_error() {
     fi
 }
 
+# Usage: deactivate running shell processes including virtual envs for graceful exit and reload
+exit_shell() {
+  # Deactivate any active virtual environment
+  if command -v deactivate &> /dev/null; then
+    deactivate &> /dev/null
+  fi
+
+  # Deactivate any active pyenv environment
+  if command -v pyenv &> /dev/null; then
+    pyenv deactivate &> /dev/null
+  fi
+
+  # Gracefully exit any running shell processes
+  if jobs &> /dev/null; then
+    kill -TERM $(jobs -p) &> /dev/null
+  fi
+
+  # Reload the shell
+#   exec "$SHELL"
+}
 
 # Find port in use (used to kill pid)
 function findpid() {
@@ -178,9 +198,11 @@ function killpid() {
     kill -9 "$@"
 }
 
+
 #--- Media
 
 # Function to downloads a .mp3 file from YouTube
+# Requires youtube-dl
 function dlmp3() {
     song="$1"
     youtube-dl -x --extract-audio --audio-format mp3 "ytsearch:$song"
@@ -200,17 +222,49 @@ timestamp() {
 
 #--- Python
 
-# Save python version output in a variable
+## Save python version output in a variable
 pyversion() {
     _set_python_alias
     _pyversion=$($PYTHON --version 2>&1) # needs redirect because defaults to stderr
     echo "$_pyversion"
 }
 
-# Returns Python version with underscore
+## Returns Python version with underscore
 _add_underscore_pyversion() {
     pyv=$(pyversion)
     add_underscore "$pyv"
+}
+
+### Print python info
+py_info() {
+    local GREEN="\033[0;32m"
+    local NOCOLOR='\033[0m'
+
+    echo "${GREEN}Python Info: ${NOCOLOR}"
+    printf "=====\n"
+    echo "${GREEN}Using: ${NOCOLOR}"
+    which "$PYTHON"
+    echo "${GREEN}Version: ${NOCOLOR}"
+    $PYTHON -V
+    echo "${GREEN}with: ${NOCOLOR}"
+    $VIRTUALENV --version
+    echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
+    $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location
+    echo "${GREEN}and: ${NOCOLOR}"
+    $PYTHON -m pip --version
+    echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
+    printf "=====\n"
+}
+
+### function to ensure python command is available
+_set_python_alias() {
+    # Set python alias if python command is not found
+    if ! python --version &>/dev/null; then
+        if python3 --version &>/dev/null; then
+            export PYTHON=python3
+            alias python='$PYTHON'
+        fi
+    fi
 }
 
 ## Virtualenv
@@ -226,6 +280,14 @@ _is_virtualenv() {
     fi
 }
 
+_virtualenv_info() {
+    local GREEN="\033[0;32m"
+    local NOCOLOR='\033[0m'
+    echo "${GREEN}Virtualenv Info: ${NOCOLOR}"
+    echo "${GREEN}Using: ${NOCOLOR} $(which virtualenv)"
+    $PYTHON -m pip show virtualenv | grep -e Version -e Location
+}
+
 ## Virtualenvwrapper
 _is_virtualenvwrapper() {
     if [ "$(which virtualenvwrapper.sh)" ]; then
@@ -239,15 +301,6 @@ _is_virtualenvwrapper() {
     fi
 }
 
-_virtualenv_info() {
-    local GREEN="\033[0;32m"
-    local NOCOLOR='\033[0m'
-    echo "${GREEN}Virtualenv Info: ${NOCOLOR}"
-    echo "${GREEN}Using: ${NOCOLOR} $(which virtualenv)"
-    $PYTHON -m pip show virtualenv | grep -e Version -e Location
-}
-
-## Virtualenvwrapper
 _virtualenvwrapper_info() {
     local GREEN="\033[0;32m"
     local NOCOLOR='\033[0m'
@@ -255,7 +308,7 @@ _virtualenvwrapper_info() {
     $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location
 }
 
-# virtualenvwrapper initializer
+### virtualenvwrapper initializer
 init_virtualenvwrapper() { # modified 2023-01-21
     echo "Initializing Virtualenvwrapper"
     # if homebrew is not installed
@@ -294,7 +347,7 @@ init_virtualenvwrapper() { # modified 2023-01-21
     _source_virtualenvwrapper
 }
 
-# Set virtualenvwrapper helper fn
+### Set virtualenvwrapper helper fn
 _set_virtualenvwrapper() {
     PROJECT_HOME="$DEV_WORKSPACE/Python/Projects"
     WORKON_HOME="$VENV_FOLDER/System"
@@ -303,7 +356,7 @@ _set_virtualenvwrapper() {
     VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
 }
 
-# Source virtualenvwrapper.sh
+### Source virtualenvwrapper.sh
 _source_virtualenvwrapper() {
     if [ -z "${VIRTUALENVWRAPPER_SCRIPT_PREFIX+x}" ]; then
         echo "VIRTUALENVWRAPPER_SCRIPT_PREFIX is unset."
@@ -312,38 +365,6 @@ _source_virtualenvwrapper() {
         echo "Successfully initialized virtualenvwrapper"
     else
         echo "virtualenvwrapper.sh not found"
-    fi
-}
-
-# Print python info
-py_info() {
-    local GREEN="\033[0;32m"
-    local NOCOLOR='\033[0m'
-
-    echo "${GREEN}Python Info: ${NOCOLOR}"
-    printf "=====\n"
-    echo "${GREEN}Using: ${NOCOLOR}"
-    which "$PYTHON"
-    echo "${GREEN}Version: ${NOCOLOR}"
-    $PYTHON -V
-    echo "${GREEN}with: ${NOCOLOR}"
-    $VIRTUALENV --version
-    echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
-    $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location
-    echo "${GREEN}and: ${NOCOLOR}"
-    $PYTHON -m pip --version
-    echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
-    printf "=====\n"
-}
-
-# function to ensure python command is available
-_set_python_alias() {
-    # Set python alias if python command is not found
-    if ! python --version &>/dev/null; then
-        if python3 --version &>/dev/null; then
-            export PYTHON=python3
-            alias python='$PYTHON'
-        fi
     fi
 }
 
@@ -397,7 +418,7 @@ _pyenv_virtualenv_installed() {
     fi
 }
 
-# https://github.com/pyenv/pyenv-virtualenv
+## https://github.com/pyenv/pyenv-virtualenv
 _install_pyenv_virtualenv() {
     if ! _pyenv_virtualenv_installed; then
         echo "Installing pyenv-virtualenv"
@@ -725,7 +746,13 @@ mkvenv() {
     fi
 
     echo "Creating virtual environment with system-wide python"
-    mkvirtualenv "$venv_name" && workon "$venv_name"
+    # Use virtualenvwrapper to create and activate virtual environment
+    if _is_virtualenvwrapper_installed; then
+        mkvirtualenv "$venv_name" && workon "$venv_name"
+    else
+        #use python venv
+        python -m venv "$venv_name" && source "$venv_name"/bin/activate
+    fi
     printf "=====\n"
 }
 
@@ -742,7 +769,6 @@ docker-py-env() {
     docker run --rm --name "$(slug "$(here)")" -it -v "$(here)_python-env":/usr/local/lib -v "${PWD}":/usr/src/app -w /usr/src/app python:latest bash
 }
 
-
 ### docker-py3.8-env()
 # This function takes one parameter:
 # $1 is the name of the virtual environment (optional)
@@ -755,7 +781,6 @@ docker-py3.8-env() {
     fi
     docker run --rm --name "$(slug "$(here)")" -it -v "$(here)_python-env":/usr/local/lib -v "${PWD}":/usr/src/app -w /usr/src/app python:3.8 bash
 }
-
 
 ### docker-py-env-del()
 # This function takes one parameter:
@@ -811,6 +836,7 @@ slugify() {
 slug() {
     echo $(slugify ${${1:-$PWD}: -200})
 }
+
 
 #--- Directories
 
@@ -885,15 +911,12 @@ up() {
     cd $d
 }
 
-
-
 # Get current directory name without full path
 ### here()
 here() {
     local here=${PWD##*/}
     printf '%q\n' "$here"
 }
-
 
 # Automatically do an ls after each cd
 cd() {
@@ -1091,6 +1114,7 @@ _gitignoreio() {
 }
 
 compdef _gitignoreio gi
+
 
 # -- $PATH
 
