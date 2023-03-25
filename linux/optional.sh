@@ -25,11 +25,6 @@ cargo install ripgrep
 cargo install tokei
 cargo install zoxide
 
-# Install Go.
-wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
-sudo tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
-rm go1.17.1.linux-amd64.tar.gz
-
 # Install Docker.
 sudo apt-get install -y docker.io
 sudo systemctl start docker
@@ -37,3 +32,6 @@ sudo systemctl enable docker
 
 # Install Ruby
 sudo apt-get install -y ruby-full
+
+# Shell formatter shfmt https://github.com/mvdan/sh
+sudo apt-get install -y shfmt

@@ -6,21 +6,21 @@
 init_virtualenvwrapper
 
 if [[ "$MACHINE" == "Mac" ]]; then
-  # Anaconda3 (Homebrew)
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-  if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-  else
-    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-      . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+    # Anaconda3 (Homebrew)
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-      export PATH="/usr/local/anaconda3/bin:$PATH"
+        if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/usr/local/anaconda3/bin:$PATH"
+        fi
     fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
+    unset __conda_setup
+    # <<< conda initialize <<<
 fi
 
 # # set up pyenv #
@@ -48,33 +48,33 @@ if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)
 
 # z - Fast navigation, see [this gist](https://gist.github.com/mischah/8149239)
 if command -v brew >/dev/null 2>&1; then
-  # Load rupa's z if installed
-  [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
+    # Load rupa's z if installed
+    [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
 fi
 
 if [[ "$MACHINE" == "Mac" ]]; then
-  # Load GNU core utilities installed from Homebrew
-  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    # Load GNU core utilities installed from Homebrew
+    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
-# asdf - Uncomment if asdf is installed
-# if [[ "$MACHINE" == "Linux" ]]; then
-#   # Enable asdf to manage various programming runtime versions.
-#   # Requires: https://asdf-vm.com/#/
-#   source "$HOME"/.asdf/asdf.sh
-# fi
+asdf - Uncomment if asdf is installed
+if [[ "$MACHINE" == "Linux" ]]; then
+    # Enable asdf to manage various programming runtime versions.
+    # Requires: https://asdf-vm.com/#/
+    source "$HOME"/.asdf/asdf.sh
+fi
 
 # fzf
 if [ -n "$BASH_VERSION" ]; then
-  # fzf
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    # fzf
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 
 # clinews
 # Go to https://newsapi.org/register URL and register a free account to get the API key.
 # $CLINEWS_API_KEY is declared in env/keys.sh
 
-# export IN_API_KEY="$CLINEWS_API_KEY"
+export IN_API_KEY="$CLINEWS_API_KEY"
 
 # Ensure no dupes in $PATH
 set_no_dupes_path &>/dev/null
@@ -105,4 +105,5 @@ HISTIGNORE='ls:bg:fg:history'
 PROMPT_COMMAND='history -a'
 
 # Rust - Uncomment if Rust is installed
-# . "$HOME/.cargo/env"
+# Source cargo environment variables
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"

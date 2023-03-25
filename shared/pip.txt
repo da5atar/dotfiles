@@ -1,4 +1,7 @@
-## Tools
-### https://github.com/xonsh/xonsh or
-
+## Tools virtual env
+### https://github.com/xonsh/xonsh
 python -m pip install 'xonsh[full]'
+
+### shell-gpt https://pypi.org/project/shell-gpt/
+pip install shell-gpt
+
