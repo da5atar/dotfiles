@@ -17,7 +17,7 @@ HOSTNAME="$(hostname)"
 
 # override for VMs
 export WORKSPACE
-WORKSPACE=/media/psf/Workspace # change as needed
+WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
 # export DEV_WORKSPACE=$HOME"/Dev_workspace" # default

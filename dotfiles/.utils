@@ -57,11 +57,15 @@ if [[ "$MACHINE" == "Mac" ]]; then
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
-asdf - Uncomment if asdf is installed
+# asdf - Uncomment if asdf is installed
 if [[ "$MACHINE" == "Linux" ]]; then
     # Enable asdf to manage various programming runtime versions.
     # Requires: https://asdf-vm.com/#/
     source "$HOME"/.asdf/asdf.sh
+    # append completions to fpath
+    fpath=(${ASDF_DIR}/completions $fpath)
+    # initialise completions with ZSH's compinit
+    autoload -Uz compinit && compinit
 fi
 
 # fzf

@@ -1128,14 +1128,14 @@ no_dupes_path() {
 }
 
 # function to echo $PATH one entry per line
-### no_dupes_path()
+### show_path()
 # Note: Inspired from https://www.linuxjournal.com/content/removing-duplicate-path-entries
 show_path() {
     awk -v RS=: '{print}' <<<"$PATH"
 }
 
 # function to set $PATH with no dupes and echo one entry per line
-### no_dupes_path()
+### set_no_dupes_path()
 # Note: Inspired from https://www.linuxjournal.com/content/removing-duplicate-path-entries
 set_no_dupes_path() {
     PATH=$(no_dupes_path)
