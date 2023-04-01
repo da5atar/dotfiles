@@ -37,3 +37,6 @@ GPG_TTY=$(tty)
 
 # Save private binaries path
 export USER_PATH="$HOME/.local/bin"
+
+# Fig
+export ZSH_PLUGINS="/Users/mass/.local/share/fig/plugins/ohmyzsh/plugins"
