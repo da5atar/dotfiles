@@ -28,3 +28,18 @@ npm install --global public-ip-cli
 
 # Pyenv-install-latest (deprecated)
 git clone https://github.com/momo-lab/pyenv-install-latest.git "$(pyenv root)"/plugins/pyenv-install-latest
+
+# Nerd Fonts
+cd "$HOME" && git clone https://github.com/ryanoasis/nerd-fonts
+cd nerd-fonts || exit
+sudo ./install.sh Hack
+sudo ./install.sh FiraCode
+cd "$HOME" && rm -rf nerd-fonts
+
+# Install Rust.
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install Go.
+wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
+sudo tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
+rm go1.17.1.linux-amd64.tar.gz
