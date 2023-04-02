@@ -28,6 +28,7 @@ ZSH_THEME="agnoster"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
     autojump
+    autoswitch_virtualenv
     git
     python
     z

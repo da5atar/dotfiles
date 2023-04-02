@@ -43,3 +43,8 @@ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 wget https://golang.org/dl/go1.17.1.linux-amd64.tar.gz
 sudo tar -C /usr/local -xzf go1.17.1.linux-amd64.tar.gz
 rm go1.17.1.linux-amd64.tar.gz
+
+# https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+git clone "https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv.git" "$ZSH_CUSTOM/plugins/autoswitch_virtualenv"
+# Then add this line to your .zshrc. Make sure it is before the line source $ZSH/oh-my-zsh.sh.
+# plugins=(autoswitch_virtualenv $plugins)
