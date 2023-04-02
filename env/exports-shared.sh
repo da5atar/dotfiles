@@ -9,8 +9,15 @@ export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project"
 
 # Python Projects
 export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/Projects"
-export PYTHON
+export SYS_PYTHON
+SYS_PYTHON=$(which python3)
+export PYTHON="$SYS_PYTHON"
+export PYTHON2
+export PYTHON3
+export PYTHON3_LATEST
 export PIP="$PYTHON -m pip"
+export PIP2
+export PIP3
 export VIRTUALENV
 
 # Pyenv

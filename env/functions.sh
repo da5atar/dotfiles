@@ -561,6 +561,7 @@ pyenv_venv() {
     echo "Press 2 or 3 followed by the virtual environment name (optional) to select defaults"
     echo "Press 1 to use latest python"
     echo "Press s to choose from installed versions"
+    echo "Press d to delete a virtual environment"
     echo "Press q to quit"
     # wait for input
     printf "Enter your choice: "
@@ -569,12 +570,13 @@ pyenv_venv() {
     1) printf "====>\n" && python3_latest || return 1 ;;
     2) printf "====>\n" && python2_latest || return 1 ;;
     3) printf "====>\n" && python3_base || return 1 ;;
-    s) printf "====>\n" && _pyenv_version_selection || return 1 ;;
-    q) return ;;
+    s|S) printf "====>\n" && _pyenv_version_selection || return 1 ;;
+    d|D) printf "====>\n" && _delete_pyenv_venv && return;;
+    q|Q) return ;;
     *) echo "invalid choice" && return 1 ;;
     esac
 
-    # Prompt user to continue creating virtual environment
+    # Prompt user to continue creating virtual environment if selection is not s, d or q
     printf "Press y to create new virtual environment, n to continue without creating a new one \n"
     printf "or q to quit. Choice: "
     local new_venv
@@ -618,8 +620,8 @@ pyenv_venv() {
                     _set_pyenv_venv && printf "====>\n" && pyenv_info
             fi
         ;;
-    q | Q) echo "Exiting..." && return 1 ;;
-    *) echo "Invalid choice" ;;
+    q | Q) echo "Exiting..." && return 0 ;;
+    *) echo "Invalid choice" && return 1;;
     esac
 
     echo "Done!"
@@ -736,6 +738,59 @@ _create_pyenv_venv() {
     echo "To delete the virtual environment, run: pyenv uninstall $venv_name"
     echo "To deactivate the virtual environment, run: pyenv deactivate"
     printf "=====\n"
+}
+
+# Delete a virtual environment created with pyenv
+### _delete_pyenv_venv()
+# This function takes one parameter:
+# $1 is the name of the virtual environment (optional)
+# Usage: _delete_pyenv_venv <virtual environment name>
+# Example: _delete_pyenv_venv myvenv
+_delete_pyenv_venv() {
+    if [ "$1" ]; then
+        venv_name="$1"
+    else
+        local -a versions
+
+        for version in $(pyenv versions --bare --skip-aliases); do
+            versions+=("$version")
+        done
+
+        echo "There are ${#versions[*]} versions available."
+
+        # Display the active version
+        local current_version
+        current_version=$(pyenv version-name)
+        echo "Current version: $current_version"
+
+        printf "Select version to delete or 'q' to exit. \n"
+        PS3="Selection: "
+        select version in "${versions[@]}"; do
+            if [ -n "$version" ]; then
+                echo "You selected: $version"
+                if [[ "$version" =~ 'venv' ]]; then
+                    venv_name="$version"
+                    break
+                else
+                    echo "This is not a virtual environment. Try another one."
+                    echo "To remove it, run: 'pyenv uninstall $version'"
+                fi
+                break
+            elif [ "$REPLY" = "q" ]; then
+                return 0
+            else
+                echo "Invalid option. Try another one - 'q': exit."
+            fi
+        done
+    fi
+
+    if [ -z "$venv_name" ]; then
+        echo "No virtual environment selected. Exiting."
+        return 0
+    else
+        echo "Deleting virtual environment: $venv_name"
+        pyenv virtualenv-delete "$venv_name"
+    fi
 }
 
 # Usage: mkvenv <virtual environment name>
