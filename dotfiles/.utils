@@ -5,22 +5,22 @@
 # Initialize virtualenvwrapper
 init_virtualenvwrapper
 
-if [[ "$MACHINE" == "Mac" ]];then
-  # Anaconda3 (Homebrew)
-  # >>> conda initialize >>>
-  # !! Contents within this block are managed by 'conda init' !!
-  __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-  if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-  else
-    if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-      . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+if [[ "$MACHINE" == "Mac" ]]; then
+    # Anaconda3 (Homebrew)
+    # >>> conda initialize >>>
+    # !! Contents within this block are managed by 'conda init' !!
+    __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
+    if [ $? -eq 0 ]; then
+        eval "$__conda_setup"
     else
-      export PATH="/usr/local/anaconda3/bin:$PATH"
+        if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
+            . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+        else
+            export PATH="/usr/local/anaconda3/bin:$PATH"
+        fi
     fi
-  fi
-  unset __conda_setup
-  # <<< conda initialize <<<
+    unset __conda_setup
+    # <<< conda initialize <<<
 fi
 
 # # set up pyenv #
@@ -40,40 +40,74 @@ if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)
 ##
 
 # WTF
-eval "$(thefuck --alias)"
+# Uncomment if https://github.com/nvbn/thefuck is installed
+# eval "$(thefuck --alias)"
 
 # autojump - https://github.com/wting/autojump
 [ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
 
 # z - Fast navigation, see [this gist](https://gist.github.com/mischah/8149239)
 if command -v brew >/dev/null 2>&1; then
-  # Load rupa's z if installed
-  [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
+    # Load rupa's z if installed
+    [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
 fi
 
-if [[ "$MACHINE" == "Mac" ]];then
-  # Load GNU core utilities installed from Homebrew
-  export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+if [[ "$MACHINE" == "Mac" ]]; then
+    # Load GNU core utilities installed from Homebrew
+    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
-# asdf
-if [[ "$MACHINE" == "Linux" ]];then
-# Enable asdf to manage various programming runtime versions.
-# Requires: https://asdf-vm.com/#/
-  source "$HOME"/.asdf/asdf.sh
+# asdf - Uncomment if asdf is installed
+if [[ "$MACHINE" == "Linux" ]]; then
+    # Enable asdf to manage various programming runtime versions.
+    # Requires: https://asdf-vm.com/#/
+    source "$HOME"/.asdf/asdf.sh
+    # append completions to fpath
+    fpath=(${ASDF_DIR}/completions $fpath)
+    # initialise completions with ZSH's compinit
+    autoload -Uz compinit && compinit
 fi
 
 # fzf
 if [ -n "$BASH_VERSION" ]; then
-  # fzf
-  [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    # fzf
+    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
 fi
 
 # clinews
 # Go to https://newsapi.org/register URL and register a free account to get the API key.
 # $CLINEWS_API_KEY is declared in env/keys.sh
 
-# export IN_API_KEY="$CLINEWS_API_KEY"
+export IN_API_KEY="$CLINEWS_API_KEY"
 
 # Ensure no dupes in $PATH
 set_no_dupes_path &>/dev/null
+
+# Better history
+# See https://blog.sanctum.geek.nz/better-bash-history/
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob
+
+# Append to the Bash history file, rather than overwriting it
+# shopt -s histappend
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell
+
+# Use one command per line
+shopt -s cmdhist
+
+# Allow a larger history file
+HISTFILESIZE=1000000
+HISTSIZE=1000000
+
+# ignore certain commands, duplicates and commands that start with a space in history
+HISTCONTROL=ignoreboth
+HISTIGNORE='ls:bg:fg:history'
+
+# Store history immediately
+PROMPT_COMMAND='history -a'
+
+# Rust - Uncomment if Rust is installed
+# Source cargo environment variables
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"

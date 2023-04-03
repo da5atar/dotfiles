@@ -91,7 +91,7 @@ done
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+alias reload='exit_shell'
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
@@ -145,5 +145,28 @@ alias radio='tera'
 # Better find
 alias fd='find'
 
+# Git
+alias clone='git clone'
+
 # gitignore
 alias gi='gitignore'
+
+# Docker
+
+## commands
+alias docker-containers='docker ps -a'
+
+## Python Bind Mounts
+alias docker-python3.8='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.8 python'
+alias docker-python3.9='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.9 python'
+alias docker-python3.10='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.10 python'
+alias docker-python='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:latest python'
+
+## Python with Volumes
+alias docker-python-vol='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app -v python-dev-vol:/usr/local/lib python:latest python'
+
+## Ubuntu
+alias docker-ubuntu='docker run --rm -it -hostname ubuntu -v "${DEV_PROJECTS}":/ -w / ubuntu:latest -v docker-vol'
+
+## source bash config
+alias bashcfg='source ~/.bashcfg'

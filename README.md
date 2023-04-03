@@ -1,7 +1,7 @@
 # Device installation scripts for Mac and Windows (WSL)
 ## Quickly Get Set Up with These Dotfiles
 
-This repository was inspired by [Mathias Bynens' dotfiles](https://github.com/mathiasbynens/dotfiles) repository and adapted from [Zell Liew's](https://github.com/zellwk/dotfiles) and from [Nick Janetakis's dotfiles](https://github.com/nickjj/dotfiles.git). 
+This repository was inspired by [Mathias Bynens' dotfiles](https://github.com/mathiasbynens/dotfiles) repository and adapted from [Zell Liew's](https://github.com/zellwk/dotfiles) and from [Nick Janetakis's dotfiles](https://github.com/nickjj/dotfiles.git).
 Although I copied many things, I also deleted/updated many things to suit my custom installation. Use this at your own risk!
 
 Here are the installation instructions for Mac and Windows (WSL)
@@ -46,10 +46,9 @@ Some of the paths may also contain unique IDs too, so adjust them as needed on y
 Some of these configs expect that you have certain programs or tools installed
 on Windows.
 
-Pay very close attention to the `c/Users/Mass/.wslconfig` file because it has
+Pay very close attention to the `c/Users/Mass/.wslconfig` file in the windows folder because it has
 values in there that you will very likely need to change before using it.
-[This commit
-message](https://github.com/nickjj/dotfiles/commit/d0f1fc2622204b809cf7fcbb1a82d45b451064c4)
+[This commit message](https://github.com/nickjj/dotfiles/commit/d0f1fc2622204b809cf7fcbb1a82d45b451064c4)
 goes into the details.
 
 Also, you should reboot to activate your `/etc/wsl.conf` file (symlinked

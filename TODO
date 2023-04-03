@@ -1,8 +1,8 @@
+TODO:
 
-Todo:
-  ☐ TODO 1: Add other processes to savebatt functions
-  TODO 2: Refactor py*_venv functions to DRY with if statement
-  ☐ TODO 3: Rearrange mac/brew.sh alphabetically
-  ☐ TODO 4: Perform refactors with shellcheck
-  ☐ TODO 5: Refactor netinfo function to work on MAC
-  
+20230318
+    Refactor pyenv_venv and related functions to:
+        ✔ Refactor python3_latest @done(23-03-18 18:18)
+        ✔ Ensure the selected python version is set before creating the virtual environment @done(23-03-18 18:15)
+        ✔ Activate the virtual env upon selection of an existing environment, ask for creation otherwise @done(23-03-18 18:15)
+        ✔ Provide a message for deactivation of the virtual environment @done(23-03-18 18:15)
