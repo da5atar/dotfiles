@@ -69,7 +69,7 @@ sudo apt-get install -y \
   xz-utils \
   zlib1g-dev
 
-sudo unminimize
+sudo unminimize # install all ubuntu packages
 
 # ###########
 # Development
