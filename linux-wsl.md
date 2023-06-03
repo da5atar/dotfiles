@@ -1,8 +1,8 @@
-# Windows installation instructions 
+# Windows installation instructions
 
 ## Enable Windows Subsystem for Linux (WSL)
 
-Follow instructions from [this blog post]() to enable WSL. 
+Follow instructions from [this blog post](https://learn.microsoft.com/en-us/windows/wsl/install) to enable WSL.
 
 ~~Note: This repository is configured for Ubuntu 18.04. If you install a different version, you might need to download a different version for MongoDB in [`apt.sh`](windows/apt.sh). ~~
 
@@ -21,9 +21,9 @@ By the way I would make an effort to read everything before copy / pasting
 these commands into a terminal just so you know what's getting installed. You
 may want to modify some of these things, such as version numbers.
 
-## Run `setup.sh` 
+## Run `setup.sh`
 
-What this does: 
+What this does:
 
 1. Updates apt and binaries. (See [`apt.sh`](linux/apt.sh))
 2. Installs binaries and apps with `snap` and `flatpak` (see [snap.sh](linux/snap.sh) and [flatpak.sh](linux/flatpak.sh) for a list of installed items)
