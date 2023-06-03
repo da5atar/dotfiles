@@ -7,7 +7,6 @@
 # Alias's for SSH
 # alias SERVERNAME='ssh YOURWEBSITE.com -l USERNAME -p PORTNUMBERHERE'
 
-
 #######################################################
 # GENERAL ALIAS'S
 #######################################################
@@ -42,7 +41,6 @@ alias freshclam='sudo freshclam'
 alias vi='vim'
 alias svi='sudo vi'
 alias vis='vim "+set si"'
-
 
 # cd into the old directory
 alias bd='cd "$OLDPWD"'
@@ -109,8 +107,7 @@ alias copy="tr -d '\n' | pbcopy"
 # #########
 
 # Set python alias if python is not found
-if ! python --version &> /dev/null; then
+if ! python --version &>/dev/null; then
     alias python='python3'
     alias pip='pip3'
 fi
-

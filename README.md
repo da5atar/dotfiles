@@ -1,4 +1,5 @@
 # Device installation scripts for Mac and Windows (WSL)
+
 ## Quickly Get Set Up with These Dotfiles
 
 This repository was inspired by [Mathias Bynens' dotfiles](https://github.com/mathiasbynens/dotfiles) repository and adapted from [Zell Liew's](https://github.com/zellwk/dotfiles) and from [Nick Janetakis's dotfiles](https://github.com/nickjj/dotfiles.git).
@@ -34,7 +35,7 @@ docker info
 docker-compose --version
 ```
 
-#### Using WSL 1 or WSL 2?
+### Using WSL 1 or WSL 2?
 
 In addition to the Linux side of things, there's a few config files that I have
 in various directories of this dotfiles repo. These have long Windows paths.
@@ -54,6 +55,5 @@ goes into the details.
 Also, you should reboot to activate your `/etc/wsl.conf` file (symlinked
 earlier). That will be necessary if you want to access your mounted drives at
 `/c` or `/d` instead of `/mnt/c` or `/mnt/d`.
-
 
 Have a suggestion? [Please let me know!](mailto:mass.sow@gmail.com)
