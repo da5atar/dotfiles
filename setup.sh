@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091
 
 unameOut="$(uname -s)"
 case "${unameOut}" in

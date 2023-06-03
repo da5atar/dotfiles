@@ -4,7 +4,7 @@
 
 # Create a .tar.gz archive, using `zopfli`, `pigz` or `gzip` for compression
 function targz() {
-    local tmpFile="${@%/}.tar"
+    local tmpFile="${*%/}.tar"
     tar -cvf "${tmpFile}" --exclude=".DS_Store" "${@}" || return 1
 
     size=$(
@@ -43,7 +43,7 @@ function fs() {
     else
         local arg=-sh
     fi
-    if [[ -n "$@" ]]; then
+    if [[ -n "$*" ]]; then
         du $arg -- "$@"
     else
         du $arg .[^.]* ./*
@@ -52,7 +52,8 @@ function fs() {
 
 # Create a data URL from a file
 function dataurl() {
-    local mimeType=$(file -b --mime-type "$1")
+    local mimeType
+    mimeType=$(file -b --mime-type "$1")
     if [[ $mimeType == text/* ]]; then
         mimeType="${mimeType};charset=utf-8"
     fi
@@ -61,7 +62,7 @@ function dataurl() {
 
 # Extracts any archive(s) (if unp isn't installed)
 extract() {
-    for archive in $*; do
+    for archive in "$@"; do
         if [ -f "$archive" ]; then
             case "$archive" in
             *.tar.bz2) tar xvjf "$archive" ;;
@@ -118,9 +119,12 @@ ftext() {
 
 # Compare original and gzipped file size
 function gz() {
-    local origsize=$(wc -c <"$1")
-    local gzipsize=$(gzip -c "$1" | wc -c)
-    local ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
+    local origsize
+    local gzipsize
+    local ratio
+    origsize=$(wc -c <"$1")
+    gzipsize=$(gzip -c "$1" | wc -c)
+    ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
     printf "orig: %d bytes\n" "$origsize"
     printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio"
 }
@@ -145,13 +149,13 @@ add_underscore() {
 #--- Processes
 
 # continue
-_proceed () {
+_proceed() {
     printf "Continue? [y/n] "
     read -r response
     case $response in
-        y | Y) return 0;;
-        n | N) return 1;;
-        * ) echo "Please answer yes or no.";;
+    y | Y) return 0 ;;
+    n | N) return 1 ;;
+    *) echo "Please answer yes or no." ;;
     esac
 }
 
@@ -160,31 +164,31 @@ _proceed () {
 # Usage: _exit_on_error $? !!
 _exit_on_error() {
     exit_code=$1
-    last_command=${@:2}
-    if [ $exit_code -ne 0 ]; then
-        >&2 echo "\"${last_command}\" command exited with code ${exit_code}."
+    last_command=${*:2}
+    if [ "$exit_code" -ne 0 ]; then
+        echo >&2 "\"${last_command}\" command exited with code ${exit_code}."
         exit "$exit_code"
     fi
 }
 
 # Usage: deactivate running shell processes including virtual envs for graceful exit and reload
 exit_shell() {
-  # Deactivate any active virtual environment
-  if command -v deactivate &> /dev/null; then
-    deactivate &> /dev/null
-  fi
+    # Deactivate any active virtual environment
+    if command -v deactivate &>/dev/null; then
+        deactivate &>/dev/null
+    fi
 
-  # Deactivate any active pyenv environment
-  if command -v pyenv &> /dev/null; then
-    pyenv deactivate &> /dev/null
-  fi
+    # Deactivate any active pyenv environment
+    if command -v pyenv &>/dev/null; then
+        pyenv deactivate &>/dev/null
+    fi
 
-  # Gracefully exit any running shell processes
-  if jobs &> /dev/null; then
-    kill -TERM $(jobs -p) &> /dev/null
-  fi
+    # Gracefully exit any running shell processes
+    if jobs &>/dev/null; then
+        kill -TERM "$(jobs -p)" &>/dev/null
+    fi
 
-  # Reload the shell
+    # Reload the shell
     exec "$SHELL" -l
 }
 
@@ -197,7 +201,6 @@ function findpid() {
 function killpid() {
     kill -9 "$@"
 }
-
 
 #--- Media
 
@@ -280,7 +283,7 @@ _is_virtualenv() {
 
 _virtualenv_info() {
     echo "${GREEN}Virtualenv Info: ${NOCOLOR}"
-    $PYTHON -m pip show virtualenv | grep -e Version -e Location
+    $PYTHON -m pip show virtualenv | grep -e Version -e Location || echo "Virtualenv is not installed"
 }
 
 ## Virtualenvwrapper
@@ -296,7 +299,7 @@ _is_virtualenvwrapper_installed() {
 
 _virtualenvwrapper_info() {
     echo "${GREEN}Virtualenvwrapper Info: ${NOCOLOR}"
-    $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location
+    $PYTHON -m pip show virtualenvwrapper | grep -e Version -e Location || echo "Virtualenvwrapper is not installed"
 }
 
 ### virtualenvwrapper initializer
@@ -314,9 +317,9 @@ init_virtualenvwrapper() { # modified 2023-01-21
                 $PYTHON -m pip install virtualenvwrapper
             fi
         else
-            export VIRTUALENV_PREFIX="$HOME/.local/bin/"
-            export VIRTUALENV=$VIRTUALENV_PREFIX"/virtualenv"
-            export VIRTUALENVWRAPPER_SCRIPT_PREFIX="$HOME/.local/bin/"
+            VIRTUALENV_PREFIX="$HOME/.local/bin"
+            VIRTUALENV=$VIRTUALENV_PREFIX"/virtualenv"
+            VIRTUALENVWRAPPER_SCRIPT_PREFIX="$HOME/.local/bin"
         fi
     else
         # Save Homebrew Python
@@ -332,6 +335,11 @@ init_virtualenvwrapper() { # modified 2023-01-21
         export VIRTUALENVWRAPPER_SCRIPT_PREFIX
         VIRTUALENVWRAPPER_SCRIPT_PREFIX=$(brew --prefix)/bin
     fi
+
+    export VIRTUALENV_PREFIX
+    export VIRTUALENV
+    export VIRTUALENVWRAPPER_SCRIPT_PREFIX
+
     _set_virtualenvwrapper
     printf "Attempting to source virtualenvwrapper.sh at %s:\n" "$VIRTUALENVWRAPPER_SCRIPT_PREFIX"
     _source_virtualenvwrapper
@@ -342,10 +350,11 @@ _set_virtualenvwrapper() {
     PROJECT_HOME="$DEV_WORKSPACE/Python/Projects"
     WORKON_HOME="$VENV_FOLDER/System"
     VIRTUALENVWRAPPER_SCRIPT=$VIRTUALENVWRAPPER_SCRIPT_PREFIX"/virtualenvwrapper.sh"
-    VIRTUALENVWRAPPER_PYTHON=$PYTHON
-    VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
+    export VIRTUALENVWRAPPER_PYTHON=$PYTHON
+    export VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
 }
 
+# shellcheck disable=SC1091
 ### Source virtualenvwrapper.sh
 _source_virtualenvwrapper() {
     if [ -z "${VIRTUALENVWRAPPER_SCRIPT_PREFIX+x}" ]; then
@@ -372,20 +381,12 @@ _init_pyenv() {
 
 _init_pyenv_virtualenvwrapper() {
     echo "Initializing virtualenvwrapper with pyenv"
-    _set_pyenv_virtualenvwrapper
 
     # pyenv-virtualenvwrapper plugin needs to be installed
-    pyenv virtualenvwrapper_lazy
+    pyenv virtualenvwrapper
 
     echo "Done initializing virtualenvwrapper!"
     printf "=====\n"
-}
-
-_set_pyenv_virtualenvwrapper() {
-    VIRTUALENVWRAPPER_PYTHON=$(pyenv which python)
-    PYTHON=$VIRTUALENVWRAPPER_PYTHON
-    VIRTUALENVWRAPPER_VIRTUALENV=$(pyenv which virtualenv)
-    VIRTUALENV=$VIRTUALENVWRAPPER_VIRTUALENV
 }
 
 _pyenv_installed() {
@@ -410,13 +411,9 @@ _pyenv_virtualenv_installed() {
 
 ## https://github.com/pyenv/pyenv-virtualenv
 _install_pyenv_virtualenv() {
-    if ! _pyenv_virtualenv_installed; then
-        echo "Installing pyenv-virtualenv"
-        git clone https://github.com/pyenv/pyenv-virtualenv.git "$(pyenv root)"/plugins/pyenv-virtualenv
-        git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git "$(pyenv root)"/plugins/pyenv-virtualenvwrapper # optional
-    else
-        return 0
-    fi
+    echo "Installing pyenv-virtualenv"
+    git clone https://github.com/pyenv/pyenv-virtualenv.git "$(pyenv root)"/plugins/pyenv-virtualenv
+    git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git "$(pyenv root)"/plugins/pyenv-virtualenvwrapper # optional
 }
 
 _pyenv_virtualenvwrapper_installed() {
@@ -433,7 +430,7 @@ _set_pyenv_venv() {
     printf "=====\n"
     echo "Setting and initializing pyenv virtual environment with pyenv"
     pyenv shell "$PYENV_VERSION"
-    python -m pip install --upgrade pip
+    $PYTHON -m pip install --upgrade pip
     # install pyenv-virtualenv if not found
     if ! _pyenv_virtualenv_installed &>/dev/null; then
         _install_pyenv_virtualenv
@@ -449,6 +446,7 @@ _set_pyenv_venv() {
     printf "=====\n"
 }
 
+# shellcheck disable=SC2153
 # Set the Shell to latest Python2 from pyenv.
 # Installs virtualenv and virtualenvwrapper if not already installed
 python2_latest() {
@@ -456,6 +454,7 @@ python2_latest() {
     pyenv shell "$PYENV_VERSION"
 }
 
+# shellcheck disable=SC2153
 # Set the Shell to preferred Python3 from pyenv.
 # Installs virtualenv and virtualenvwrapper if not already installed
 python3_base() {
@@ -482,6 +481,8 @@ python3_latest() {
 set_system_python() {
     pyenv global system
     pyenv shell system
+    PYTHON=$(pyenv which python3)
+    export PYTHON
 }
 
 pyenv_info() {
@@ -491,32 +492,23 @@ pyenv_info() {
         return
     fi
 
-    if [[ "$(pyenv version-name)" =~ 'system' ]]; then
-        echo "Using system python"
+    if [ "$PYENV_PYTHON" ]; then
+        echo "${GREEN}Pyenv Info: ${NOCOLOR}"
+        printf "----\n"
+        echo "${GREEN}Using: ${NOCOLOR}"
+        echo "$PYENV_PYTHON"
+        echo "${GREEN}Version: ${NOCOLOR}"
+        $PYENV_PYTHON --version
+        echo "${GREEN}and: ${NOCOLOR}"
+        $PYENV_PYTHON -m pip --version
+        echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
+    elif [[ "$(pyenv version-name)" =~ 'system' ]] && [ -z "$PYENV_VERSION" ]; then
+        echo "${GREEN}Using system python${NOCOLOR}"
+        echo "PYENV_VERSION is not set"
         print "====>\n" && py_info
         printf "=====\n"
-        return
+        return 2
     fi
-
-    if [ -z "$PYENV_VERSION" ]; then
-        echo "PYENV_VERSION is not set"
-        return
-    fi
-
-    echo "${GREEN}Pyenv Info: ${NOCOLOR}"
-    printf "----\n"
-    echo "${GREEN}Using: ${NOCOLOR}"
-    pyenv which python
-    echo "${GREEN}Version: ${NOCOLOR}"
-    $(pyenv which python) --version
-    echo "${GREEN}with: ${NOCOLOR}"
-    printf "====>\n"
-    _virtualenv_info
-    printf "====>\n"
-    _virtualenvwrapper_info
-    echo "${GREEN}and: ${NOCOLOR}"
-    $(pyenv which python) -m pip --version
-    echo "${GREEN}type 'pip list' for a list of installed packages${NOCOLOR}"
     printf "=====\n"
 }
 
@@ -537,11 +529,15 @@ pyenv_venv() {
     1) printf "====>\n" && python3_latest || return 1 ;;
     2) printf "====>\n" && python2_latest || return 1 ;;
     3) printf "====>\n" && python3_base || return 1 ;;
-    s|S) printf "====>\n" && _pyenv_version_selection || return 1 ;;
-    d|D) printf "====>\n" && _delete_pyenv_venv && return;;
-    q|Q) return ;;
+    s | S) printf "====>\n" && _pyenv_version_selection || return 1 ;;
+    d | D) printf "====>\n" && _delete_pyenv_venv && return ;;
+    q | Q) return ;;
     *) echo "invalid choice" && return 1 ;;
     esac
+
+    PYENV_PYTHON=$(pyenv which python3)
+    export PYENV_PYTHON
+    export PYTHON=$PYENV_PYTHON
 
     # deactivate any running environment
     pyenv deactivate >/dev/null 2>&1
@@ -590,7 +586,7 @@ pyenv_venv() {
             fi
         ;;
     q | Q) echo "Exiting..." && return 0 ;;
-    *) echo "Invalid choice" && return 1;;
+    *) echo "Invalid choice" && return 1 ;;
     esac
 
     echo "Done!"
@@ -599,16 +595,22 @@ pyenv_venv() {
 
 # pyenv version selection
 _pyenv_version_selection() {
-    local -a versions
+    virtualenvs=()
+    workons=()
 
     for version in $(pyenv versions --bare --skip-aliases); do
-        versions+=("$version")
+        virtualenvs+=("$version")
     done
 
-    echo "There are ${#versions[*]} versions available."
+    for version in $(workon 2>/dev/null); do
+        workons+=("$version")
+        virtualenvs+=("$version")
+    done
+
+    echo "There are ${#virtualenvs[*]} versions available."
 
     # display array
-    # echo "${versions[@]}"
+    # echo "${virtualenvs[@]}"
 
     # Display the active version
     local current_version
@@ -617,22 +619,31 @@ _pyenv_version_selection() {
 
     printf "Select version to use or 'q' to exit - 'c' to use current version. \n"
     PS3="Selection: "
-    select version in "${versions[@]}"; do
+    select version in "${virtualenvs[@]}"; do
         if [ -n "$version" ]; then
             echo "You selected: $version"
             # check if the version is from an existing virtual environment
-            if [[ "$version" =~ 'venv' ]]; then
+            if [[ " ${virtualenvs[*]} " =~ $version ]] && [[ "$version" =~ "venv" ]]; then
                 echo "This is an existing virtual environment. Activating..."
-                pyenv activate "$version"
-                echo "To deactivate the virtual environment, run: pyenv deactivate"
-                printf "====>\n"
+                if [[ " ${workons[*]} " =~ $version ]]; then
+                    echo "Activating virtual environment with virtualenvwrapper"
+                    workon "$version" >/dev/null 2>&1
+                    echo "To deactivate, run 'deactivate'"
+                    printf "====>\n"
+                else
+                    echo "Activating virtual environment with pyenv"
+                    pyenv activate "$version" >/dev/null 2>&1
+                    echo "To deactivate, run 'pyenv deactivate'"
+                    printf "====>\n"
+                fi
+                PYENV_PYTHON=$(pyenv which python)
                 pyenv_info
                 printf "=====\n"
-                return 1
+                return 2
             else
                 pyenv shell "$version" &&
-                echo "current shell version is now: $PYENV_VERSION" &&
-                break
+                    echo "current shell version is now: $PYENV_VERSION" &&
+                    break
             fi
         elif [ "$REPLY" = "q" ]; then
             return 1
@@ -652,6 +663,9 @@ _pyenv_version_selection() {
             echo "Invalid option. Try another one - 'q': exit."
         fi
     done
+
+    PYTHON=$(pyenv which python3)
+    export PYTHON
 
     printf "=====\n"
 }
@@ -674,6 +688,7 @@ _create_pyenv_venv() {
 
     # set $WORKON_HOME to the correct folder
     WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
+    export WORKON_HOME
 
     printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" \
         "$WORKON_HOME"
@@ -688,24 +703,47 @@ _create_pyenv_venv() {
     fi
 
     printf "====>\n"
-    isEmpty "$project_folder"
-    printf "====>\n"
     echo "project folder will be: '$project_folder'"
-    goto_dir "$PROJECT_HOME/$project_folder"
+    goto_dir "$PROJECT_HOME/$HOSTNAME/$project_folder"
 
     printf "---->\n"
     echo "Creating $venv_name environment with $(pyversion)"
     # Create and activate virtual environment
     venv_name="${venv_name}_venv"
-    pyenv virtualenv "$PYENV_VERSION" "$venv_name"
-    pyenv activate "$venv_name"
-    # Alternatively, use available virtualenvwrapper. Conmment the two previous lines to use this.
-    # mkvirtualenv "$venv_name"
-    # workon "$venv_name"
+    # choose between pyenv virtualenv or pyenv virtualenvwrapper
+    printf "Use pyenv virtualenv (1), virtualenvwrapper (2), or Autoswitch (3)? "
+    read -r choice
+    case "$choice" in
+    1)
+        echo "Using pyenv virtualenv"
+        printf "---->\n"
+        pyenv virtualenv "$PYENV_VERSION" "$venv_name"
+        pyenv activate "$venv_name"
+        echo "To delete the virtual environment, run: pyenv uninstall $venv_name"
+        echo "To deactivate the virtual environment, run: pyenv deactivate"
+        printf "-----\n"
+        ;;
+    2)
+        echo "Using virtualenvwrapper"
+        printf "---->\n"
+        mkvirtualenv "$venv_name"
+        workon "$venv_name"
+        echo "To delete the virtual environment, run: rmvirtualenv $venv_name"
+        echo "To deactivate the virtual environment, run: deactivate"
+        printf "-----\n"
+        ;;
+    3)
+        echo "Using Autoswitch virtualenv"
+        printf "---->\n"
+        mkvenv
+        echo "To delete the virtual environment, run: rmvenv"
+        echo "To deactivate the virtual environment, run: deactivate"
+        printf "-----\n"
+        ;;
+    *) echo "Invalid choice" && return 1 ;;
+    esac
 
     echo "Done activating virtual environment: $venv_name."
-    echo "To delete the virtual environment, run: pyenv uninstall $venv_name"
-    echo "To deactivate the virtual environment, run: pyenv deactivate"
     printf "=====\n"
 }
 
@@ -720,13 +758,7 @@ _delete_pyenv_venv() {
     if [ "$1" ]; then
         venv_name="$1"
     else
-        local -a versions
-
-        for version in $(pyenv versions --bare --skip-aliases); do
-            versions+=("$version")
-        done
-
-        echo "There are ${#versions[*]} versions available."
+        echo "There are ${#virtualenvs[*]} versions available."
 
         # Display the active version
         local current_version
@@ -735,15 +767,14 @@ _delete_pyenv_venv() {
 
         printf "Select version to delete or 'q' to exit. \n"
         PS3="Selection: "
-        select version in "${versions[@]}"; do
+        select version in "${virtualenvs[@]}"; do
             if [ -n "$version" ]; then
                 echo "You selected: $version"
-                if [[ "$version" =~ 'venv' ]]; then
+                if [[ " ${virtualenvs[*]} " =~ $version ]]; then
                     venv_name="$version"
                     break
                 else
                     echo "This is not a virtual environment. Try another one."
-                    echo "To remove it, run: 'pyenv uninstall $version'"
                 fi
                 break
             elif [ "$REPLY" = "q" ]; then
@@ -759,10 +790,11 @@ _delete_pyenv_venv() {
         return 0
     else
         echo "Deleting virtual environment: $venv_name"
-        pyenv virtualenv-delete "$venv_name"
+        rmvirtualenv "$venv_name" || pyenv virtualenv-delete "$venv_name"
     fi
 }
 
+# shellcheck disable=SC1091
 # Usage: _mkvenv <virtual environment name>
 _mkvenv() {
     set_system_python
@@ -780,8 +812,6 @@ _mkvenv() {
     fi
 
     printf "====>\n"
-    isEmpty "$project_folder"
-    printf "====>\n"
     echo "project folder will be: '$project_folder'"
     goto_dir "$PROJECT_HOME/$project_folder"
 
@@ -792,10 +822,12 @@ _mkvenv() {
     printf "====>\n"
     # Use virtualenvwrapper to create and activate virtual environment
     if _is_virtualenvwrapper_installed; then
+        echo "Using virtualenvwrapper"
         mkvirtualenv "$venv_name" && workon "$venv_name"
+        return 0
     else
-        # use python venv
-        python -m venv "$venv_name" && source "$venv_name"/bin/activate
+        echo "Using venv"
+        $PYTHON -m venv "$venv_name" && source "$venv_name"/bin/activate && return 0 || return 1
     fi
     printf "=====\n"
 }
@@ -814,7 +846,7 @@ docker-py-env() {
 }
 
 ### docker-py3.8-env()
-# This function takes one parameter:
+# This function takes one parameter:f
 # $1 is the name of the virtual environment (optional)
 # Usage: docker-py-env [<virtual environment name>]
 # Example: docker-py-env myvenv
@@ -867,20 +899,23 @@ sedit() {
 
 # Trim leading and trailing spaces (for scripts)
 trim() {
-    local var=$@
+    local var=$*
     var="${var#"${var%%[![:space:]]*}"}" # remove leading whitespace characters
     var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
     echo -n "$var"
 }
 
 slugify() {
-    echo "$1" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9-]+/-/g' | sed -E 's/^-+|-+$//g' | tr A-Z a-z
+    echo "$1" | iconv -t ascii//TRANSLIT | sed -E 's/[^a-zA-Z0-9-]+/-/g' | sed -E 's/^-+|-+$//g' | tr '[:upper:]' '[:lower:]'
 }
 
 slug() {
-    echo $(slugify ${${1:-$PWD}: -200})
+    local arg="${1:-$PWD}"
+    local trimmed_arg="${arg: -200}"
+    local slug
+    slug="$(slugify "$trimmed_arg")"
+    echo "$slug"
 }
-
 
 #--- Directories
 
@@ -952,7 +987,7 @@ up() {
     if [ -z "$d" ]; then
         d=..
     fi
-    cd $d
+    cd "$d"
 }
 
 # Get current directory name without full path
@@ -1091,11 +1126,13 @@ function getcertnames() {
     echo "Testing ${domain}…"
     echo "" # newline
 
-    local tmp=$(echo -e "GET / HTTP/1.0\nEOT" |
+    local tmp
+    tmp=$(echo -e "GET / HTTP/1.0\nEOT" |
         openssl s_client -connect "${domain}:443" -servername "${domain}" 2>&1)
 
     if [[ "${tmp}" = *"-----BEGIN CERTIFICATE-----"* ]]; then
-        local certText=$(echo "${tmp}" |
+        local certText
+        certText=$(echo "${tmp}" |
             openssl x509 -text -certopt "no_aux, no_header, no_issuer, no_pubkey, \
 			no_serial, no_sigdump, no_signame, no_validity, no_version")
         echo "Common Name:"
@@ -1144,7 +1181,7 @@ parse_git_branch() {
 # Usage: gitignore  [<software>]
 # Example: gitignore python,django > .gitignore
 # Example: gi java,python >> .gitignore
-function gitignore() { curl -sL https://www.toptal.com/developers/gitignore/api/$@; }
+function gitignore() { curl -sL https://www.toptal.com/developers/gitignore/api/"$*"; }
 
 # Provides completion for zsh https://docs.gitignore.io/use/advanced-command-line
 
@@ -1158,7 +1195,6 @@ _gitignoreio() {
 }
 
 compdef _gitignoreio gi
-
 
 # -- $PATH
 
@@ -1244,11 +1280,12 @@ mysqlconfig() {
     fi
 }
 
+# shellcheck disable=SC2021
 # For some reason, rot13 pops up everywhere
 rot13() {
     if [ $# -eq 0 ]; then
         tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
     else
-        echo $* | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+        echo "$@" | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
     fi
 }
