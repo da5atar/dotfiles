@@ -16,12 +16,11 @@ export HOSTNAME
 HOSTNAME="$(hostname)"
 
 # override for VMs
-export WORKSPACE
-WORKSPACE=/media/psf/Dev_workspace # change as needed
+# export WORKSPACE
+# WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
-# export DEV_WORKSPACE=$HOME"/Dev_workspace" # default
-export DEV_WORKSPACE=$WORKSPACE
+export DEV_WORKSPACE=$HOME"/Dev_workspace" # default
 
 # Dropbox folder
 export DROPBOX_FOLDER
