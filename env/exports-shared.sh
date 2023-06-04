@@ -9,18 +9,30 @@ export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project"
 
 # Python Projects
 export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/Projects"
-export PYTHON
+SYS_PYTHON=$(which python3)
+export SYS_PYTHON
+export PYTHON="$SYS_PYTHON"
+export PYTHON2
+export PYTHON3
+export PYTHON3_LATEST
 export PIP="$PYTHON -m pip"
+export PIP2
+export PIP3
 export VIRTUALENV
 
 # Pyenv
 unset PYENV_VERSION
 export PYENV_VERSION_2=2.7.18
 export PYENV_VERSION_3=3.9.7
+export PYENV_VERSION_3_LATEST
 export VENV_FOLDER
 VENV_FOLDER=$DEV_WORKSPACE"/Python/Virtualenvs"
 export VIRTUALENV_HOME=$VENV_FOLDER
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
+
+# Autoswitch
+export AUTOSWITCH_DEFAULT_PYTHON="$PYTHON"
+export AUTOSWITCH_VIRTUAL_ENV_DIR="$VENV_FOLDER/Autoswitch/$HOSTNAME"
 
 # Set the default editor
 export EDITOR=nano
@@ -46,3 +58,7 @@ fi
 # Starship
 export STARSHIP_CONFIG_PATH="$HOME/.starship.toml"
 export STARSHIP_CONFIG="$HOME/.starship.toml"
+
+# Colors
+export GREEN="\033[0;32m"
+export NOCOLOR="\033[0m"

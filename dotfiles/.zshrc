@@ -27,8 +27,11 @@ ZSH_THEME="agnoster"
 # plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 plugins=(
-    git
     autojump
+    autoswitch_virtualenv
+    git
+    python
+    z
     zsh-autosuggestions
     zsh-syntax-highlighting
 )
@@ -41,9 +44,6 @@ if [[ "$MACHINE" == "Mac" ]]; then
     # Change default starship.toml file location with STARSHIP_CONFIG environment variable
     export STARSHIP_CONFIG="$HOME/.starship"
     eval "$(starship init zsh)"
-
-    # userpath
-    export PATH="$USER_PATH:$PATH"
 
     # Find brew utilities in /user/local/sbin
     export PATH="/usr/local/sbin:$PATH"
@@ -59,6 +59,9 @@ elif [[ "$MACHINE" == "Linux" ]] && [[ $(uname -m) == "x86_64" ]]; then
     # linuxbrew
     eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
+
+# userpath
+export PATH="$USER_PATH:$PATH"
 
 # default to base Python 3 installed with Homebrew
 # python3_base

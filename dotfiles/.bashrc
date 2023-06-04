@@ -278,8 +278,10 @@ else
     source "$HOME/.utils"
 fi
 
+# Source cargo environment variables
+[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
 # Fig post block. Keep at the bottom of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
     [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
 fi
-. "$HOME/.cargo/env"

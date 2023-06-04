@@ -30,10 +30,10 @@ else
 fi
 
 # Aliases for multiple directory listing commands
-alias l="ls -lF '${colorflag}'"                             # List all files colorized in long format
-alias lc="ls -lAF '${colorflag}'"                           # List all files colorized in long format, excluding . and ..
-alias lod="ls -lF '${colorflag}' | grep --color=never '^d'" # List only directories
-alias ls="command ls '${colorflag}'"                        # Always use color output for `ls`
+alias l='ls -lF "${colorflag}"'                             # List all files colorized in long format
+alias lc='ls -lAF "${colorflag}"'                           # List all files colorized in long format, excluding . and ..
+alias lod='ls -lF "${colorflag}" | grep --color=never '^d'' # List only directories
+alias ls='command ls "${colorflag}"'                        # Always use color output for `ls`
 alias la='ls -Alh'                                          # show hidden files
 alias lcx='ls -aFh --color=always'                          # add colors and file type extensions
 alias lx='ls -lXBh'                                         # sort by extension
@@ -83,7 +83,7 @@ alias map="xargs -n1"
 
 # One of @janmoesen's ProTip™s
 for method in GET HEAD POST PUT DELETE TRACE OPTIONS; do
-    alias "${method}"="lwp-request -m '${method}'"
+    alias '${method}'='lwp-request -m "${method}"'
 done
 
 # Kill all the tabs in Chrome to free up memory
@@ -91,7 +91,7 @@ done
 alias chromekill="ps ux | grep '[C]hrome Helper --type=renderer' | grep -v extension-process | tr -s ' ' | cut -d ' ' -f2 | xargs kill"
 
 # Reload the shell (i.e. invoke as a login shell)
-alias reload="exec ${SHELL} -l"
+alias reload='exit_shell'
 
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
@@ -170,3 +170,6 @@ alias docker-ubuntu='docker run --rm -it -hostname ubuntu -v "${DEV_PROJECTS}":/
 
 ## source bash config
 alias bashcfg='source ~/.bashcfg'
+
+## Shell-GPT
+alias -- --='sgpt --repl temp'
