@@ -202,6 +202,13 @@ function killpid() {
     kill -9 "$@"
 }
 
+# cpu_usage
+function cpu_usage() {
+    grep 'cpu ' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5)} END {printf("%.1f\n", usage)}'
+}
+
+alias cpu='cpu_usage'
+
 #--- Media
 
 # Function to downloads a .mp3 file from YouTube

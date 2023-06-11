@@ -142,29 +142,11 @@ else
         # Set the ultimate amazing command prompt
         #######################################################
 
-        alias cpu="grep 'cpu ' /proc/stat | awk '{usage=(\$2+\$4)*100/(\$2+\$4+\$5)} END {print usage}' | awk '{printf(\"%.1f\n\", \$1)}'"
+        # Define colors
         function __setprompt {
             local LAST_COMMAND=$? # Must come first!
 
-            # Define colors
-            local LIGHTGRAY="\033[0;37m"
-            local WHITE="\033[1;37m"
-            local BLACK="\033[0;30m"
-            local DARKGRAY="\033[1;30m"
-            local RED="\033[0;31m"
-            local LIGHTRED="\033[1;31m"
-            local GREEN="\033[0;32m"
-            local LIGHTGREEN="\033[1;32m"
-            local BROWN="\033[0;33m"
-            local YELLOW="\033[1;33m"
-            local BLUE="\033[0;34m"
-            local LIGHTBLUE="\033[1;34m"
-            local MAGENTA="\033[0;35m"
-            local LIGHTMAGENTA="\033[1;35m"
-            local CYAN="\033[0;36m"
-            local LIGHTCYAN="\033[1;36m"
-            local NOCOLOR="\033[0m"
-
+            # Colors defined in .init
             # Show error exit code if there is one
             if [[ $LAST_COMMAND != 0 ]]; then
                 # PS1="\[${RED}\](\[${LIGHTRED}\]ERROR\[${RED}\])-(\[${LIGHTRED}\]Exit Code \[${WHITE}\]${LAST_COMMAND}\[${RED}\])-(\[${LIGHTRED}\]"
@@ -276,10 +258,10 @@ else
 
     # Source utilities pyenv, anaconda, thefuck, z, fzf...
     source "$HOME/.utils"
-fi
 
-# Source cargo environment variables
-[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+    # Source cargo environment variables
+    [ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+fi
 
 # Fig post block. Keep at the bottom of this file.
 if [[ "$MACHINE" == "Mac" ]]; then
