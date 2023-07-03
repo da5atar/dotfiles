@@ -25,7 +25,8 @@ export DEV_WORKSPACE=$WORKSPACE
 
 # Dropbox folder
 export DROPBOX_FOLDER
-DROPBOX_FOLDER=$HOME"/Dropbox"
+# export DROPBOX_FOLDER=$HOME"/Dropbox" # default
+DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox" # Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
 
 # Dev projects backup folder
 export DEV_PROJECTS
