@@ -15,12 +15,12 @@ export MACHINE
 export HOSTNAME
 HOSTNAME="$(hostname)"
 
-# override for VMs
+# override for Parallels' VMs
 export WORKSPACE
-WORKSPACE=/media/psf/Dev_workspace # change as needed
+WORKSPACE=$HOME"/Dev_workspace"
+# WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
-# export DEV_WORKSPACE=$HOME"/Dev_workspace" # default
 export DEV_WORKSPACE=$WORKSPACE
 
 # Dropbox folder
@@ -30,7 +30,7 @@ DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox" # Dropbox now utilizes update
 
 # Dev projects backup folder
 export DEV_PROJECTS
-DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev/"
+DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev"
 
 # GitHub repos folder
 export GITHUB_REPOS
