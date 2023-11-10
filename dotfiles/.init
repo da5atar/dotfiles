@@ -15,14 +15,13 @@ export MACHINE
 export HOSTNAME
 HOSTNAME="$(hostname)"
 
-# override for VMs
+# override for Parallels' VMs
 export WORKSPACE
+WORKSPACE=$HOME"/Dev_workspace"
 # WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
 export DEV_WORKSPACE=$WORKSPACE
-# export DEV_WORKSPACE=$HOME"/Dev_workspace" # default
-export DEV_WORKSPACE=$HOME"/Dropbox/Projects/Dev/Dev_workspace"
 
 # Dropbox folder
 export DROPBOX_FOLDER
