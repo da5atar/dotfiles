@@ -50,7 +50,7 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 # Directory for notes
 # text notes
 if [[ "$MACHINE" == "Mac" || "$MACHINE" == "Linux" ]]; then
-    export NOTES_DIRECTORY="$DROPBOX_FOLDER/Areas/Personal/Notes"
+    export NOTES_DIRECTORY="$DROPBOX_FOLDER/75_99_Archives/95_99_Notes/95_Daily/Shell_Notes"
 else
     export NOTES_DIRECTORY=${HOME}"/notes"
 fi
