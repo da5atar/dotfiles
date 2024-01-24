@@ -146,6 +146,58 @@ add_underscore() {
     echo "${str// /_}"
 }
 
+# Function to find and delete files or folders
+# Usage: delete
+# -- Prompts user to enter 'file' or 'folder'
+# -- Prompts user to enter the name of the file or folder to delete
+# -- Prompts user to confirm deletion
+# -- Moves the file or folder to the trash
+# This function relies on the 'trash' command
+delete() {
+    echo "Do you want to delete a file or a folder? (file/folder)"
+    read choice
+
+    if [[ $choice != "file" ]] && [[ $choice != "folder" ]]; then
+        echo "Invalid choice. Please enter 'file' or 'folder'."
+        return
+    fi
+
+    echo "Enter the name of the $choice to delete:"
+    read -r name
+
+    echo "Searching for $choice named '$name' in all subdirectories..."
+
+    # Find and list all matching files/folders recursively
+    local items
+
+    if [[ $choice == "folder" ]]; then
+        items=$(find . -not -path '*/\.*' -depth -name "*$name*")
+    elif [[ $choice == "file" ]]; then
+        items=$(find . -not -path '*/\.*' -depth -type f -name "*$name*")
+    fi
+
+    if [[ -z $items ]]; then
+        echo "No $choice found with name '$name'"
+        return
+    fi
+
+    echo "Found the following $choice(s):"
+    echo "$items"
+
+    echo "Are you sure you want to move these to the trash? (yes/no)"
+    read -r confirmation
+
+    if [[ $confirmation == "yes" ]]; then
+        echo "Moving to trash..."
+        while IFS= read -r item; do
+            trash "$item"
+        done <<<"$items"
+        echo "Operation completed."
+    else
+        echo "Operation cancelled."
+    fi
+}
+
 #--- Processes
 
 # continue
