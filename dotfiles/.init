@@ -21,7 +21,7 @@ export WORKSPACE
 WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$WORKSPACE
+export DEV_WORKSPACE=$WORKSPACE/Projects
 
 # Dropbox folder
 export DROPBOX_FOLDER
@@ -30,8 +30,7 @@ export DROPBOX_FOLDER=$HOME"/Dropbox" # default
 
 # Dev projects backup folder
 export DEV_PROJECTS
-# DEV_PROJECTS=$DROPBOX_FOLDER"/Projects/Dev"
-DEV_PROJECTS="/media/psf"
+# DEV_PROJECTS=$DROPBOX_FOLDER"/My_Files/50_74_Resources/50_59_Interests/50_IT/Dev/Dev_workspace_bkp"
 
 # GitHub repos folder
 export GITHUB_REPOS

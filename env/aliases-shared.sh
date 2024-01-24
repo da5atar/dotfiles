@@ -48,6 +48,7 @@ alias ll='ls -Fls'                                          # long listing forma
 alias labc='ls -lap'                                        #alphabetical sort
 alias lf="ls -l | egrep -v '^d'"                            # files only
 alias ldir="ls -l | egrep '^d'"                             # directories only
+alias lsc="colorls -lA --sd"                                # colorls
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
