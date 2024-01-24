@@ -8,7 +8,7 @@ BREW_PREFIX=$(brew --prefix &>/dev/null)
 export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project"
 
 # Python Projects
-export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python/Projects"
+export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python"
 SYS_PYTHON=$(which python3)
 export SYS_PYTHON
 export PYTHON="$SYS_PYTHON"
@@ -22,11 +22,11 @@ export VIRTUALENV
 
 # Pyenv
 unset PYENV_VERSION
-export PYENV_VERSION_2=2.7.18
-export PYENV_VERSION_3=3.9.7
+export PYENV_VERSION_2="2.7.18"
+export PYENV_VERSION_3="3.9.7"
 export PYENV_VERSION_3_LATEST
 export VENV_FOLDER
-VENV_FOLDER=$DEV_WORKSPACE"/Python/Virtualenvs"
+VENV_FOLDER=$DEV_WORKSPACE"/Dependencies/Python/Virtualenvs"
 export VIRTUALENV_HOME=$VENV_FOLDER
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
 

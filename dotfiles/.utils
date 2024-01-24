@@ -111,3 +111,6 @@ PROMPT_COMMAND='history -a'
 # Rust - Uncomment if Rust is installed
 # Source cargo environment variables
 [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+
+# AUTOSWITCH VIRTUALENV
+export AUTOSWITCH_FILE=".autoswitch"
