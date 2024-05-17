@@ -15,22 +15,23 @@ export MACHINE
 export HOSTNAME
 HOSTNAME="$(hostname)"
 
-# override for Parallels' VMs
 export WORKSPACE
-#WORKSPACE=$HOME"/Dev_workspace"
+#WORKSPACE=$HOME"/Dev_workspace" # Default
+# override for Parallels' VMs:
 WORKSPACE=/media/psf/Dev_workspace # change as needed
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$WORKSPACE/Projects
+export DEV_WORKSPACE=$WORKSPACE"/Current_Projects"
 
 # Dropbox folder
-export DROPBOX_FOLDER
-export DROPBOX_FOLDER=$HOME"/Dropbox" # default
-# DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox" # Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
+# export DROPBOX_FOLDER
+# export DROPBOX_FOLDER=$HOME"/Dropbox" # default
+# DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox" # On Mac Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
 
 # Dev projects backup folder
 export DEV_PROJECTS
 # DEV_PROJECTS=$DROPBOX_FOLDER"/My_Files/50_74_Resources/50_59_Interests/50_IT/Dev/Dev_workspace_bkp"
+DEV_PROJECTS=$DEV_WORKSPACE"/Projects"
 
 # GitHub repos folder
 export GITHUB_REPOS

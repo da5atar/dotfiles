@@ -8,28 +8,28 @@
 # version of Vim is to get +clipboard support, you'd still run terminal Vim.
 
 sudo apt-get update && sudo apt-get install -y \
-  vim-gtk \
-  tmux \
-  git \
-  gpg \
-  curl \
-  wget \
-  rsync \
-  unzip \
-  htop \
-  shellcheck \
-  ripgrep \
   autojump \
-  tree \
-  xclip \
-  youtube-dl \
-  procps \
+  curl \
   file \
-  gcc \
-  snapd \
   flatpak \
+  gcc \
+  git \
   gnome-tweaks \
-  barrier
+  gpg \
+  htop \
+  procps \
+  ripgrep \
+  rsync \
+  shellcheck \
+  snapd \
+  tmux \
+  tree \
+  unzip \
+  vim-gtk \
+  wget \
+  xclip
+# barrier \
+# youtube-dl
 
 # ############
 # Dependencies
