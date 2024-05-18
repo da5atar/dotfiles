@@ -43,7 +43,7 @@
   "html.format.wrapLineLength": 0,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.validate.enable": false,
-  "terminal.integrated.fontFamily": "'Monaspace Krypton','3270Medium Nerd Font Mono', '3270Medium Nerd Font Mono Italic', '3270 Nerd Font', 'Hack Nerd Font Mono', monospace",
+  "terminal.integrated.fontFamily": "'Monaspace Krypton','Hack Nerd Font', '3270Medium Nerd Font Mono', '3270Medium Nerd Font Mono Italic', '3270 Nerd Font', monospace",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.fontWeight": 200,

@@ -286,7 +286,6 @@ timestamp() {
 
 ## Save python version output in a variable
 pyversion() {
-    _set_python_alias
     _pyversion=$($PYTHON --version 2>&1) # needs redirect because defaults to stderr
     echo "$_pyversion"
 }
@@ -321,7 +320,7 @@ _set_python_alias() {
     # Set python alias if python command is not found
     if ! python --version &>/dev/null; then
         if python3 --version &>/dev/null; then
-            export PYTHON=python3
+            export PYTHON="python3"
             alias python='$PYTHON'
         fi
     fi
@@ -331,8 +330,6 @@ _set_python_alias() {
 _is_virtualenv() {
     if [ "$($PYTHON -m virtualenv --version)" ]; then
         echo "Virtualenv is installed for $($PYTHON -V 2>&1 | head -n 1)"
-        # Save which virtualenv
-        VIRTUALENV=$(which virtualenv)
         return 0
     else
         echo "Virtualenv is not installed for this Python version"
@@ -347,7 +344,7 @@ _virtualenv_info() {
 
 ## Virtualenvwrapper
 _is_virtualenvwrapper_installed() {
-    if [ "$(_virtualenvwrapper_info)" ]; then
+    if _virtualenvwrapper_info; then
         echo "Virtualenvwrapper is installed for $($PYTHON -V 2>&1 | head -n 1)"
         return 0
     else
@@ -362,64 +359,53 @@ _virtualenvwrapper_info() {
 }
 
 ### virtualenvwrapper initializer
-init_virtualenvwrapper() { # modified 2023-01-21
-    echo "Initializing Virtualenvwrapper"
+_init_virtualenvwrapper() { # modified 2023-01-21
     # if homebrew is not installed
-    if [ -z "${HOMEBREW_PREFIX+x}" ] && [ ! "$(brew --prefix &>/dev/null)" ]; then
-        echo "Homebrew Prefix is unset. Defaulting to system's $($PYTHON --version)"
-        if [ ! "$(_is_virtualenv)" ]; then
-            echo "Virtualenv is not set. Installing..."
-            $PYTHON -m pip install virtualenv
-            # if virtualenvwrapper is not installed
-            if [ ! "$(_is_virtualenvwrapper_installed)" ]; then
-                echo "virtualenvwrapper is not installed. Installing..."
-                $PYTHON -m pip install virtualenvwrapper
-            fi
-        else
-            VIRTUALENV_PREFIX="$HOME/.local/bin"
-            VIRTUALENV=$VIRTUALENV_PREFIX"/virtualenv"
-            VIRTUALENVWRAPPER_SCRIPT_PREFIX="$HOME/.local/bin"
-        fi
-    else
+    if [ "${HOMEBREW_PREFIX+x}" ] && [ "$(brew --prefix &>/dev/null)" ]; then
         # Save Homebrew Python
         # See https://docs.brew.sh/Homebrew-and-Python
         HOMEBREW_PYTHON="$(brew --prefix)/opt/python/libexec/bin/python" # unversioned symlink for python
-        export HOMEBREW_PYTHON
+        HOMEBREW_PYTHON -m pip install virtualenvwrapper
         PYTHON=$HOMEBREW_PYTHON
-        echo "Using Homebrew's $($HOMEBREW_PYTHON --version)"
         export HOMEBREW_VIRTUALENV
         HOMEBREW_VIRTUALENV=$(brew --prefix)/bin/virtualenv
         VIRTUALENV=$HOMEBREW_VIRTUALENV
-        echo "Using Homebrew's '$HOMEBREW_VIRTUALENV'"
-        export VIRTUALENVWRAPPER_SCRIPT_PREFIX
-        VIRTUALENVWRAPPER_SCRIPT_PREFIX=$(brew --prefix)/bin
+        echo "Using Homebrew Python: $HOMEBREW_PYTHON"
+        echo "Using Homebrew Virtualenv: $HOMEBREW_VIRTUALENV"
+        _set_virtualenvwrapper
+        _source_virtualenvwrapper
+    elif [ -n "$PYENV_ROOT" ] && [[ "$(pyenv version-name)" != 'system' ]]; then
+        PYENV_PYTHON=$(pyenv which python)
+        PYTHON=$PYENV_PYTHON
+        PYENV_VERSION=$(pyenv version-name)
+        VIRTUALENV=$(pyenv which virtualenv)
+        echo "Using pyenv Python: $PYENV_PYTHON"
+        echo "Using pyenv Virtualenv: $VIRTUALENV"
+        _set_virtualenvwrapper
+        _init_pyenv_virtualenvwrapper
+    else
+        PYTHON=$SYS_PYTHON
+        echo "Defaulting to system's Python: $SYS_PYTHON"
     fi
 
-    export VIRTUALENV_PREFIX
-    export VIRTUALENV
-    export VIRTUALENVWRAPPER_SCRIPT_PREFIX
-
-    _set_virtualenvwrapper
-    printf "Attempting to source virtualenvwrapper.sh at %s:\n" "$VIRTUALENVWRAPPER_SCRIPT_PREFIX"
-    _source_virtualenvwrapper
 }
 
 ### Set virtualenvwrapper helper fn
 _set_virtualenvwrapper() {
-    PROJECT_HOME="$DEV_WORKSPACE/Python/Projects"
-    WORKON_HOME="$VENV_FOLDER/System"
-    VIRTUALENVWRAPPER_SCRIPT=$VIRTUALENVWRAPPER_SCRIPT_PREFIX"/virtualenvwrapper.sh"
-    export VIRTUALENVWRAPPER_PYTHON=$PYTHON
-    export VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
+    WORKON_HOME=$VENV_FOLDER/$HOSTNAME"/$(_add_underscore_pyversion)"
+    VIRTUALENVWRAPPER_PYTHON=$PYTHON
+    VIRTUALENVWRAPPER_VIRTUALENV=$VIRTUALENV
+    VIRTUALENVWRAPPER_SCRIPT_PREFIX="$(prefix "$VIRTUALENV")"
+    VIRTUALENVWRAPPER_SCRIPT="$VIRTUALENVWRAPPER_SCRIPT_PREFIX/virtualenvwrapper.sh"
+    export VIRTUALENVWRAPPER_PYTHON
+    export VIRTUALENVWRAPPER_VIRTUALENV
 }
 
 # shellcheck disable=SC1091
 ### Source virtualenvwrapper.sh
 _source_virtualenvwrapper() {
-    if [ -z "${VIRTUALENVWRAPPER_SCRIPT_PREFIX+x}" ]; then
-        echo "VIRTUALENVWRAPPER_SCRIPT_PREFIX is unset."
-    elif [ -f "$VIRTUALENVWRAPPER_SCRIPT" ]; then
-        source "$VIRTUALENVWRAPPER_SCRIPT_PREFIX/virtualenvwrapper_lazy.sh"
+    if [ -f "$VIRTUALENVWRAPPER_SCRIPT" ]; then
+        source "$VIRTUALENVWRAPPER_SCRIPT"
         echo "Successfully initialized virtualenvwrapper"
     else
         echo "virtualenvwrapper.sh not found"
@@ -440,11 +426,16 @@ _init_pyenv() {
 
 _init_pyenv_virtualenvwrapper() {
     echo "Initializing virtualenvwrapper with pyenv"
+    # install pyenv-virtualenv if not found
+    if ! _pyenv_virtualenv_installed &>/dev/null; then
+        is_pyenv_virtualenvwrapper_installed ||
+            _install_pyenv_virtualenvwrapper
+    fi
 
-    # pyenv-virtualenvwrapper plugin needs to be installed
-    pyenv virtualenvwrapper
-
-    echo "Done initializing virtualenvwrapper!"
+    pyenv virtualenvwrapper &&
+        echo "Done initializing virtualenvwrapper!" ||
+        echo "Failed to initialize virtualenvwrapper" &&
+        return 1
     printf "=====\n"
 }
 
@@ -469,13 +460,13 @@ _pyenv_virtualenv_installed() {
 }
 
 ## https://github.com/pyenv/pyenv-virtualenv
-_install_pyenv_virtualenv() {
-    echo "Installing pyenv-virtualenv"
+_install_pyenv_virtualenvwrapper() {
+    echo "Installing pyenv-virtualenv and pyenv-virtualenvwrapper:"
     git clone https://github.com/pyenv/pyenv-virtualenv.git "$(pyenv root)"/plugins/pyenv-virtualenv
     git clone https://github.com/pyenv/pyenv-virtualenvwrapper.git "$(pyenv root)"/plugins/pyenv-virtualenvwrapper # optional
 }
 
-_pyenv_virtualenvwrapper_installed() {
+is_pyenv_virtualenvwrapper_installed() {
     if [ -d "$(pyenv root)/plugins/pyenv-virtualenvwrapper/bin/" ]; then
         echo "pyenv-virtualenvwrapper is installed"
         return 0
@@ -485,22 +476,13 @@ _pyenv_virtualenvwrapper_installed() {
     fi
 }
 
-_set_pyenv_venv() {
-    printf "=====\n"
-    echo "Setting and initializing pyenv virtual environment with pyenv"
+_set_pyenv_python() {
+    echo "Setting python to pyenv version: $PYENV_VERSION"
     pyenv shell "$PYENV_VERSION"
-    $PYTHON -m pip install --upgrade pip
-    # install pyenv-virtualenv if not found
-    if ! _pyenv_virtualenv_installed &>/dev/null; then
-        _install_pyenv_virtualenv
-    fi
-
-    printf "====>\n"
-    if _pyenv_virtualenvwrapper_installed; then
-        printf "====>\n"
-        _init_pyenv_virtualenvwrapper
-    fi
-
+    pyenv global "$PYENV_VERSION"
+    echo "Upgrading pip:" && $PYENV_PYTHON -m pip install --upgrade pip
+    PYENV_PYTHON=$(pyenv which python)
+    PYTHON=$PYENV_PYTHON
     echo "Done."
     printf "=====\n"
 }
@@ -572,9 +554,9 @@ pyenv_info() {
 }
 
 # function to create a virtual environment with pyenv
-# Usage: pyenv_venv
+# Usage: py_venv
 # -- Echoes python and virtual environment related info
-pyenv_venv() {
+py_venv() {
     echo "Creating virtual python environment with pyenv"
     echo "Press 2 or 3 followed by the virtual environment name (optional) to select defaults"
     echo "Press 1 to use latest python"
@@ -589,24 +571,20 @@ pyenv_venv() {
     2) printf "====>\n" && python2_latest || return 1 ;;
     3) printf "====>\n" && python3_base || return 1 ;;
     s | S) printf "====>\n" && _pyenv_version_selection || return 1 ;;
-    d | D) printf "====>\n" && _delete_pyenv_venv && return ;;
+    d | D) printf "====>\n" && _delete_py_venv && return ;;
     q | Q) return ;;
     *) echo "invalid choice" && return 1 ;;
     esac
 
-    PYENV_PYTHON=$(pyenv which python3)
-    export PYENV_PYTHON
-    export PYTHON=$PYENV_PYTHON
-
     # deactivate any running environment
-    pyenv deactivate >/dev/null 2>&1
+    pyenv deactivate >/dev/null 2>&1 && deactivate >/dev/null 2>&1
     # Prompt user to continue creating virtual environment if selection is not s, d or q
     printf "Press y to create new virtual environment, n to continue without creating a new one \n"
     printf "or q to quit. Choice: "
     local new_venv
     read -r new_venv
     case $new_venv in
-    y | Y) # Enter virtual environment name or press enter to use default
+    y | Y)
         printf "---->\n"
         echo "Enter virtual environment name (optional): "
         local venv_name
@@ -617,17 +595,26 @@ pyenv_venv() {
         else # use default name
             echo "Using default name"
         fi
+        printf "---->\n"
+        echo "Enter project name (optional) - Enter to use the default name: ($venv_name)"
+        local project_name
+        read -r project_name
+
+        if [ -z "$project_name" ]; then
+            project_name=$venv_name
+        else
+            echo "project folder will be: '$project_name'"
+            echo "====>"
+            goto_dir "$PROJECT_HOME/$project_name"
+        fi
 
         # Create virtual environment
         if [[ "$(pyenv version-name)" =~ 'system' ]]; then
             printf "====>\n"
             _mkvenv "$venv_name"
         else
-            printf "====>\n"
-            _set_pyenv_venv
-            printf "====>\n"
             echo "Creating virtual environment with pyenv"
-            _create_pyenv_venv "$(pyenv version-name)" "$venv_name"
+            _create_py_venv "$(pyenv version-name)" "$venv_name"
         fi
 
         printf "====>\n"
@@ -639,9 +626,8 @@ pyenv_venv() {
                 echo "Using system-wide python" &&
                     printf "====>\n" && _set_python_alias && printf "====>\n" && py_info
             else
-                WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
-                printf "====>\n" &&
-                    _set_pyenv_venv && printf "====>\n" && pyenv_info
+                echo "Using Python version: $PYENV_VERSION from pyenv"
+                printf "====>\n" && pyenv_info
             fi
         ;;
     q | Q) echo "Exiting..." && return 0 ;;
@@ -652,10 +638,11 @@ pyenv_venv() {
     printf "=====\n"
 }
 
-# pyenv version selection
-_pyenv_version_selection() {
-    virtualenvs=()
-    workons=()
+# function to list virtual environments
+venv_list() {
+    # Keep track of virtualenvs
+    export virtualenvs=()
+    export workons=()
 
     for version in $(pyenv versions --bare --skip-aliases); do
         virtualenvs+=("$version")
@@ -665,11 +652,16 @@ _pyenv_version_selection() {
         workons+=("$version")
         virtualenvs+=("$version")
     done
+    # display array
+    echo "${virtualenvs[@]}"
+}
+
+# pyenv version selection
+_pyenv_version_selection() {
+
+    venv_list >/dev/null 2>&1
 
     echo "There are ${#virtualenvs[*]} versions available."
-
-    # display array
-    # echo "${virtualenvs[@]}"
 
     # Display the active version
     local current_version
@@ -695,13 +687,14 @@ _pyenv_version_selection() {
                     echo "To deactivate, run 'pyenv deactivate'"
                     printf "====>\n"
                 fi
-                PYENV_PYTHON=$(pyenv which python)
                 pyenv_info
                 printf "=====\n"
                 return 2
             else
-                pyenv shell "$version" &&
-                    echo "current shell version is now: $PYENV_VERSION" &&
+                PYENV_VERSION=$version
+                printf "====>\n"
+                _set_pyenv_python
+                echo "current Python version is now: $PYENV_VERSION" &&
                     break
             fi
         elif [ "$REPLY" = "q" ]; then
@@ -723,20 +716,17 @@ _pyenv_version_selection() {
         fi
     done
 
-    PYTHON=$(pyenv which python3)
-    export PYTHON
-
     printf "=====\n"
 }
 
 # Redefines $WORKON_HOME to isolate virtual environments by python version:
-### create_pyenv_venv()
+### create_py_venv()
 # This function takes two parameters:
 # $1 is the python version for the environment (required)
 # $2 is the name of the virtual environment (optional)
-# Usage: _create_pyenv_venv <python version> [<virtual environment name>]
-# Example: _create_pyenv_venv 3.8.6 [myvenv]
-_create_pyenv_venv() {
+# Usage: _create_py_venv <python version> [<virtual environment name>]
+# Example: _create_py_venv 3.8.6 [myvenv]
+_create_py_venv() {
     PYENV_VERSION="$1"
 
     if [ "$2" ]; then
@@ -744,26 +734,6 @@ _create_pyenv_venv() {
     else
         venv_name="test_$(_add_underscore_pyversion)"
     fi
-
-    # set $WORKON_HOME to the correct folder
-    WORKON_HOME="$VENV_FOLDER/Pyenv/$PYENV_VERSION"
-    export WORKON_HOME
-
-    printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" \
-        "$WORKON_HOME"
-
-    printf "---->\n"
-    echo "Enter project folder name (optional) - Enter to use the default name: ($venv_name)"
-    local project_folder
-    read -r project_folder
-
-    if [ -z "$project_folder" ]; then
-        project_folder=$venv_name
-    fi
-
-    printf "====>\n"
-    echo "project folder will be: '$project_folder'"
-    goto_dir "$PROJECT_HOME/$HOSTNAME/$project_folder"
 
     printf "---->\n"
     echo "Creating $venv_name environment with $(pyversion)"
@@ -775,7 +745,6 @@ _create_pyenv_venv() {
     case "$choice" in
     1)
         echo "Using pyenv virtualenv"
-        printf "---->\n"
         pyenv virtualenv "$PYENV_VERSION" "$venv_name"
         pyenv activate "$venv_name"
         echo "To delete the virtual environment, run: pyenv uninstall $venv_name"
@@ -783,10 +752,14 @@ _create_pyenv_venv() {
         printf "-----\n"
         ;;
     2)
-        echo "Using virtualenvwrapper"
+        echo "Using virtualenvwrapper..."
+        _init_pyenv_virtualenvwrapper
+        printf "Virtual environments will be created using $(pyversion) in:\n '%s' \n" \
+            "$WORKON_HOME"
         printf "---->\n"
-        mkvirtualenv "$venv_name"
-        workon "$venv_name"
+        printf "====>\n"
+        mkvirtualenv "$venv_name" &&
+            workon "$venv_name"
         echo "To delete the virtual environment, run: rmvirtualenv $venv_name"
         echo "To deactivate the virtual environment, run: deactivate"
         printf "-----\n"
@@ -794,7 +767,7 @@ _create_pyenv_venv() {
     3)
         echo "Using Autoswitch virtualenv"
         printf "---->\n"
-        mkvenv
+        mkvenv "$venv_name"
         echo "To delete the virtual environment, run: rmvenv"
         echo "To deactivate the virtual environment, run: deactivate"
         printf "-----\n"
@@ -808,15 +781,16 @@ _create_pyenv_venv() {
 
 # shellcheck disable=SC2120
 # Delete a virtual environment created with pyenv
-### _delete_pyenv_venv()
+### _delete_py_venv()
 # This function takes one parameter:
 # $1 is the name of the virtual environment (optional)
-# Usage: _delete_pyenv_venv <virtual environment name>
-# Example: _delete_pyenv_venv myvenv
-_delete_pyenv_venv() {
+# Usage: _delete_py_venv <virtual environment name>
+# Example: _delete_py_venv myvenv
+_delete_py_venv() {
     if [ "$1" ]; then
         venv_name="$1"
     else
+        venv_list >/dev/null 2>&1
         echo "There are ${#virtualenvs[*]} versions available."
 
         # Display the active version
@@ -849,43 +823,33 @@ _delete_pyenv_venv() {
         return 0
     else
         echo "Deleting virtual environment: $venv_name"
-        rmvirtualenv "$venv_name" || pyenv virtualenv-delete "$venv_name"
+        pyenv uninstall "$venv_name" || rmvirtualenv "$venv_name"
     fi
 }
 
 # shellcheck disable=SC1091
 # Usage: _mkvenv <virtual environment name>
 _mkvenv() {
-    set_system_python
     if [ "$1" ]; then
         venv_name="$1"
     else
         venv_name="test_$(_add_underscore_pyversion)"
     fi
-    echo "Enter project folder name (optional) - Enter to use the default name: ($venv_name)"
-    local project_folder
-    read -r project_folder
-
-    if [ -z "$project_folder" ]; then
-        project_folder=$venv_name
-    fi
-
-    printf "====>\n"
-    echo "project folder will be: '$project_folder'"
-    goto_dir "$PROJECT_HOME/$project_folder"
 
     printf "---->\n"
     venv_name="${venv_name}_venv"
 
     echo "Creating virtual environment with system-wide python"
     printf "====>\n"
+
     # Use virtualenvwrapper to create and activate virtual environment
+    set_system_python
     if _is_virtualenvwrapper_installed; then
-        echo "Using virtualenvwrapper"
-        mkvirtualenv "$venv_name" && workon "$venv_name"
+        _source_virtualenvwrapper &&
+            mkvirtualenv "$venv_name" && workon "$venv_name"
         return 0
     else
-        echo "Using venv"
+        echo "Using standard libray venv module"
         $PYTHON -m venv "$venv_name" && source "$venv_name"/bin/activate && return 0 || return 1
     fi
     printf "=====\n"
@@ -974,6 +938,11 @@ slug() {
     local slug
     slug="$(slugify "$trimmed_arg")"
     echo "$slug"
+}
+
+prefix() {
+    local prefix="${1%/*}"
+    echo "$prefix"
 }
 
 #--- Directories

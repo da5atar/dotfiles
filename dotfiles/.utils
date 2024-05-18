@@ -1,10 +1,5 @@
 #!/bin/bash
 
-## Python:
-
-# Initialize virtualenvwrapper
-init_virtualenvwrapper
-
 if [[ "$MACHINE" == "Mac" ]]; then
     # Anaconda3 (Homebrew)
     # >>> conda initialize >>>
@@ -23,8 +18,10 @@ if [[ "$MACHINE" == "Mac" ]]; then
     # <<< conda initialize <<<
 fi
 
-# # set up pyenv #
-# # --
+## Python:
+
+# set up pyenv #
+# --
 
 # See function definition in ../env/functions.sh
 _init_pyenv
@@ -36,6 +33,9 @@ eval "$(pyenv init -)"
 
 # pyenv-virtualenv
 if which pyenv-virtualenv-init >/dev/null; then eval "$(pyenv virtualenv-init -)"; fi
+
+# Initialize virtualenvwrapper
+_init_virtualenvwrapper
 
 ##
 
@@ -61,7 +61,7 @@ fi
 if [[ "$MACHINE" == "Linux" ]]; then
     # Enable asdf to manage various programming runtime versions.
     # Requires: https://asdf-vm.com/#/
-    source "$HOME"/.asdf/asdf.sh
+    # source "$HOME"/.asdf/asdf.sh
     # append completions to fpath
     fpath=(${ASDF_DIR}/completions $fpath)
     # initialise completions with ZSH's compinit

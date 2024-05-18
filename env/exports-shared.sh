@@ -11,7 +11,7 @@ export CURRENT_DEV_PROJECT=$DEV_WORKSPACE"/Current_Project"
 export PYTHON_PROJECT_DIR=$DEV_WORKSPACE"/Python"
 SYS_PYTHON=$(which python3)
 export SYS_PYTHON
-export PYTHON="$SYS_PYTHON"
+export PYTHON
 export PYTHON2
 export PYTHON3
 export PYTHON3_LATEST
@@ -23,16 +23,20 @@ export VIRTUALENV
 # Pyenv
 unset PYENV_VERSION
 export PYENV_VERSION_2="2.7.18"
-export PYENV_VERSION_3="3.9.7"
+export PYENV_VERSION_3="3.12.3"
 export PYENV_VERSION_3_LATEST
 export VENV_FOLDER
 VENV_FOLDER=$DEV_WORKSPACE"/Dependencies/Python/Virtualenvs"
 export VIRTUALENV_HOME=$VENV_FOLDER
+
+# Virtualenvwrapper
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
+export PROJECT_HOME="$DEV_WORKSPACE/Projects/Python/$HOSTNAME"
 
 # Autoswitch
-export AUTOSWITCH_DEFAULT_PYTHON="$PYTHON"
-export AUTOSWITCH_VIRTUAL_ENV_DIR="$VENV_FOLDER/Autoswitch/$HOSTNAME"
+export AUTOSWITCH_DEFAULT_PYTHON="$PYENV_PYTHON"
+export AUTOSWITCH_VIRTUAL_ENV_DIR="$VENV_FOLDER/$HOSTNAME/Autoswitch"
+export AUTOSWITCH_DEFAULTENV="Tools-exys"
 
 # Set the default editor
 export EDITOR=nano

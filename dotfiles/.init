@@ -16,12 +16,12 @@ export HOSTNAME
 HOSTNAME="$(hostname)"
 
 export WORKSPACE
-#WORKSPACE=$HOME"/Dev_workspace" # Default
+#WORKSPACE=$HOME # Default
 # override for Parallels' VMs:
-WORKSPACE=/media/psf/Dev_workspace # change as needed
+WORKSPACE=/media/psf # change as needed
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$WORKSPACE"/Current_Projects"
+export DEV_WORKSPACE=$WORKSPACE"/Dev_workspace"
 
 # Dropbox folder
 # export DROPBOX_FOLDER
@@ -39,7 +39,7 @@ GITHUB_REPOS=$DEV_PROJECTS"/GitHub"
 
 # GitHub working folder
 export GITHUB_FOLDER
-GITHUB_FOLDER=$DEV_WORKSPACE"/GitHub"
+GITHUB_FOLDER=$DEV_WORKSPACE"/Current_Projects/GitHub"
 
 # These dotfiles
 export PROJECT_ROOT
