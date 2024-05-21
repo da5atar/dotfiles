@@ -20,7 +20,7 @@ export PIP2
 export PIP3
 export VIRTUALENV
 
-# Pyenv
+# Pyenv https://github.com/pyenv/pyenv
 unset PYENV_VERSION
 export PYENV_VERSION_2="2.7.18"
 export PYENV_VERSION_3="3.12.3"
@@ -29,13 +29,14 @@ export VENV_FOLDER
 VENV_FOLDER=$DEV_WORKSPACE"/Dependencies/Python/Virtualenvs"
 export VIRTUALENV_HOME=$VENV_FOLDER
 
-# Virtualenvwrapper
+# Virtualenvwrapper https://virtualenvwrapper.readthedocs.io/en/latest/
 export VIRTUALENVWRAPPER_SCRIPT_PREFIX
 export PROJECT_HOME="$DEV_WORKSPACE/Projects/Python/$HOSTNAME"
 
-# Autoswitch
+# Autoswitch https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
 export AUTOSWITCH_DEFAULT_PYTHON="$PYENV_PYTHON"
 export AUTOSWITCH_VIRTUAL_ENV_DIR="$VENV_FOLDER/$HOSTNAME/Autoswitch"
+export AUTOSWITCH_FILE=".autoswitch"
 export AUTOSWITCH_DEFAULTENV="Tools-exys"
 
 # Set the default editor
