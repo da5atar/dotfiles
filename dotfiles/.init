@@ -48,25 +48,44 @@ PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
 # Source aliases and exports
 # For a full list of active aliases, run `alias`.
 if [[ "$MACHINE" == "Linux" ]]; then
+    # shellcheck source=/dev/null
     source "$PROJECT_ROOT/env/aliases-linux.sh"
+    # shellcheck source=/dev/null
     source "$PROJECT_ROOT/env/exports-linux.sh"
 elif [[ "$MACHINE" == "Mac" ]]; then
+    # shellcheck source=/dev/null
     source "$PROJECT_ROOT/env/aliases-mac.sh"
+    # shellcheck source=/dev/null
     source "$PROJECT_ROOT/env/exports-mac.sh"
 fi
 
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/aliases-shared.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/exports-shared.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-directories.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-files.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-git.sh"
-# source "$PROJECT_ROOT/env/fn-media.sh"
+# shellcheck source=/dev/null
+source "$PROJECT_ROOT/env/fn-media.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-network.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-path.sh"
-# source "$PROJECT_ROOT/env/fn-php.sh"
+# shellcheck source=/dev/null
+source "$PROJECT_ROOT/env/fn-php.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-processes.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-python.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/fn-text.sh"
-# source "$PROJECT_ROOT/env/tests.sh"
+# shellcheck source=/dev/null
+source "$PROJECT_ROOT/env/tests.sh"
+# shellcheck source=/dev/null
 source "$PROJECT_ROOT/env/keys.sh"
-# source "$PROJECT_ROOT/env/exports-local.sh"
+# shellcheck source=/dev/null
+source "$PROJECT_ROOT/env/exports-local.sh"

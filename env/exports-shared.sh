@@ -41,7 +41,6 @@ export AUTOSWITCH_DEFAULTENV="Tools-exys"
 
 # Set the default editor
 export EDITOR=nano
-alias nano='edit'
 
 # Color for manpages in less makes manpages a little easier to read
 export LESS_TERMCAP_mb=$'\E[01;31m'

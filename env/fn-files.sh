@@ -155,7 +155,7 @@ add_underscore() {
 # This function relies on the 'trash' command
 delete() {
     echo "Do you want to delete a file or a folder? (file/folder)"
-    read choice
+    read -r choice
 
     if [[ $choice != "file" ]] && [[ $choice != "folder" ]]; then
         echo "Invalid choice. Please enter 'file' or 'folder'."
@@ -195,5 +195,22 @@ delete() {
         echo "Operation completed."
     else
         echo "Operation cancelled."
+    fi
+}
+
+# shellcheck disable=SC2021
+# For some reason, rot13 pops up everywhere
+# A function that performs the ROT13 substitution on a given string or standard input.
+#
+# Parameters:
+# - None
+#
+# Returns:
+# - The ROT13 substitution of the given string or standard input.
+rot13() {
+    if [ $# -eq 0 ]; then
+        tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
+    else
+        echo "$@" | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
     fi
 }

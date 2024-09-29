@@ -16,9 +16,9 @@ function o() {
 # the `.git` directory, listing directories first. The output gets piped into
 # `less` with options to preserve color and line numbers, unless the output is
 # small enough for one screen.
-function tre() {
-    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
-}
+# function tre() {
+#     tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX
+# }
 
 # Copy and go to the directory
 cpg() {

@@ -59,12 +59,13 @@ alias topcpu="/bin/ps -eo pcpu,pid,user,args | sort -k 1 -r | head -10"
 alias f="find . | grep "
 
 # Count all files (recursively) in the current folder
+# shellcheck disable=SC2154
 alias countfiles="for t in files links directories; do echo \`find . -type \${t:0:1} | wc -l\` \$t; done 2> /dev/null"
 
 # To see if a command is aliased, a file, or a built-in command
 alias checkcommand="type -t"
 
-# TODO 9: Refactor ipview alias
+# TODO 10: Refactor ipview alias
 # Show current network connections to the server
 # alias ipview="netstat -anpl | grep :80 | awk {'print \$5'} | cut -d\":\" -f1 | sort | uniq -c | sort -n | sed -e 's/^ *//' -e 's/ *\$//'"
 
@@ -111,3 +112,6 @@ if ! python --version &>/dev/null; then
     alias python='python3'
     alias pip='pip3'
 fi
+
+# Postgres
+alias psql-doc='xdg-open /usr/share/doc/postgresql-doc-*/html/index.html'

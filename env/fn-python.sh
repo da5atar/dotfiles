@@ -126,6 +126,7 @@ _set_virtualenvwrapper() {
 ### Source virtualenvwrapper.sh
 _source_virtualenvwrapper() {
     if [ -f "$VIRTUALENVWRAPPER_SCRIPT" ]; then
+        # shellcheck source=path/to/virtualenvwrapper.sh
         source "$VIRTUALENVWRAPPER_SCRIPT"
         echo "Successfully initialized virtualenvwrapper"
     else
