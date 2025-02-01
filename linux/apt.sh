@@ -101,6 +101,9 @@ sudo apt-get -y install ubuntu-make
 # Install FZF (fuzzy finder on the terminal and used by a Vim plugin).
 git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf && ~/.fzf/install
 
+# lsd (ls replacement)
+sudo apt install lsd -y
+
 # cleanup
 sudo apt-get autoremove -y
 sudo apt-get clean -y

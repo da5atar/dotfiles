@@ -19,8 +19,8 @@ sudo npm i docsify-cli -g # https://github.com/docsifyjs/docsify/
 sudo npm i -g yarn        # https://classic.yarnpkg.com/en/docs/install/#debian-stable
 
 # News
-# https://www.npmjs.com/package/newsroom-cli
+# https://www.npmjs.com/package/newsroom-cli # Tech news in the terminal
 sudo npm i -g newsroom-cli
-# https://github.com/shogunpurple/clinews
+# https://github.com/shogunpurple/clinews # News in the terminal
 # Go to https://newsapi.org/register URL and register a free account to get the API key.
 sudo npm i -g clinews

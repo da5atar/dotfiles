@@ -37,7 +37,6 @@ export PROJECT_HOME="$DEV_WORKSPACE/Projects/Python/$HOSTNAME"
 export AUTOSWITCH_DEFAULT_PYTHON="$PYENV_PYTHON"
 export AUTOSWITCH_VIRTUAL_ENV_DIR="$VENV_FOLDER/$HOSTNAME/Autoswitch"
 export AUTOSWITCH_FILE=".autoswitch"
-export AUTOSWITCH_DEFAULTENV="Tools-exys"
 
 # Set the default editor
 export EDITOR=nano
