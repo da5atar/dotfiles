@@ -117,6 +117,6 @@ export AUTOSWITCH_FILE=".autoswitch"
 
 # lsd - https://github.com/lsd-rs/lsd
 if command -v lsd >/dev/null 2>&1; then
-    mkdir -p ~/.config/lsd >/dev/null 2>&1 &&
-        cp --update=none "$PROJECT_ROOT"/config/config.yaml ~/.config/lsd
+    # symlink lsd config file
+    [ -f "$PROJECT_ROOT/env/config/lsd.yaml" ] && ln -sf "$PROJECT_ROOT/env/config/lsd.yaml" "$HOME/.config/lsd/config.yaml"
 fi

@@ -24,22 +24,22 @@ WORKSPACE=$HOME # Default
 export DEV_WORKSPACE=$WORKSPACE"/Dev_workspace"
 
 # Dropbox folder
-# export DROPBOX_FOLDER
-# export DROPBOX_FOLDER=$HOME"/Dropbox" # default
-# DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox" # On Mac Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
+export DROPBOX_FOLDER
+# On Mac Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
+if [[ "$MACHINE" == "Mac" ]]; then
+    DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox"
+else
+    DROPBOX_FOLDER=$HOME"/Dropbox" # Default
+fi
 
 # Dev projects backup folder
 export DEV_PROJECTS
 # DEV_PROJECTS=$DROPBOX_FOLDER"/My_Files/50_74_Resources/50_59_Interests/50_IT/Dev/Dev_workspace_bkp"
 DEV_PROJECTS=$DEV_WORKSPACE"/Projects"
 
-# GitHub repos folder
-export GITHUB_REPOS
-GITHUB_REPOS=$DEV_PROJECTS"/GitHub"
-
 # GitHub working folder
 export GITHUB_FOLDER
-GITHUB_FOLDER=$DEV_WORKSPACE"/Projects/GitHub"
+GITHUB_FOLDER=$DEV_PROJECTS"/GitHub"
 
 # These dotfiles
 export PROJECT_ROOT
