@@ -10,7 +10,7 @@ MINGW*) MACHINE="MinGw" ;;
 *) MACHINE="UNKNOWN:${unameOut}" ;;
 esac
 
-echo "You appeaar to be using a $MACHINE computer"
+echo "You appear to be using a $MACHINE computer"
 
 echo "-----------------------"
 
@@ -34,6 +34,6 @@ echo "-----------------------"
 # Installs plugins
 printf "Done installing Oh My Zsh!\n"
 
-source ~/.zshrc
-
 source shared/install-zsh-plugins.sh
+
+source ~/.zshrc

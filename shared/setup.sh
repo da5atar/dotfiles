@@ -43,38 +43,39 @@ else # if architecture is arm
 fi
 
 # Install apps and binaries with Snap
-echo "===================="
-echo "Running linux/snap.sh"
-printf "====================\n"
+# echo "===================="
+# echo "Running linux/snap.sh"
+# printf "====================\n"
 
-source linux/snap.sh
+# source linux/snap.sh
 
-echo "===================="
-echo "Done running linux/snap.sh"
-printf "====================\n"
+# echo "===================="
+# echo "Done running linux/snap.sh"
+# printf "====================\n"
 
 # Install apps and binaries with Flatpak
-echo "===================="
-echo "Running linux/flatpak.sh"
-printf "====================\n"
+# echo "===================="
+# echo "Running linux/flatpak.sh"
+# printf "====================\n"
 
-# source linux/flatpak.sh
+# # source linux/flatpak.sh
 
-echo "===================="
-echo "Done running linux/flatpak.sh"
-printf "====================\n"
+# echo "===================="
+# echo "Done running linux/flatpak.sh"
+# printf "====================\n"
 
 # Create symlinks for dotfiles
 echo "===================="
 echo "Linking dotfiles"
 printf "====================\n"
 
-source link-dotfiles.sh
+source ./link-dotfiles.sh
+exec $SHELL -l
 
 # Clone repos
-echo "===================="
-echo "Cloning repos"
-printf "====================\n"
+# echo "===================="
+# echo "Cloning repos"
+# printf "====================\n"
 
 # source shared/clone-repos.sh
 

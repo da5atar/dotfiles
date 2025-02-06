@@ -48,6 +48,7 @@ alias ll='ls -Fls'                                          # long listing forma
 alias labc='ls -lap'                                        #alphabetical sort
 alias lf="ls -l | egrep -v '^d'"                            # files only
 alias ldir="ls -l | egrep '^d'"                             # directories only
+alias lsc="colorls -lA --sd"                                # colorls
 
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.
@@ -127,8 +128,8 @@ alias rm=trash
 alias openedports="sudo netstat -plunt" # TODO 3: FIX 'unknown or uninstrumented protocol error'
 
 # Record terminal session in a text file using `script`
-alias script='script -a terminal_session_$(timestamp)'
-alias record=script
+alias script='script -a terminal_session_$(timestamp).txt'
+alias record='script'
 
 # print python info and launch python
 alias py='py_info && printf "===Starting R.E.P.L===\n" && python'

@@ -428,3 +428,10 @@ dist
 # API Keys
 ########
 keys.sh
+
+########
+# Obsidian
+########
+
+# File History
+*.edtz

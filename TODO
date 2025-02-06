@@ -6,3 +6,9 @@ TODO:
         ✔ Ensure the selected python version is set before creating the virtual environment @done(23-03-18 18:15)
         ✔ Activate the virtual env upon selection of an existing environment, ask for creation otherwise @done(23-03-18 18:15)
         ✔ Provide a message for deactivation of the virtual environment @done(23-03-18 18:15)
+
+20250130
+    Integrate Nix package manager:
+         ☐ Install Nix package manager
+         ☐ Configure Nix channels and profiles
+         ☐ Add Nix packages to the environment
