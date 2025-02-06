@@ -1,2 +1,22 @@
 
+# Enable external sources
 external-sources=true
+
+# Exclude specific warnings
+# SC1090: Can't follow non-constant source. Use a directive to specify location.
+# SC1091: Not following: file (error message here)
+# SC2034: Variable appears unused. Verify it or export it.
+# SC2154: Variable is referenced but not assigned.
+exclude=SC1090,SC1091,SC2034,SC2154
+
+# Set severity level
+severity=style
+
+# Enable specific checks
+enable=all
+
+# Shell dialect (bash, sh, dash, ksh)
+shell=bash
+
+# Color output
+color=always
