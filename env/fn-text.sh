@@ -1,16 +1,17 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2230,SC2312
 
 #--- Text Editors
 
 # Use the best version of pico installed
 edit() {
-    if [ "$(which pico)" ]; then
+    if [[ -n "$(which pico)" ]]; then
         pico "$@"
-    elif [ "$(which nano)" ]; then
+    elif [[ -n "$(which nano)" ]]; then
         nano -c "$@"
-    elif [ "$(which vim)" ]; then
+    elif [[ -n "$(which vim)" ]]; then
         vim "$@"
-    elif [ "$(which vi)" ]; then
+    elif [[ -n "$(which vi)" ]]; then
         vi "$@"
     else
         echo "No text editor found"
@@ -18,13 +19,13 @@ edit() {
 }
 
 sedit() {
-    if [ "$(which pico)" ]; then
+    if [[ -n "$(which pico)" ]]; then
         sudo pico -s "$@"
-    elif [ "$(which nano)" ]; then
+    elif [[ -n "$(which nano)" ]]; then
         sudo nano -c -s "$@"
-    elif [ "$(which vim)" ]; then
+    elif [[ -n "$(which vim)" ]]; then
         sudo vim -s "$@"
-    elif [ "$(which vi)" ]; then
+    elif [[ -n "$(which vi)" ]]; then
         sudo vi -s "$@"
     else
         echo "No text editor found"
@@ -36,7 +37,7 @@ trim() {
     local var=$*
     var="${var#"${var%%[![:space:]]*}"}" # remove leading whitespace characters
     var="${var%"${var##*[![:space:]]}"}" # remove trailing whitespace characters
-    echo -n "$var"
+    echo -n "${var}"
 }
 
 slugify() {
@@ -44,14 +45,14 @@ slugify() {
 }
 
 slug() {
-    local arg="${1:-$PWD}"
+    local arg="${1:-${PWD}}"
     local trimmed_arg="${arg: -200}"
     local slug
-    slug="$(slugify "$trimmed_arg")"
-    echo "$slug"
+    slug="$(slugify "${trimmed_arg}")"
+    echo "${slug}"
 }
 
 prefix() {
     local prefix="${1%/*}"
-    echo "$prefix"
+    echo "${prefix}"
 }

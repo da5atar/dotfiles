@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 
 #--- Network
 
@@ -34,7 +35,7 @@
 
 # View Apache logs
 apachelog() {
-    if [ -f /etc/httpd/conf/httpd.conf ]; then
+    if [[ -f /etc/httpd/conf/httpd.conf ]]; then
         cd /var/log/httpd && ls -xAh && multitail --no-repeat -c -s 2 /var/log/httpd/*_log
     else
         cd /var/log/apache2 && ls -xAh && multitail --no-repeat -c -s 2 /var/log/apache2/*.log
@@ -44,7 +45,7 @@ apachelog() {
 # Show all the names (CNs and SANs) listed in the SSL certificate
 # for a given domain
 function getcertnames() {
-    if [ -z "${1}" ]; then
+    if [[ -z "${1}" ]]; then
         echo "ERROR: No domain specified."
         return 1
     fi

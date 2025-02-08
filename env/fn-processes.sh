@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 
 #--- Processes
 
@@ -6,7 +7,7 @@
 _proceed() {
     printf "Continue? [y/n] "
     read -r response
-    case $response in
+    case ${response} in
     y | Y) return 0 ;;
     n | N) return 1 ;;
     *) echo "Please answer yes or no." ;;
@@ -19,9 +20,9 @@ _proceed() {
 _exit_on_error() {
     exit_code=$1
     last_command=${*:2}
-    if [ "$exit_code" -ne 0 ]; then
+    if [[ "${exit_code}" -ne 0 ]]; then
         echo >&2 "\"${last_command}\" command exited with code ${exit_code}."
-        exit "$exit_code"
+        exit "${exit_code}"
     fi
 }
 
@@ -43,7 +44,7 @@ exit_shell() {
     fi
 
     # Reload the shell
-    exec "$SHELL" -l
+    exec "${SHELL}" -l
 }
 
 # Find port in use (used to kill pid)

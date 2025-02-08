@@ -1,4 +1,5 @@
 #!/bin/bash
+
 # Install ASDF (version manager which I use for non-Dockerized apps).
 git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.11.3
 

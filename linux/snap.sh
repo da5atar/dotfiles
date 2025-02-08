@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 # install or update snap store
 sudo apt update
 sudo apt install snapd

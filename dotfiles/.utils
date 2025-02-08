@@ -1,17 +1,18 @@
 #!/bin/bash
+# shellcheck disable=SC1090,1091,SC2154,SC2181,SC2230,SC2312
 
-if [[ "$MACHINE" == "Mac" ]]; then
+if [[ "${MACHINE}" == "Mac" ]]; then
     # Anaconda3 (Homebrew)
     # >>> conda initialize >>>
     # !! Contents within this block are managed by 'conda init' !!
     __conda_setup="$('/usr/local/anaconda3/bin/conda' 'shell.zsh' 'hook' 2>/dev/null)"
-    if [ $? -eq 0 ]; then
-        eval "$__conda_setup"
+    if [[ $? -eq 0 ]]; then
+        eval "${__conda_setup}"
     else
-        if [ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]; then
-            . "/usr/local/anaconda3/etc/profile.d/conda.sh"
+        if [[ -f "/usr/local/anaconda3/etc/profile.d/conda.sh" ]]; then
+            source "/usr/local/anaconda3/etc/profile.d/conda.sh"
         else
-            export PATH="/usr/local/anaconda3/bin:$PATH"
+            export PATH="/usr/local/anaconda3/bin:${PATH}"
         fi
     fi
     unset __conda_setup
@@ -44,41 +45,43 @@ _init_virtualenvwrapper
 # eval "$(thefuck --alias)"
 
 # autojump - https://github.com/wting/autojump
-[ -f /usr/local/etc/profile.d/autojump.sh ] && . /usr/local/etc/profile.d/autojump.sh
+# comment out if autojump is not installed
+# [ -f /usr/local/etc/profile.d/autojump.sh ] && source /usr/local/etc/profile.d/autojump.sh
 
 # z - Fast navigation, see [this gist](https://gist.github.com/mischah/8149239)
 if command -v brew >/dev/null 2>&1; then
     # Load rupa's z if installed
-    [ -f "$(brew --prefix)"/etc/profile.d/z.sh ] && source "$(brew --prefix)"/etc/profile.d/z.sh
+    [[ -f "$(brew --prefix)"/etc/profile.d/z.sh ]] && source "$(brew --prefix)"/etc/profile.d/z.sh
 fi
 
-if [[ "$MACHINE" == "Mac" ]]; then
+if [[ "${MACHINE}" == "Mac" ]]; then
     # Load GNU core utilities installed from Homebrew
-    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
+    coreutils_path="$(brew --prefix coreutils)/libexec/gnubin"
+    export PATH="${coreutils_path}:${PATH}"
 fi
 
 # asdf - Uncomment if asdf is installed
-if [[ "$MACHINE" == "Linux" ]]; then
-    # Enable asdf to manage various programming runtime versions.
-    # Requires: https://asdf-vm.com/#/
-    # source "$HOME"/.asdf/asdf.sh
-    # append completions to fpath
-    fpath=(${ASDF_DIR}/completions $fpath)
-    # initialise completions with ZSH's compinit
-    autoload -Uz compinit && compinit
-fi
+# if [[ "$MACHINE" == "Linux" ]]; then
+#     # Enable asdf to manage various programming runtime versions.
+#     # Requires: https://asdf-vm.com/#/
+#     # source "$HOME"/.asdf/asdf.sh
+#     # append completions to fpath
+#     fpath=("${ASDF_DIR}/completions $f{path}")
+#     # initialise completions with ZSH's compinit
+#     autoload -Uz compinit && compinit
+# fi
 
 # fzf
-if [ -n "$BASH_VERSION" ]; then
+if [[ -n "${BASH_VERSION}" ]]; then
     # fzf
-    [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+    [[ -f ~/.fzf.bash ]] && source ~/.fzf.bash
 fi
 
 # clinews
 # Go to https://newsapi.org/register URL and register a free account to get the API key.
 # $CLINEWS_API_KEY is declared in env/keys.sh
 
-export IN_API_KEY="$CLINEWS_API_KEY"
+export IN_API_KEY="${CLINEWS_API_KEY}"
 
 # Ensure no dupes in $PATH
 set_no_dupes_path &>/dev/null
@@ -86,16 +89,16 @@ set_no_dupes_path &>/dev/null
 # Better history
 # See https://blog.sanctum.geek.nz/better-bash-history/
 # Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob
+shopt -s nocaseglob 2>/dev/null
 
 # Append to the Bash history file, rather than overwriting it
-# shopt -s histappend
+shopt -s histappend 2>/dev/null
 
 # Autocorrect typos in path names when using `cd`
-shopt -s cdspell
+shopt -s cdspell 2>/dev/null
 
 # Use one command per line
-shopt -s cmdhist
+shopt -s cmdhist 2>/dev/null
 
 # Allow a larger history file
 HISTFILESIZE=1000000
@@ -110,7 +113,7 @@ PROMPT_COMMAND='history -a'
 
 # Rust - Uncomment if Rust is installed
 # Source cargo environment variables
-[[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
+[[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 
 # AUTOSWITCH VIRTUALENV
 export AUTOSWITCH_FILE=".autoswitch"
@@ -118,5 +121,5 @@ export AUTOSWITCH_FILE=".autoswitch"
 # lsd - https://github.com/lsd-rs/lsd
 if command -v lsd >/dev/null 2>&1; then
     # symlink lsd config file
-    [ -f "$PROJECT_ROOT/env/config/lsd.yaml" ] && ln -sf "$PROJECT_ROOT/env/config/lsd.yaml" "$HOME/.config/lsd/config.yaml"
+    [[ -f "${PROJECT_ROOT}/env/config/lsd.yaml" ]] && ln -sf "${PROJECT_ROOT}/env/config/lsd.yaml" "${HOME}/.config/lsd/config.yaml"
 fi

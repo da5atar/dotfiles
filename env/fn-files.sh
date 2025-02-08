@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 
 #--- Files
 
@@ -26,7 +27,7 @@ function targz() {
 
     echo "Compressing .tar ($((size / 1000)) kB) using \`${cmd}\`…"
     "${cmd}" -v "${tmpFile}" || return 1
-    [ -f "${tmpFile}" ] && rm "${tmpFile}"
+    [[ -f "${tmpFile}" ]] && rm "${tmpFile}"
 
     zippedSize=$(
         stat -f"%z" "${tmpFile}.gz" 2>/dev/null # macOS `stat`
@@ -44,9 +45,9 @@ function fs() {
         local arg=-sh
     fi
     if [[ -n "$*" ]]; then
-        du $arg -- "$@"
+        du "${arg}" -- "$@"
     else
-        du $arg .[^.]* ./*
+        du "${arg}" .[^.]* ./*
     fi
 }
 
@@ -54,7 +55,7 @@ function fs() {
 function dataurl() {
     local mimeType
     mimeType=$(file -b --mime-type "$1")
-    if [[ $mimeType == text/* ]]; then
+    if [[ ${mimeType} == text/* ]]; then
         mimeType="${mimeType};charset=utf-8"
     fi
     echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')"
@@ -63,23 +64,23 @@ function dataurl() {
 # Extracts any archive(s) (if unp isn't installed)
 extract() {
     for archive in "$@"; do
-        if [ -f "$archive" ]; then
-            case "$archive" in
-            *.tar.bz2) tar xvjf "$archive" ;;
-            *.tar.gz) tar xvzf "$archive" ;;
-            *.bz2) bunzip2 "$archive" ;;
-            *.rar) rar x "$archive" ;;
-            *.gz) gunzip "$archive" ;;
-            *.tar) tar xvf "$archive" ;;
-            *.tbz2) tar xvjf "$archive" ;;
-            *.tgz) tar xvzf "$archive" ;;
-            *.zip) unzip "$archive" ;;
-            *.Z) uncompress "$archive" ;;
-            *.7z) 7z x "$archive" ;;
-            *) echo "don't know how to extract '$archive'..." ;;
+        if [[ -f "${archive}" ]]; then
+            case "${archive}" in
+            *.tar.bz2) tar xvjf "${archive}" ;;
+            *.tar.gz) tar xvzf "${archive}" ;;
+            *.bz2) bunzip2 "${archive}" ;;
+            *.rar) rar x "${archive}" ;;
+            *.gz) gunzip "${archive}" ;;
+            *.tar) tar xvf "${archive}" ;;
+            *.tbz2) tar xvjf "${archive}" ;;
+            *.tgz) tar xvzf "${archive}" ;;
+            *.zip) unzip "${archive}" ;;
+            *.Z) uncompress "${archive}" ;;
+            *.7z) 7z x "${archive}" ;;
+            *) echo "don't know how to extract '${archive}'..." ;;
             esac
         else
-            echo "'$archive' is not a valid file!"
+            echo "'${archive}' is not a valid file!"
         fi
     done
 }
@@ -124,14 +125,14 @@ function gz() {
     local ratio
     origsize=$(wc -c <"$1")
     gzipsize=$(gzip -c "$1" | wc -c)
-    ratio=$(echo "$gzipsize * 100 / $origsize" | bc -l)
-    printf "orig: %d bytes\n" "$origsize"
-    printf "gzip: %d bytes (%2.2f%%)\n" "$gzipsize" "$ratio"
+    ratio=$(echo "${gzipsize} * 100 / ${origsize}" | bc -l)
+    printf "orig: %d bytes\n" "${origsize}"
+    printf "gzip: %d bytes (%2.2f%%)\n" "${gzipsize}" "${ratio}"
 }
 
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see below) cross-platform.
-if [ ! "$(uname -s)" = 'Darwin' ]; then
+if [[ ! "$(uname -s)" = 'Darwin' ]]; then
     if grep -q Microsoft /proc/version; then
         # Ubuntu on Windows using the Linux subsystem
         alias open='explorer.exe'
@@ -157,41 +158,41 @@ delete() {
     echo "Do you want to delete a file or a folder? (file/folder)"
     read -r choice
 
-    if [[ $choice != "file" ]] && [[ $choice != "folder" ]]; then
+    if [[ ${choice} != "file" ]] && [[ ${choice} != "folder" ]]; then
         echo "Invalid choice. Please enter 'file' or 'folder'."
         return
     fi
 
-    echo "Enter the name of the $choice to delete:"
+    echo "Enter the name of the ${choice} to delete:"
     read -r name
 
-    echo "Searching for $choice named '$name' in all subdirectories..."
+    echo "Searching for ${choice} named '${name}' in all subdirectories..."
 
     # Find and list all matching files/folders recursively
     local items
 
-    if [[ $choice == "folder" ]]; then
-        items=$(find . -not -path '*/\.*' -depth -name "*$name*")
-    elif [[ $choice == "file" ]]; then
-        items=$(find . -not -path '*/\.*' -depth -type f -name "*$name*")
+    if [[ ${choice} == "folder" ]]; then
+        items=$(find . -not -path '*/\.*' -depth -name "*${name}*")
+    elif [[ ${choice} == "file" ]]; then
+        items=$(find . -not -path '*/\.*' -depth -type f -name "*${name}*")
     fi
 
-    if [[ -z $items ]]; then
-        echo "No $choice found with name '$name'"
+    if [[ -z ${items} ]]; then
+        echo "No ${choice} found with name '${name}'"
         return
     fi
 
-    echo "Found the following $choice(s):"
-    echo "$items"
+    echo "Found the following ${choice}(s):"
+    echo "${items}"
 
     echo "Are you sure you want to move these to the trash? (yes/no)"
     read -r confirmation
 
-    if [[ $confirmation == "yes" ]]; then
+    if [[ ${confirmation} == "yes" ]]; then
         echo "Moving to trash..."
         while IFS= read -r item; do
-            trash "$item"
-        done <<<"$items"
+            trash "${item}"
+        done <<<"${items}"
         echo "Operation completed."
     else
         echo "Operation cancelled."
@@ -208,7 +209,7 @@ delete() {
 # Returns:
 # - The ROT13 substitution of the given string or standard input.
 rot13() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'
     else
         echo "$@" | tr '[a-m][n-z][A-M][N-Z]' '[n-z][a-m][N-Z][A-M]'

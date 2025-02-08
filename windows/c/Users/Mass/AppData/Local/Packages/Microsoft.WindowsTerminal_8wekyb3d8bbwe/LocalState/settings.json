@@ -20,7 +20,7 @@
 
     // If enabled, formatted data is also copied to your clipboard
     "copyFormatting": true,
-	
+
 	"confirmCloseAllTabs": true,
 	"experimental.rendering.software": true,
 	"initialCols": 102,
@@ -87,7 +87,7 @@
 
     // Add custom color schemes to this array.
     // To learn more about color schemes, visit https://aka.ms/terminal-color-schemes
-    "schemes": 
+    "schemes":
 	[
 		{
 		  "name": "Frost",
@@ -300,15 +300,15 @@
 		  "yellow": "#00ff00"
 		}
 	],
-	
-	"actions": 
+
+	"actions":
 	[
 		{
 		  "command": "copy",
 		  "singleLine": false,
 		  "keys": "ctrl+c"
 		},
-		{ 
+		{
 		  "command": "paste",
 		  "keys": "ctrl+v"
 		},

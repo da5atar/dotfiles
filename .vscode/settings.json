@@ -1,5 +1,4 @@
 {
-  "workbench.colorTheme": "Dracula",
   "workbench.iconTheme": "material-icon-theme",
   "editor.inlineSuggest.enabled": true,
   "terminal.integrated.shellIntegration.history": 500,
@@ -73,12 +72,5 @@
   "workbench.editor.enablePreview": false,
   "workbench.editor.showIcons": false,
   "workbench.panel.defaultLocation": "right",
-  "workbench.statusBar.visible": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[ignore]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  },
-  "[shellscript]": {
-    "editor.defaultFormatter": "foxundermoon.shell-format"
-  }
+  "workbench.statusBar.visible": true
 }

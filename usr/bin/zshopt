@@ -1,6 +1,7 @@
 #!/bin/bash
+# zshopt - a script to set zsh options
 args=''
-for item in $@; do
-    args="$args $item"
+for item in "$@"; do
+    args="${args} ${item}"
 done
-shopt $args
+shopt "${args}"
