@@ -7,15 +7,15 @@
 # Note: Inspired from https://www.linuxjournal.com/content/removing-duplicate-path-entries
 no_dupes_path() {
     local no_dupes_path
-    no_dupes_path=$(echo "$PATH" | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
-    echo "$no_dupes_path"
+    no_dupes_path=$(echo "${PATH}" | awk -v RS=: '!($0 in a) {a[$0]; printf("%s%s", length(a) > 1 ? ":" : "", $0)}')
+    echo "${no_dupes_path}"
 }
 
 # function to echo $PATH one entry per line
 ### show_path()
 # Note: Inspired from https://www.linuxjournal.com/content/removing-duplicate-path-entries
 show_path() {
-    awk -v RS=: '{print}' <<<"$PATH"
+    awk -v RS=: '{print}' <<<"${PATH}"
 }
 
 # function to set $PATH with no dupes and echo one entry per line

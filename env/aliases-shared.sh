@@ -125,7 +125,7 @@ alias rm=trash
 # alias gulp='npx gulp'
 
 # Check opened TCP Ports
-alias openedports="sudo netstat -plunt" # TODO 3: FIX 'unknown or uninstrumented protocol error'
+# alias openedports="sudo netstat -plunt" # TODO 3: FIX 'unknown or uninstrumented protocol error'
 
 # Record terminal session in a text file using `script`
 alias script='script -a terminal_session_$(timestamp).txt'
@@ -157,20 +157,12 @@ alias gi='gitignore'
 ## commands
 alias docker-containers='docker ps -a'
 
-## Python Bind Mounts
-alias docker-python3.8='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.8 python'
-alias docker-python3.9='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.9 python'
-alias docker-python3.10='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:3.10 python'
-alias docker-python='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app python:latest python'
-
 ## Python with Volumes
-alias docker-python-vol='docker run --rm -it -v "${CURRENT_DEV_PROJECT}":/usr/src/app -w /usr/src/app -v python-dev-vol:/usr/local/lib python:latest python'
-
-## Ubuntu
-alias docker-ubuntu='docker run --rm -it -hostname ubuntu -v "${DEV_PROJECTS}":/ -w / ubuntu:latest -v docker-vol'
+# Create volumes with 'docker volume create dev_data' and 'docker volume create python-dev-vol' before running the following command
+alias docker-python-vol='docker run --rm -it -v dev_data:/usr/src/app -w /usr/src/app -v python-dev-vol:/usr/local/lib python:latest python'
 
 ## source bash config
 alias bashcfg='source ~/.bashcfg'
 
 ## Shell-GPT
-alias -- --='sgpt --repl temp'
+alias -- --='sgpt --repl temp' # prepending -- is to avoid conflict with the -- flag

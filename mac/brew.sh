@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2154,SC2312
 
 # Install Homebrew (if not installed)
 echo "Installing Homebrew."
@@ -36,7 +37,6 @@ brew install gnu-sed
 # Install `wget` with IRI support.
 brew install wget #--with-iri # FIX 1 option generates error
 
-
 # Install useful binaries.
 ## system monitoring
 brew install htop
@@ -55,7 +55,6 @@ brew install fd
 brew install tokei
 brew install dust
 brew install exa
-
 
 # Dev
 

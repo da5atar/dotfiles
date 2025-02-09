@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1091,SC2312
 
 # Update and upgrade apt
 sudo apt update && sudo apt upgrade -y
@@ -70,7 +71,7 @@ echo "Linking dotfiles"
 printf "====================\n"
 
 source ./link-dotfiles.sh
-exec $SHELL -l
+exec ${SHELL} -l
 
 # Clone repos
 # echo "===================="

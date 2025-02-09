@@ -1,12 +1,13 @@
 #!/bin/bash
+# shellcheck disable=SC2154,SC2312
 
 # Change this value your custom location
 # set CLONE_PATH
-CLONE_PATH=$GITHUB_REPOS || $GITHUB_FOLDER # set in .init
+CLONE_PATH=${GITHUB_REPOS} || ${GITHUB_FOLDER} # set in .init
 
 function clone() {
   # CD to folder where git repos are kept
-  cd "$CLONE_PATH" || exit 1
+  cd "${CLONE_PATH}" || exit 1
 
   echo "Cloning repositories"
 

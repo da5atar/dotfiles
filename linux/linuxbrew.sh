@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2312
 
 # Install Homebrew (if not installed). See https://docs.brew.sh/Homebrew-on-Linux
 echo "Installing Homebrew."
@@ -19,7 +20,7 @@ brew upgrade
 
 # Save Homebrew's installed location.
 BREW_PREFIX=$(brew --prefix)
-echo "Homebrew prefix is: $BREW_PREFIX"
+echo "Homebrew prefix is: ${BREW_PREFIX}"
 
 # Binaries
 brew install thefuck

@@ -1,15 +1,11 @@
 #!/usr/bin/env bash
-
-# Fig pre block. Keep at the top of this file.
-if [[ "$MACHINE" == "Mac" ]]; then
-    [[ -f "$HOME/.fig/shell/zshrc.pre.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.pre.zsh"
-fi
+# shellcheck disable=SC1090,SC2154,SC2312
 
 # Original base file credits: https://gist.github.com/zachbrowne/8bc414c9f30192067831fafebd14255c
 # with some adaptations from [Nick Janetakis's dotfiles](https://github.com/nickjj/dotfiles.git),
 # however I added or modified ~many~ most things. Please read carefully and adapt before using.
 
-if [ -d ~/.bash_it ]; then
+if [[ -d ~/.bash_it ]]; then
     # If not running interactively, don't do anything
     case $- in
     *i*) ;;
@@ -17,7 +13,7 @@ if [ -d ~/.bash_it ]; then
     esac
 
     # Path to the bash it configuration
-    export BASH_IT="/home/ms/.bash_it"
+    export BASH_IT="${HOME}/.bash_it"
 
     # Lock and Load a custom theme file.
     # Leave empty to disable theming.
@@ -92,15 +88,15 @@ if [ -d ~/.bash_it ]; then
 
     # Load Bash It
     # shellcheck source=/dev/null
-    source "$BASH_IT"/bash_it.sh
+    source "${BASH_IT}"/bash_it.sh
 
 else
     echo "bash_it.sh not found"
     # Source shared .bash and .zshconfiguration (.rc)
-    source "$HOME/.init"
+    source "${HOME}/.init"
 
     # On Linux
-    if [ -f /etc/os-release ]; then
+    if [[ -f /etc/os-release ]]; then
         echo "Setting up default Bash config"
 
         ##############################
@@ -108,16 +104,16 @@ else
         ##############################
 
         # Source global definitions
-        if [ -f /etc/bashrc ]; then
+        if [[ -f /etc/bashrc ]]; then
             # shellcheck source=/dev/null
             . /etc/bashrc
         fi
 
         # Enable bash programmable completion features in interactive shells
-        if [ -f /usr/share/bash-completion/bash_completion ]; then
+        if [[ -f /usr/share/bash-completion/bash_completion ]]; then
             # shellcheck source=/dev/null
             . /usr/share/bash-completion/bash_completion
-        elif [ -f /etc/bash_completion ]; then
+        elif [[ -f /etc/bash_completion ]]; then
             # shellcheck source=/dev/null
             . /etc/bash_completion
         fi
@@ -157,38 +153,38 @@ else
 
             # Colors defined in .init
             # Show error exit code if there is one
-            if [[ $LAST_COMMAND != 0 ]]; then
+            if [[ ${LAST_COMMAND} != 0 ]]; then
                 # PS1="\[${RED}\](\[${LIGHTRED}\]ERROR\[${RED}\])-(\[${LIGHTRED}\]Exit Code \[${WHITE}\]${LAST_COMMAND}\[${RED}\])-(\[${LIGHTRED}\]"
                 PS1="\[${DARKGRAY}\](\[${LIGHTRED}\]ERROR\[${DARKGRAY}\])-(\[${RED}\]Exit Code \[${LIGHTRED}\]${LAST_COMMAND}\[${DARKGRAY}\])-(\[${RED}\]"
-                if [[ $LAST_COMMAND == 1 ]]; then
+                if [[ ${LAST_COMMAND} == 1 ]]; then
                     PS1+="General error"
-                elif [ $LAST_COMMAND == 2 ]; then
+                elif [[ ${LAST_COMMAND} == 2 ]]; then
                     PS1+="Missing keyword, command, or permission problem"
-                elif [ $LAST_COMMAND == 126 ]; then
+                elif [[ ${LAST_COMMAND} == 126 ]]; then
                     PS1+="Permission problem or command is not an executable"
-                elif [ $LAST_COMMAND == 127 ]; then
+                elif [[ ${LAST_COMMAND} == 127 ]]; then
                     PS1+="Command not found"
-                elif [ $LAST_COMMAND == 128 ]; then
+                elif [[ ${LAST_COMMAND} == 128 ]]; then
                     PS1+="Invalid argument to exit"
-                elif [ $LAST_COMMAND == 129 ]; then
+                elif [[ ${LAST_COMMAND} == 129 ]]; then
                     PS1+="Fatal error signal 1"
-                elif [ $LAST_COMMAND == 130 ]; then
+                elif [[ ${LAST_COMMAND} == 130 ]]; then
                     PS1+="Script terminated by Control-C"
-                elif [ $LAST_COMMAND == 131 ]; then
+                elif [[ ${LAST_COMMAND} == 131 ]]; then
                     PS1+="Fatal error signal 3"
-                elif [ $LAST_COMMAND == 132 ]; then
+                elif [[ ${LAST_COMMAND} == 132 ]]; then
                     PS1+="Fatal error signal 4"
-                elif [ $LAST_COMMAND == 133 ]; then
+                elif [[ ${LAST_COMMAND} == 133 ]]; then
                     PS1+="Fatal error signal 5"
-                elif [ $LAST_COMMAND == 134 ]; then
+                elif [[ ${LAST_COMMAND} == 134 ]]; then
                     PS1+="Fatal error signal 6"
-                elif [ $LAST_COMMAND == 135 ]; then
+                elif [[ ${LAST_COMMAND} == 135 ]]; then
                     PS1+="Fatal error signal 7"
-                elif [ $LAST_COMMAND == 136 ]; then
+                elif [[ ${LAST_COMMAND} == 136 ]]; then
                     PS1+="Fatal error signal 8"
-                elif [ $LAST_COMMAND == 137 ]; then
+                elif [[ ${LAST_COMMAND} == 137 ]]; then
                     PS1+="Fatal error signal 9"
-                elif [ $LAST_COMMAND -gt 255 ]; then
+                elif [[ ${LAST_COMMAND} -gt 255 ]]; then
                     PS1+="Exit status out of range"
                 else
                     PS1+="Unknown error code"
@@ -215,10 +211,10 @@ else
 
             # User and server
             local SSH_IP
-            SSH_IP=$(echo "$SSH_CLIENT" | awk '{ print $1 }')
+            SSH_IP=$(echo "${SSH_CLIENT}" | awk '{ print $1 }')
             local SSH2_IP
-            SSH2_IP=$(echo "$SSH2_CLIENT" | awk '{ print $1 }')
-            if [ "$SSH2_IP" ] || [ "$SSH_IP" ]; then
+            SSH2_IP=$(echo "${SSH2_CLIENT}" | awk '{ print $1 }')
+            if [[ -n "${SSH2_IP}" ]] || [[ -n "${SSH_IP}" ]]; then
                 PS1+="(\[${RED}\]\u@\h"
             else
                 PS1+="(\[${RED}\]\u"
@@ -236,7 +232,7 @@ else
             # Skip to the next line
             PS1+="\n"
 
-            if [[ $EUID -ne 0 ]]; then
+            if [[ ${EUID} -ne 0 ]]; then
                 PS1+="\[${GREEN}\]>\[${NOCOLOR}\] " # Normal user
             else
                 PS1+="\[${RED}\]>\[${NOCOLOR}\] " # Root user
@@ -257,25 +253,20 @@ else
         PS1='\[[01;32m\]\u@\h\[[00m\]:\[[01;34m\]\w\[[00m\] \[[01;33m\]$(parse_git_branch)\[[00m\]\$ '
 
         # If it's an xterm compatible terminal, set the title to user@host: dir.
-        case "$TERM" in
+        case "${TERM}" in
         xterm* | rxvt*)
-            PS1="\[\e]0;\u@\h: \w\a\]$PS1"
+            PS1="\[\e]0;\u@\h: \w\a\]${PS1}"
             ;;
         *) ;;
         esac
     else
-        cat "$PROJECT_ROOT"/templates/bash-rc-mac >~/.bashrc
+        cat "${PROJECT_ROOT}"/templates/bash-rc-mac >~/.bashrc
     fi
 
     # Source utilities pyenv, anaconda, thefuck, z, fzf...
-    source "$HOME/.utils"
+    source "${HOME}/.utils"
 
     # Source cargo environment variables
     # shellcheck source=/dev/null
-    [[ -f "$HOME/.cargo/env" ]] && source "$HOME/.cargo/env"
-fi
-
-# Fig post block. Keep at the bottom of this file.
-if [[ "$MACHINE" == "Mac" ]]; then
-    [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
+    [[ -f "${HOME}/.cargo/env" ]] && source "${HOME}/.cargo/env"
 fi

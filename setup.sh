@@ -10,8 +10,8 @@ MINGW*) MACHINE=MinGw ;;
 *) MACHINE="UNKNOWN:${unameOut}" ;;
 esac
 
-if [[ "$MACHINE" == "Linux" ]]; then
+if [[ "${MACHINE}" == "Linux" ]]; then
   source shared/setup.sh
-elif [[ "$MACHINE" == "Mac" ]]; then
+elif [[ "${MACHINE}" == "Mac" ]]; then
   source mac/setup.sh
 fi

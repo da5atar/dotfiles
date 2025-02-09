@@ -1,11 +1,12 @@
 #!/usr/bin/env bash
+# shellcheck disable=SC2310,SC2312
 
 #--- Directories
 
 # `o` with no arguments opens the current directory, otherwise opens the given
 # location
 function o() {
-    if [ $# -eq 0 ]; then
+    if [[ $# -eq 0 ]]; then
         open .
     else
         open "$@"
@@ -22,7 +23,7 @@ function o() {
 
 # Copy and go to the directory
 cpg() {
-    if [ -d "$2" ]; then
+    if [[ -d "$2" ]]; then
         cp "$1" "$2" && cd "$2"
     else
         cp "$1" "$2"
@@ -31,7 +32,7 @@ cpg() {
 
 # Move and go to the directory
 mvg() {
-    if [ -d "$2" ]; then
+    if [[ -d "$2" ]]; then
         mv "$1" "$2" && cd "$2"
     else
         mv "$1" "$2"
@@ -46,12 +47,12 @@ mkdirg() {
 
 # Create a new directory and enter it
 function mkd() {
-    mkdir -p "$@" && cd "$_"
+    mkdir -p "$@" && cd "${_}"
 }
 
 # Go to the specified directory if it exists or creates it and enters it
 function goto_dir() {
-    if [ -d "$1" ]; then
+    if [[ -d "$1" ]]; then
         cd "$1"
     else
         echo "Directory $1 does not exist. Creating..."
@@ -64,28 +65,28 @@ up() {
     local d=""
     limit=$1
     for ((i = 1; i <= limit; i++)); do
-        d=$d/..
+        d=${d}/..
     done
-    d=$(echo $d | sed 's/^\///')
-    if [ -z "$d" ]; then
+    d=$(echo "${d}" | sed 's/^\///')
+    if [[ -z "${d}" ]]; then
         d=..
     fi
-    cd "$d"
+    cd "${d}"
 }
 
 # Get current directory name without full path
 ### here()
 here() {
     local here=${PWD##*/}
-    printf '%q\n' "$here"
+    printf '%q\n' "${here}"
 }
 
 # Automatically do an ls after each cd
 cd() {
-    if [ -n "$1" ]; then
+    if [[ -n "$1" ]]; then
         builtin cd "$@" && printf "Listing Directory:\n" && ls
     else
-        echo "No directory specified - defaulting to $HOME"
+        echo "No directory specified - defaulting to ${HOME}"
         builtin cd ~ && printf "Listing Directory:\n" && ls
     fi
 }
@@ -120,7 +121,7 @@ dsync() {
         --exclude='.git' \
         --exclude='.DS_Store' \
         --chmod='F-w' \
-        "$src_dir" "$dest_dir"
+        "${src_dir}" "${dest_dir}"
 }
 
 # Works on hidden files, directories and regular files
@@ -129,11 +130,11 @@ dsync() {
 # $1 is the directory to check or defaults to current directory
 # -- Echoes if the directory has files or not
 function isEmpty() {
-    dir="${1:-"$PWD"}" # defaults to current dir if no argument
+    dir="${1:-"${PWD}"}" # defaults to current dir if no argument
 
-    if [ "$(ls -A "$dir")" ]; then
-        echo "The directory $dir contains files:"
-        ls -A "$dir"
+    if [[ -n "$(ls -A "${dir}")" ]]; then
+        echo "The directory ${dir} contains files:"
+        ls -A "${dir}"
         echo "-----"
         return 1
     else
@@ -148,7 +149,7 @@ function isEmpty() {
 # $1 is the directory to clear or defaults to current directory
 # -- Calls isEmpty to check if directory contains files
 clear_dir() {
-    if ! (isEmpty "${@:-"$PWD"}"); then
+    if ! (isEmpty "${@:-"${PWD}"}"); then
         ls -la
         # Remove all files including hidden .files
         rm -vrf "${PWD:?}/"* # this form ensures it never expand to root folder

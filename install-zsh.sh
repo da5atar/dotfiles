@@ -1,4 +1,5 @@
 #!/bin/bash
+# shellcheck disable=SC1090,SC2312
 
 # Detect machine
 unameOut="$(uname -s)"
@@ -10,20 +11,20 @@ MINGW*) MACHINE="MinGw" ;;
 *) MACHINE="UNKNOWN:${unameOut}" ;;
 esac
 
-echo "You appear to be using a $MACHINE computer"
+echo "You appear to be using a ${MACHINE} computer"
 
 echo "-----------------------"
 
-echo "Installing Oh My Zsh!\n"
+printf "Installing Oh My Zsh!\n"
 
 # Installs .oh-my-zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
+if [[ ! -d "${HOME}/.oh-my-zsh" ]]; then
   # Installs Oh my ZSH with Homebrew (Mac)
-  if [[ $MACHINE == "Mac" ]]; then
+  if [[ ${MACHINE} == "Mac" ]]; then
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   # Installs Oh my ZSH with Linux
   fi
-  if [[ $MACHINE == "Linux" ]]; then
+  if [[ ${MACHINE} == "Linux" ]]; then
     sudo apt install zsh -y
     sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
   fi

@@ -8,4 +8,4 @@ export HISTSIZE=50000
 export HISTCONTROL=erasedups:ignoredups:ignorespace
 
 # Save private binaries path
-export USER_PATH="$HOME/.local/bin"
+export USER_PATH="${HOME}/.local/bin"
