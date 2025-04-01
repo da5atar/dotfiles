@@ -32,7 +32,6 @@ brew install xclip
 brew install fd
 brew install tokei
 brew install dust
-brew install exa
 
 # Development
 ## pyenv build environment
