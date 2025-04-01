@@ -36,7 +36,8 @@ export GPG_TTY
 GPG_TTY=$(tty)
 
 # Save private binaries path
-export USER_PATH="$HOME/.local/bin"
+export USER_PATH="${HOMEBREW_PREFIX}/bin:${PATH}" # Homebrew on arm mac
+# export USER_PATH="$HOME/.local/bin" # Homebrew on x86 mac
 
 # Fig
 export ZSH_PLUGINS="/Users/mass/.local/share/fig/plugins/ohmyzsh/plugins"
