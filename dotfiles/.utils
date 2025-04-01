@@ -58,6 +58,12 @@ if [[ "${MACHINE}" == "Mac" ]]; then
     # Load GNU core utilities installed from Homebrew
     coreutils_path="$(brew --prefix coreutils)/libexec/gnubin"
     export PATH="${coreutils_path}:${PATH}"
+
+    # Lima BEGIN
+    # Make sure iptables and mount.fuse3 are available
+    PATH="${PATH}:/usr/sbin:/sbin"
+    export PATH
+    # Lima END
 fi
 
 # asdf - Uncomment if asdf is installed
