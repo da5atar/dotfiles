@@ -16,51 +16,56 @@ export HOSTNAME
 HOSTNAME="$(hostname)"
 
 export WORKSPACE
-WORKSPACE=$HOME # Default
+# WORKSPACE=$HOME # Default
 # override for Parallels' VMs:
 # WORKSPACE=/media/psf # change as needed
+# Override for Lima:
+# shellcheck disable=SC2154
+export LIMA_WORKDIR
+LIMA_WORKDIR="/Users/mass/Cloud-Drive"
+WORKSPACE="${LIMA_WORKDIR}"
 
 # Dev Workspace folder for dev envs
-export DEV_WORKSPACE=$WORKSPACE"/Dev_workspace"
+export DEV_WORKSPACE=${WORKSPACE}"/Dev_workspace"
 
 # Dropbox folder
 export DROPBOX_FOLDER
 # On Mac Dropbox now utilizes updated Apple File Provider API on Mac 12.5+
-if [[ "$MACHINE" == "Mac" ]]; then
-    DROPBOX_FOLDER=$HOME"Library/CloudStorage/Dropbox"
+if [[ "${MACHINE}" == "Mac" ]]; then
+    DROPBOX_FOLDER=${HOME}"Library/CloudStorage/Dropbox"
 else
-    DROPBOX_FOLDER=$HOME"/Dropbox" # Default
+    DROPBOX_FOLDER=${HOME}"/Dropbox" # Default
 fi
 
 # Dev projects backup folder
 export DEV_PROJECTS
 # DEV_PROJECTS=$DROPBOX_FOLDER"/My_Files/50_74_Resources/50_59_Interests/50_IT/Dev/Dev_workspace_bkp"
-DEV_PROJECTS=$DEV_WORKSPACE"/Projects"
+DEV_PROJECTS=${DEV_WORKSPACE}"/Projects"
 
 # GitHub working folder
 export GITHUB_FOLDER
-GITHUB_FOLDER=$DEV_PROJECTS"/GitHub"
+GITHUB_FOLDER=${DEV_PROJECTS}"/GitHub"
 
 # These dotfiles
 export PROJECT_ROOT
-PROJECT_ROOT=$GITHUB_FOLDER"/dotfiles"
+PROJECT_ROOT=${GITHUB_FOLDER}"/dotfiles"
 
 # Source aliases and exports
 # For a full list of active aliases, run `alias`.
-if [[ "$MACHINE" == "Linux" ]]; then
+if [[ "${MACHINE}" == "Linux" ]]; then
     # shellcheck source=/dev/null
-    source "$PROJECT_ROOT/env/linux/aliases-linux.sh"
+    source "${PROJECT_ROOT}/env/linux/aliases-linux.sh"
     # shellcheck source=/dev/null
-    source "$PROJECT_ROOT/env/linux/exports-linux.sh"
-elif [[ "$MACHINE" == "Mac" ]]; then
+    source "${PROJECT_ROOT}/env/linux/exports-linux.sh"
+elif [[ "${MACHINE}" == "Mac" ]]; then
     # shellcheck source=/dev/null
-    source "$PROJECT_ROOT/env/mac/aliases-mac.sh"
+    source "${PROJECT_ROOT}/env/mac/aliases-mac.sh"
     # shellcheck source=/dev/null
-    source "$PROJECT_ROOT/env/mac/exports-mac.sh"
+    source "${PROJECT_ROOT}/env/mac/exports-mac.sh"
 fi
 
 # Source all remaining files in the env folder
-for file in "$PROJECT_ROOT/env/"*.sh; do
+for file in "${PROJECT_ROOT}/env/"*.sh; do
     # shellcheck source=/dev/null
-    source "$file"
+    source "${file}"
 done

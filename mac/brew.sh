@@ -66,8 +66,14 @@ brew install xz
 brew install zlib
 
 ## Docker
-brew install docker-completion
+brew install lima
+brew install docker
+brew install docker-compose
 brew install docker-compose-completion
+brew install docker-credential-helper
+brew install docker-buildx
+brew install docker-completion
+brew install docker-machine
 brew install docker-machine-completion
 
 ## Kubernetes
