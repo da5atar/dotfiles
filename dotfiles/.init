@@ -16,14 +16,14 @@ export HOSTNAME
 HOSTNAME="$(hostname)"
 
 export WORKSPACE
-# WORKSPACE=$HOME # Default
+WORKSPACE=${HOME} # Default
 # override for Parallels' VMs:
 # WORKSPACE=/media/psf # change as needed
 # Override for Lima:
 # shellcheck disable=SC2154
-export LIMA_WORKDIR
-LIMA_WORKDIR="/Users/mass/Cloud-Drive"
-WORKSPACE="${LIMA_WORKDIR}"
+# export LIMA_WORKDIR
+# LIMA_WORKDIR="/Users/mass/Cloud-Drive"
+# WORKSPACE="${LIMA_WORKDIR}"
 
 # Dev Workspace folder for dev envs
 export DEV_WORKSPACE=${WORKSPACE}"/Dev_workspace"
