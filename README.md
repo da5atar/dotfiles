@@ -1,12 +1,14 @@
-# dotfiles 
+# dotfiles
 
 ## Table of Contents
 
-- [Device installation scripts for Mac and Windows (WSL)](#device-installation-scripts-for-mac-and-windows-wsl)
-- [Quickly Get Set Up with These Dotfiles](#quickly-get-set-up-with-these-dotfiles)
-- [Contributors](#contributors)
-- [Acknowledgments](#acknowledgments)
-- [License](#license)
+- [dotfiles](#dotfiles)
+  - [Table of Contents](#table-of-contents)
+  - [Device installation scripts for Mac and Windows (WSL)](#device-installation-scripts-for-mac-and-windows-wsl)
+  - [Quickly Get Set Up with These Dotfiles](#quickly-get-set-up-with-these-dotfiles)
+  - [Contributors](#contributors)
+  - [Acknowledgments](#acknowledgments)
+  - [License](#license)
 
 ## Device installation scripts for Mac and Windows (WSL)
 
@@ -22,6 +24,9 @@ Here are the installation instructions for Mac and Linux/WSL:
 
 - [Mac instructions](mac.md)
 - [Windows (WSL) and Linux instructions](linux-wsl.md)
+
+Create (your own) personal git configuration following the instructions [here](dotfiles/.config/git/git-configuration.md).
+
 
 Have a suggestion? [Please let me know!](mailto:mass.sow@gmail.com)
 
