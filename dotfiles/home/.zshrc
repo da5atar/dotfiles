@@ -29,10 +29,10 @@ plugins=(
     starship
     z
     # $ZSH_CUSTOM
-    autoswitch_virtualenv # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+    autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
     fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
-    zsh-autocomplete # https://github.com/marlonrichert/zsh-autocomplete
-    zsh-autosuggestions # https://github.com/zsh-users/zsh-autosuggestions
+    zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
+    zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
 )
 
 # ==========================================================
@@ -67,12 +67,12 @@ source ${OHMYZSH}/oh-my-zsh.sh
 # 4. Starship command prompt (https://github.com/starship/starship)
 # ==========================================================
 
-export STARSHIP_CONFIG="${HOME}/.starship"
+export STARSHIP_CONFIG="${HOME}/.config/starship.toml"
 # Change default starship.toml file location with STARSHIP_CONFIG environment variable
 eval "$(starship init zsh)"
 
 # ==========================================================
-# 5. Custom environment Variables & Exports
+# 5. Custom Environment Variables & Exports
 # ==========================================================
 
 source ${HOME}/.env

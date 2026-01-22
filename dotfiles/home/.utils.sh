@@ -76,8 +76,8 @@ yt() {
 eval "$(gh copilot alias -- zsh)"
 
 # iTerm2 shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" \
-        && source "${HOME}/.iterm2_shell_integration.zsh"
+test -e "${HOME}/.iterm2_shell_integration.zsh" &&
+    source "${HOME}/.iterm2_shell_integration.zsh"
 
 # Shell history manager https://atuin.sh
 eval "$(atuin init zsh)"
