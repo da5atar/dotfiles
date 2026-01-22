@@ -26,6 +26,7 @@ plugins=(
     git
     git-prompt
     macos
+    npm
     starship
     z
     # $ZSH_CUSTOM
