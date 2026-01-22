@@ -34,7 +34,7 @@ fi
 alias l='ls -lF "${colorflag}"'                             # List all files colorized in long format
 alias lc='ls -lAF "${colorflag}"'                           # List all files colorized in long format, excluding . and ..
 alias lod='ls -lF "${colorflag}" | grep --color=never '^d'' # List only directories
-# alias ls='command ls "${colorflag}"'                        # Always use color output for `ls`
+alias ls='command ls "${colorflag}"'                        # Always use color output for `ls`
 alias la='ls -Alh'                 # show hidden files
 alias lcx='ls -aFh --color=always' # add colors and file type extensions
 alias lx='ls -lXBh'                # sort by extension
@@ -75,14 +75,11 @@ alias my-local-ip="ipconfig getifaddr en0"
 # Print each PATH entry on a separate line
 alias path='echo -e ${PATH//:/\\n}'
 
-##################
-# CUSTOM ALIASES
-##################
 # Source .zshrc, which updates all other commands
 alias src="source ~/.zshrc"
 
 # safe delete
-alias rm=trash
+alias rm='trash'
 
 # Record terminal session in a text file using `script`
 alias script='script -a terminal_session_$(timestamp).txt'
@@ -92,13 +89,13 @@ alias record='script'
 alias show-zsh-login='zsh -xl'
 
 # Really delete
-alias del='sudo rm -f'
+alias del='sudo \rm -f'
 
 # Radiohead
 alias radio='tera'
 
 # Better find
-alias fd='find'
+alias find='fd'
 
 # Git
 alias clone='git clone'

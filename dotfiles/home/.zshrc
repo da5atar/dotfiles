@@ -17,14 +17,22 @@ export OHMYZSH="${HOME}/.oh-my-zsh"
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="random"
 
-# Oh My Zsh Plugins
+# Plugins
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+    # Oh My Zsh Plugins
     docker
     docker-compose
     git
+    git-prompt
     macos
+    starship
     z
+    # $ZSH_CUSTOM
+    autoswitch_virtualenv # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+    fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
+    zsh-autocomplete # https://github.com/marlonrichert/zsh-autocomplete
+    zsh-autosuggestions # https://github.com/zsh-users/zsh-autosuggestions
 )
 
 # ==========================================================
@@ -41,13 +49,13 @@ elif [[ "${MACHINE}" == "Linux" ]] && [[ $(uname -m) == "x86_64" ]]; then
 fi
 
 # ==========================================================
-# 2. ZSH Plugins and completions
+# 2. Additional ZSH Plugins and completions
 # ==========================================================
 
-# Zsh Completion (https://github.com/zsh-users/zsh-completions)
+# https://github.com/zsh-users/zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-autoload -Uz compinit && compinit
+autoload -U compinit && compinit
 
 # ==========================================================
 # 3. Load Oh My Zsh
