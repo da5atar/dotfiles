@@ -73,13 +73,28 @@ export STARSHIP_CONFIG="${HOME}/.config/starship.toml"
 eval "$(starship init zsh)"
 
 # ==========================================================
-# 5. Custom Environment Variables & Exports
+# 5. Aliases & Exports
 # ==========================================================
 
-source ${HOME}/.env
+# Source aliases and exports
+# For a full list of active aliases, run `alias`.
+if [[ "${MACHINE}" == "Linux" ]]; then
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/env/linux/exports-linux.sh"
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/env/linux/aliases-linux.sh"
+elif [[ "${MACHINE}" == "Mac" ]]; then
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/env/macos/exports-mac.sh"
+    # shellcheck source=/dev/null
+    source "${PROJECT_ROOT}/env/macos/aliases-mac.sh"
+fi
 
-# Pip
-export PIP_REQUIRE_VIRTUALENV=true
+# Source all remaining files in the env folder
+for file in "${PROJECT_ROOT}/env/"*.sh; do
+    # shellcheck source=/dev/null
+    source "${file}"
+done
 
 # ==========================================================
 # 6. Utilities
