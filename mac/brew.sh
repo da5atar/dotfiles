@@ -51,7 +51,6 @@ brew install pipx                        # Python package manager
 brew install pnpm                        # JavaScript package manager
 brew install qemu                        # virtual machine emulator
 brew install quarkdown                   # Markdown-based typesetting system
-brew install quickemu                    # virtual machine emulator
 brew install ripgrep                     # fast regex search tool
 brew install readline                    # command line editing library
 brew install ripgrep                     # fast regex search tool
@@ -70,6 +69,7 @@ brew install thefuck                     # Command correction tool
 brew install tokei                       # Code statistics tool
 brew install tree                        # directory listing tool
 brew install trippy                      # Network diagnostic tool
+brew install utm                         # system emulator and virtual machine host
 brew install uv                          # python package manager
 brew install virtualenv                  # python virtual environment manager
 brew install weasyprint                  # HTML to PDF converter

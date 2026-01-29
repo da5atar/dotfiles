@@ -3,17 +3,8 @@
 
 # Environment Setup
 if [[ "${MACHINE}" == "Mac" ]]; then
-    true # (no-op placeholder)
+    export PATH="/Users/ms/.local/bin:$PATH" # find binaries in .local/bin
 fi
-
-export PATH="/Users/ms/.local/bin:$PATH"
-
-# `bat` https://github.com/sharkdp/bat
-export BAT_CONFIG_PATH="{$HOME}/.config/bat/config"
-# use bat to colorize help text
-help() {
-    "$@" --help 2>&1 | bathelp
-}
 
 # Preferred Editor
 if [[ -n $SSH_CONNECTION ]]; then
@@ -22,18 +13,23 @@ else
     export EDITOR='zed --wait'
 fi
 
-# Shell Notes https://github.com/da5atar/shell-notes
-export NOTES_DIRECTORY
-NOTES_DIRECTORY=$NOTE_DIR # Set in .env
+# ---- atuin ----
+# Shell history manager https://atuin.sh
+eval "$(atuin init zsh)"
 
-# Autoswitch Virtualenv https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
-export AUTOSWITCH_DEFAULT_PYTHON
-export AUTOSWITCH_VIRTUAL_ENV_DIR
-export AUTOSWITCH_FILE
-AUTOSWITCH_DEFAULT_PYTHON="$(command -v python3)"
-AUTOSWITCH_VIRTUAL_ENV_DIR="${VENV_DIR}/Autoswitch" # Set in .env
-AUTOSWITCH_FILE=".autoswitch"
+# ---- bat ----
+# `bat` https://github.com/sharkdp/bat
+export BAT_CONFIG_PATH="{$HOME}/.config/bat/config"
 
+# use bat to colorize help text
+alias bathelp='bat --plain --language=help'
+help() {
+    "$@" --help 2>&1 | bathelp
+}
+# Use `bat` as a colorized pager for `man`
+export MANPAGER="bat -plman"
+
+# ---- fabric ----
 # Fabric https://github.com/danielmiessler/Fabric
 alias fabric='fabric-ai'
 # Define fabric patterns alias (i.e., `summarize` instead of `fabric -p summarize`)
@@ -72,16 +68,7 @@ yt() {
     fabric -y "$video_link" $transcript_flag
 }
 
-# GitHub (gh) CLI Copilot extension https://github.com/github/gh-copilot
-eval "$(gh copilot alias -- zsh)"
-
-# iTerm2 shell integration
-test -e "${HOME}/.iterm2_shell_integration.zsh" \
-        && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Shell history manager https://atuin.sh
-eval "$(atuin init zsh)"
-
+# ---- fzf ----
 # fzf setup https://github.com/junegunn/fzf
 source <(fzf --zsh)
 export FZF_DEFAULT_OPTS="
@@ -94,15 +81,30 @@ export FZF_DEFAULT_OPTS="
 # Use fd instead of find
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
+# ---- gh ----
+# GitHub (gh) CLI Copilot extension https://github.com/github/gh-copilot
+# eval "$(gh copilot alias -- zsh)"
+
+# ---- iTerm2 ----
+# iTerm2 shell integration
+test -e "${HOME}/.iterm2_shell_integration.zsh" &&
+    source "${HOME}/.iterm2_shell_integration.zsh"
+
+# ---- notes ----
+# Shell Notes https://github.com/da5atar/shell-notes
+export NOTES_DIRECTORY
+
+# ---- python ----
+# Avoid global installs with pip
+export PIP_REQUIRE_VIRTUALENV=true
+
+# ---- television ----
 # tv https://github.com/alexpasmantier/television
 eval "$(tv init zsh)"
 
 # Custom Aliases and Functions
-alias o="open"
-alias reload='exec ${SHELL} -l'
-
 source "${HOME}/.aliases.sh"
-
+source "${HOME}/.env"
 source ~/.functions.sh
 
 # ---- End of file ----

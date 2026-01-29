@@ -11,7 +11,7 @@ MINGW*) MACHINE=MinGw ;;
 esac
 
 if [[ "${MACHINE}" == "Linux" ]]; then
-  source shared/setup.sh
+    source shared/setup-linux.sh
 elif [[ "${MACHINE}" == "Mac" ]]; then
-  source mac/setup.sh
+    source mac/setup-macos.sh
 fi
