@@ -32,6 +32,7 @@ plugins=(
     # $ZSH_CUSTOM
     autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
     fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
+    ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
     zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
     zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
 )

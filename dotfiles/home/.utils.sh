@@ -92,7 +92,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" &&
 
 # ---- notes ----
 # Shell Notes https://github.com/da5atar/shell-notes
-export NOTES_DIRECTORY
+export NOTES_DIRECTORY # set in ~/.env
 
 # ---- python ----
 # Avoid global installs with pip
