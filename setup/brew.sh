@@ -34,14 +34,17 @@ brew install ack                         # text search tool
 brew install autojump                    # Directory navigation tool
 brew install atuin                       # shell history
 brew install bat                         # cat alternative
+brew install block-goose-cli             # extensible AI agent
 brew install colima                      # container runtime
 brew install docker                      # container runtime
 brew install docker-compose              # container orchestration
 brew install dust                        # Disk usage analyzer
 brew install fabric-ai                   # AI framework
 brew install fd                          # file finder
+brew install go                          # Programming Language
 brew install gh                          # GitHub CLI
 brew install git-ignore                  # git ignore file generator
+brew install git-lfs                     # Git Large File Storage
 brew install glib                        # library for computing the b2 hash
 brew install glow                        # terminal markdown viewer
 brew install libb2                       # library for computing the b2 hash
@@ -52,6 +55,7 @@ brew install node                        # JavaScript runtime
 brew install ollama                      # LLM runner
 brew install openssl@3                   # OpenSSL library
 brew install pango                       # library for rendering text and images
+brew install pigz                        # compression utility
 brew install pipx                        # Python package manager
 brew install pnpm                        # JavaScript package manager
 brew install qemu                        # virtual machine emulator
@@ -69,12 +73,13 @@ brew install task                        # Task runner
 brew install tcl-tk@8                    # Tcl/Tk scripting language
 brew install tealdeer                    # terminal documentation viewer
 brew install television                  # file finder
+brew install tera                        # Radio streaming
 brew install tgpt                        # AI Chatbots in terminal
 brew install thefuck                     # Command correction tool
 brew install tokei                       # Code statistics tool
 brew install tree                        # directory listing tool
 brew install trippy                      # Network diagnostic tool
-brew install utm                         # system emulator and virtual machine host
+brew install tabbyml/tabby/tabby         # Self-hosted AI coding assistant
 brew install uv                          # python package manager
 brew install virtualenv                  # python virtual environment manager
 brew install weasyprint                  # HTML to PDF converter
@@ -105,6 +110,7 @@ brew install appcleaner             # Application uninstaller
 brew install applite                # Homebrew GUI
 brew install atuin-desktop          # Runbook editor for terminal workflows
 brew install balenaetcher           # flash OS images
+brew install block-goose            # Extensible AI agent
 brew install bitwarden              # Password Manager
 brew install brave-browser          # Web Browser
 brew install browsers               # Web browser selection tool
@@ -133,6 +139,7 @@ brew install slack                  # communication app
 brew install spotify                # music streaming service
 brew install stats                  # system monitoring tool
 brew install swiftbar               # menu bar app
+brew install utm                    # system emulator and virtual machine host
 brew install vlc                    # media player
 brew install void                   # ai code editor
 brew install zed                    # ai code editor

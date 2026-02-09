@@ -86,6 +86,7 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 # eval "$(gh copilot alias -- zsh)"
 
 # ---- iTerm2 ----
+# https://iterm2.com/documentation-shell-integration.html
 # iTerm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
     source "${HOME}/.iterm2_shell_integration.zsh"
