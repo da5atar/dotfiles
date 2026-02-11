@@ -3,6 +3,14 @@
 
 #--- Directories
 
+# Normalize `open` across Linux and macOS.
+# This is needed to make the `o` function (see below) cross-platform.
+if [ ! "$(uname -s)" = 'Darwin' ]; then
+    if [ -x "$(command -v xdg-open)" ]; then
+        alias open='xdg-open'
+    fi
+fi
+
 # `o` with no arguments opens the current directory, otherwise opens the given
 # location
 function o() {
