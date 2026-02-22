@@ -56,6 +56,10 @@ git clone https://github.com/zdharma-continuum/fast-syntax-highlighting.git \
 git clone https://github.com/Katrovsky/zsh-ollama-completion.git \
     ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/ollama
 
+# autoupdate-zsh-plugin
+mkdir -p $ZSH_CUSTOM/plugins/autoupdate
+git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins $ZSH_CUSTOM/plugins/autoupdate
+
 printf "Done installing ZSH Plugins!\n"
 
 # source .zshrc

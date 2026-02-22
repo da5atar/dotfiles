@@ -39,6 +39,7 @@ plugins=(
     starship
     z
     # $ZSH_CUSTOM
+    autoupdate               # https://github.com/tamcore/autoupdate-oh-my-zsh-plugins
     autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
     fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
     ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
