@@ -53,3 +53,11 @@ set_no_dupes_path() {
     export PATH
     show_path
 }
+
+# ---- FPATH ----
+
+# function to echo $FPATH one entry per line
+### no_dupes_fpath()
+show_fpath() {
+    awk -v RS=: '{print}' <<<"$FPATH"
+}

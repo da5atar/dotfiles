@@ -91,12 +91,13 @@ defaultBranch = main
 	colorMoved = plain
 	mnemonicPrefix = true
 	renames = true
-	tool = vimdiff
+	tool = vscodium
 	indentHeuristic = true
 	colorMovedWS = allow-indentation-change
 	submodule = log
 
 [difftool]
+    cmd = cmd = codium --wait --diff $LOCAL $REMOTE
 	prompt = false
 	trustExitCode = true
 
@@ -134,7 +135,7 @@ defaultBranch = main
 enabled = true
 autoupdate = true
 [core]
-	editor = nvim
+	editor = codium --wait
 	excludesfile = ~/.gitignore_global
 	fsmonitor = true
 	untrackedCache = true
@@ -147,10 +148,11 @@ autoStash = true
 updateRefs = true
 [merge]
 	conflictstyle = zdiff3
-	tool = vimdiff
+	tool = vscodium
 	ff = only
 
 [mergetool]
+    cmd = cmd = codium --wait --merge $REMOTE $LOCAL $BASE $MERGED
 	prompt = false
 	keepBackup = false
 	trustExitCode = true

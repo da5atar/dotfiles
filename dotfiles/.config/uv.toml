@@ -1,0 +1,2 @@
+# Never use system Python installations
+python-preference = "only-managed" # https://docs.astral.sh/uv/reference/settings/#python-preference

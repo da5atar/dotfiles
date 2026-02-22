@@ -1,0 +1,11 @@
+// Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
+[
+    {
+        // https://alexpasmantier.github.io/television/docs/Users/showcase#-zed-editor-file-finder
+        "label": "File Finder",
+        "command": "zed $(tv files)",
+        "hide": "always",
+        "allow_concurrent_runs": true,
+        "use_new_terminal": true,
+    },
+]

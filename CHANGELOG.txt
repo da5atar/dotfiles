@@ -1,0 +1,8 @@
+Changelog
+=========
+
+2026-02-26
+----------
+
+- Added autoupdate plugin for Oh My Zsh
+- Added changelog
