@@ -1,7 +1,16 @@
 #!/usr/bin/env zsh
 # ~/.zshrc
 # computer: $HOSTNAME
-# last_edit:
+# last_edit: 2026-02-07
+# Resources:
+#   ZSH cheat sheet: https://gist.github.com/da5atar/36f772d80d792a20b8543baef69c17c2
+#   Setting PATH for ZSH on macOS: https://gist.github.com/da5atar/b87af08926d268c590f82fa8047c429e
+
+# Overrides
+
+# /etc/zshrc
+HISTSIZE=20000
+SAVEHIST=10000
 
 # Source init file
 source "${HOME}/.init.sh"
@@ -30,8 +39,10 @@ plugins=(
     starship
     z
     # $ZSH_CUSTOM
+    autoupdate               # https://github.com/tamcore/autoupdate-oh-my-zsh-plugins
     autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
     fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
+    ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
     zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
     zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
 )
@@ -43,7 +54,7 @@ plugins=(
 if [[ "${MACHINE}" == "Mac" ]]; then
     # Homebrew
     eval $(/opt/homebrew/bin/brew shellenv)
-    FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+    # Homebrew coreutils
     export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
 fi
 
@@ -54,7 +65,12 @@ fi
 # https://github.com/zsh-users/zsh-completions
 fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 
-autoload -U compinit && compinit
+# Add local functions directory to fpath
+fpath=(~/.local/share/zsh/site-functions $fpath)
+
+# Initialize ZSH completion system
+autoload -Uz compinit
+# compinit # Oh-My-ZSH calls this when loading zsh
 
 # ==========================================================
 # 3. Load Oh My Zsh

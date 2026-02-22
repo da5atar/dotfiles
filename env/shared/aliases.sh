@@ -94,6 +94,13 @@ alias reload='exec ${SHELL} -l'
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
 
+# ---- Python  ----
+
+# Avoid using system Python and use uv's:
+# `uv python install --default`
+# https://docs.astral.sh/uv/guides/install-python/
+alias python3='python'
+
 # ---- Search ----
 # Always enable colored `grep` output
 # Note: `GREP_OPTIONS="--color=auto"` is deprecated, hence the alias usage.

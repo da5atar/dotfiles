@@ -1,4 +1,4 @@
-# Configuration file for starship.rs
+# Configuration file for starship.rs: https://starship.rs/config/
 # based on https://github.com/CoryCharlton/starship-configuration
 "$schema" = "https://starship.rs/config-schema.json"
 
@@ -9,13 +9,14 @@ format = """
 $os\
 $username\
 $hostname\
-[ ](fg:color_bg1 bg:color_bg2)\
+[](fg:color_bg1 bg:color_bg2)\
 $directory\
-[ ](fg:color_bg2 bg:color_bg3)\
+[](fg:color_bg2 bg:color_bg3)\
 $git_branch\
 $git_status\
-[ ](fg:color_bg3 bg:color_bg4)\
+[](fg:color_bg3 bg:color_bg4)\
 $c\
+$docker_context\
 $java\
 $kotlin\
 $lua\
@@ -24,10 +25,11 @@ $python\
 $ruby\
 $rust\
 $swift\
-[ ](fg:color_bg4 bg:color_bg5)\
+[](fg:color_bg4 bg:color_bg5)\
 $cmd_duration\
 [ ](fg:color_bg5)\
-\n$time\
+$line_break\
+$time\
 $character\
 """
 
@@ -51,8 +53,9 @@ error_symbol = "[󰍟](bold color_red)"
 success_symbol = "[󰍟](bold color_green)"
 
 [cmd_duration]
-format = "[$duration](bg:color_bg5 fg:color_gray)"
-min_time = 500
+format = "took [$duration](bold color_gray)"
+show_notifications = true
+min_time = 1000
 
 [directory]
 style = "bg:color_bg2 fg:color_white"
@@ -77,8 +80,14 @@ format = "[$symbol $branch]($style)"
 [git_status]
 ahead = "⇡${count}"
 behind = "⇣${count}"
-deleted = ""
+deleted = "${count}"
 diverged = "⇕⇡${ahead_count}⇣${behind_count}"
+modified = "!${count}"
+renamed = "»${count}"
+staged = "+${count}"
+stashed = "🅂 ${count}"
+untracked = "?${count}"
+up_to_date = "✔"
 format = '[( $all_status$ahead_behind)]($style)'
 style = "bold bg:color_bg3 fg:color_red"
 
@@ -111,6 +120,11 @@ format = '[$symbol]($style)'
 style = "bg:color_bg4 fg:#6295CB"
 symbol = " "
 
+[docker_context]
+format ="via [$symbol $context]($style) "
+symbol = ""
+style  =  "bg:color_bg4 fg:#5FEE4E"
+
 [java]
 format = '[$symbol]($style)'
 style = "bg:color_bg4 fg:#F7901E"
@@ -133,7 +147,7 @@ symbol = " "
 
 [python]
 style = "bg:color_bg4 fg:#3572A5"
-format = '[$symbol($version)]($style)'
+format = '[$symbol($version) via \($virtualenv\)]($style)'
 symbol = " "
 
 [ruby]

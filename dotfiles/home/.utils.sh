@@ -70,7 +70,6 @@ yt() {
 
 # ---- fzf ----
 # fzf setup https://github.com/junegunn/fzf
-source <(fzf --zsh)
 export FZF_DEFAULT_OPTS="
     --height 40%
     --layout=reverse
@@ -81,18 +80,22 @@ export FZF_DEFAULT_OPTS="
 # Use fd instead of find
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
+# Set up fzf key bindings and fuzzy completion
+source <(fzf --zsh)
+
 # ---- gh ----
 # GitHub (gh) CLI Copilot extension https://github.com/github/gh-copilot
 # eval "$(gh copilot alias -- zsh)"
 
 # ---- iTerm2 ----
+# https://iterm2.com/documentation-shell-integration.html
 # iTerm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
     source "${HOME}/.iterm2_shell_integration.zsh"
 
 # ---- notes ----
 # Shell Notes https://github.com/da5atar/shell-notes
-export NOTES_DIRECTORY
+export NOTES_DIRECTORY # set in ~/.env
 
 # ---- python ----
 # Avoid global installs with pip
