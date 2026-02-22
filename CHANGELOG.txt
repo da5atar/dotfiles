@@ -4,5 +4,6 @@ Changelog
 2026-02-26
 ----------
 
+- Added config files for `atuin` and `tv`
 - Added autoupdate plugin for Oh My Zsh
 - Added changelog
