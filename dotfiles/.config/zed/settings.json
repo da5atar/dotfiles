@@ -1,0 +1,232 @@
+// File: ~/.config/zed/settings.json
+// Description: Zed settings
+// Computer: Dacomp
+// Last Edit: 2026-02-01
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run the `open default settings` command
+// from the command palette or from `Zed` application menu.
+{
+    // ────────────────────────────────────────────────
+    // 1️⃣ Editor & Language Settings
+    // ────────────────────────────────────────────────
+    "wrap_guides": [25, 50, 80],
+    "edit_predictions": {
+        "ollama": {
+            "model": "rnj-1:latest",
+        },
+        "provider": "zed",
+    },
+    "languages": {
+        "Markdown-Inline": {
+            "auto_indent_on_paste": true,
+            "linked_edits": true,
+            "show_whitespaces": "all",
+            "show_edit_predictions": true,
+            "wrap_guides": [25, 50, 80],
+            "soft_wrap": "editor_width",
+            "indent_guides": {
+                "enabled": false,
+            },
+            "hard_tabs": false,
+        },
+    },
+    "diagnostics": {
+        "inline": {
+            "enabled": true,
+        },
+    },
+    "buffer_font_weight": 200.0,
+    "buffer_font_size": 14,
+    "buffer_font_family": "MonaspiceAr Nerd Font",
+    "buffer_font_fallbacks": ["FiraCode Nerd Font", ".ZedMono"],
+    "auto_indent_on_paste": true,
+    "linked_edits": true,
+    "show_whitespaces": "all",
+    "show_edit_predictions": true,
+    "soft_wrap": "editor_width",
+    // ────────────────────────────────────────────────
+    // 2️⃣ Cursor & Gutter
+    // ────────────────────────────────────────────────
+    "cursor_shape": "bar",
+    "cursor_blink": true,
+    "gutter": {
+        "line_numbers": true,
+    },
+
+    // ────────────────────────────────────────────────
+    // 3️⃣ UI Layout & Appearance
+    // ────────────────────────────────────────────────
+    "minimap": {
+        "show": "auto",
+    },
+    "tab_bar": {
+        "show": true,
+    },
+    "scrollbar": {
+        "show": "auto",
+    },
+    "tabs": {
+        "file_icons": false,
+        "show_diagnostics": "errors",
+    },
+    "indent_guides": {
+        "enabled": false,
+        "coloring": "indent_aware",
+    },
+    "icon_theme": {
+        "mode": "system",
+        "light": "Zed (Default)",
+        "dark": "Zed (Default)",
+    },
+    "theme": {
+        "mode": "system",
+        "light": "Ayu Light",
+        "dark": "Ayu Dark",
+    },
+    "base_keymap": "VSCode",
+    "ui_font_family": ".SystemUIFont",
+    "ui_font_size": 14,
+
+    // ────────────────────────────────────────────────
+    // 4️⃣ Git & Project Panels
+    // ────────────────────────────────────────────────
+    "git_panel": {
+        "tree_view": true,
+        "dock": "right",
+    },
+    "project_panel": {
+        "button": true,
+        "dock": "left",
+        "git_status": true,
+    },
+    "outline_panel": {
+        "dock": "right",
+    },
+    "collaboration_panel": {
+        "dock": "left",
+    },
+
+    // ────────────────────────────────────────────────
+    // 5️⃣ Agent & AI
+    // ────────────────────────────────────────────────
+    "agent": {
+        "favorite_models": [
+            {
+                "provider": "ollama",
+                "model": "gpt-oss",
+                "enable_thinking": false,
+            },
+        ],
+        "inline_assistant_model": {
+            "provider": "ollama",
+            "model": "rnj-1",
+        },
+        "default_profile": "write",
+        "default_model": {
+            "provider": "ollama",
+            "model": "gpt-oss",
+        },
+        "use_modifier_to_send": true,
+        "play_sound_when_agent_done": true,
+        "model_parameters": [],
+    },
+    "language_models": {
+        "ollama": {
+            "api_url": "http://localhost:11434",
+            "available_models": [
+                {
+                    "name": "gpt-oss",
+                    "supports_tools": true,
+                    "supports_thinking": true,
+                    "max_tokens": 32768,
+                },
+            ],
+        },
+    },
+
+    // ────────────────────────────────────────────────
+    // 6️⃣ Context Servers
+    // ────────────────────────────────────────────────
+    "context_servers": {
+        "mcp-server-tavily": {
+            "enabled": true,
+            "remote": false,
+            "settings": {
+                "tavily_api_key": "$TAVILY_API_KEY",
+            },
+        },
+        "mcp-server-context7": {
+            "enabled": true,
+            "settings": {
+                "context7_api_key": "",
+            },
+        },
+    },
+
+    // ────────────────────────────────────────────────
+    // 7️⃣ Terminal
+    // ────────────────────────────────────────────────
+    "terminal": {
+        "blinking": "on",
+        "cursor_shape": "bar",
+        "line_height": {
+            "custom": 1.2,
+        },
+        "font_fallbacks": [".ZedMono"],
+        "font_size": 16.0,
+        "font_family": "3270 Nerd Font",
+        "env": {
+            "EDITOR": "zed --wait",
+        },
+    },
+
+    // ────────────────────────────────────────────────
+    // 8️⃣ File Types & Scan Exclusions
+    // ────────────────────────────────────────────────
+    "file_types": {
+        "Dockerfile": ["Dockerfile", "Dockerfile.*"],
+        "JSON": ["json", "jsonc", "*.code-snippets"],
+    },
+    "file_scan_exclusions": [
+        "**/.git",
+        "**/.svn",
+        "**/.hg",
+        "**/CVS",
+        "**/.DS_Store",
+        "**/Thumbs.db",
+        "**/.classpath",
+        "**/.settings",
+        "**/out",
+        "**/dist",
+        "**/.husky",
+        "**/.turbo",
+        "**/.vscode-test",
+        "**/.vscode",
+        "**/.next",
+        "**/.storybook",
+        "**/.tap",
+        "**/.nyc_output",
+        "**/report",
+        "**/node_modules",
+    ],
+
+    // ────────────────────────────────────────────────
+    // 9️⃣ Telemetry & Misc
+    // ────────────────────────────────────────────────
+    "telemetry": {
+        "diagnostics": false,
+        "metrics": false,
+    },
+    "redact_private_values": true,
+    "preview_tabs": {
+        "enabled": false,
+    },
+    "status_bar": {
+        "experimental.show": true,
+    },
+    "multi_cursor_modifier": "cmd_or_ctrl",
+}

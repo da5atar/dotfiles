@@ -152,7 +152,7 @@ clear_dir() {
     if ! (isEmpty "${@:-"${PWD}"}"); then
         ls -la
         # Remove all files including hidden .files
-        rm -vrf "${PWD:?}/"* # this form ensures it never expand to root folder
-        rm -vrf "${PWD:?}/".*
+        command rm -vrf "${PWD:?}/"* # this form ensures it never expand to root folder
+        command rm -vrf "${PWD:?}/".*
     fi
 }
