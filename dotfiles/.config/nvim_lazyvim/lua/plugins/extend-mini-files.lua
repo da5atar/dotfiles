@@ -1,0 +1,47 @@
+-- extend-mini-files.lua
+-- remaps existing mini.files keybindings
+-- --
+-- stylua: ignore
+if true then return {} end
+-- return {
+-- -- Reuse Snacks plugin explorer keybindings and remap <leader>fm to open root dir
+--   "nvim-mini/mini.files",
+--   keys = {
+--     {
+--       "<leader>e",
+--       function()
+--         require("mini.files").open(vim.api.nvim__buf_get_name(0), true)
+--       end,
+--       desc = "Open mini.files (directory of current file)",
+--     },
+--     {
+--       "<leader>E",
+--       function()
+--         require("mini.files").open(vim.uv.cwd(), true)
+--       end,
+--       desc = "Open mini.files (cwd)",
+--     },
+--     {
+--       "<leader>fm",
+--       function()
+--         require("mini.files").open(LazyVim.root(), true)
+--       end,
+--     },
+--   },
+--   opts = {
+--     -- Use arrow keys
+--     mappings = {
+--       go_in = "<Right>",
+--       go_out = "<Left>",
+--     },
+--     -- Only on a big screen (32"+)
+--     windows = {
+--       width_nofocus = 20,
+--       width_focus = 50,
+--       width_preview = 100,
+--     },
+--     options = {
+--       use_as_default_explorer = true,
+--     },
+--   }
+-- }
