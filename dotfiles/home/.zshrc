@@ -1,16 +1,18 @@
 #!/usr/bin/env zsh
 # ~/.zshrc
 # computer: $HOSTNAME
-# last_edit: 2026-02-07
+# last_edit: 2026-03-18
 # Resources:
 #   ZSH cheat sheet: https://gist.github.com/da5atar/36f772d80d792a20b8543baef69c17c2
 #   Setting PATH for ZSH on macOS: https://gist.github.com/da5atar/b87af08926d268c590f82fa8047c429e
 
-# Overrides
+## Overrides
 
 # /etc/zshrc
-HISTSIZE=20000
-SAVEHIST=10000
+export HISTSIZE=268435456
+export SAVEHIST="$HISTSIZE"
+
+setopt INC_APPEND_HISTORY
 
 # Source init file
 source "${HOME}/.init.sh"
@@ -48,18 +50,7 @@ plugins=(
 )
 
 # ==========================================================
-# 1. Homebrew (https://docs.brew.sh/Shell-Completion)
-# ==========================================================
-
-if [[ "${MACHINE}" == "Mac" ]]; then
-    # Homebrew
-    eval $(/opt/homebrew/bin/brew shellenv)
-    # Homebrew coreutils
-    export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"
-fi
-
-# ==========================================================
-# 2. Additional ZSH Plugins and completions
+# 1. Additional ZSH Plugins and completions
 # ==========================================================
 
 # https://github.com/zsh-users/zsh-completions
@@ -70,24 +61,24 @@ fpath=(~/.local/share/zsh/site-functions $fpath)
 
 # Initialize ZSH completion system
 autoload -Uz compinit
-# compinit # Oh-My-ZSH calls this when loading zsh
+# Oh-My-ZSH calls compinit when loading zsh
 
 # ==========================================================
-# 3. Load Oh My Zsh
+# 2. Load Oh My Zsh
 # ==========================================================
 
 source ${OHMYZSH}/oh-my-zsh.sh
 
 # ==========================================================
-# 4. Starship command prompt (https://github.com/starship/starship)
+# 3. Starship command prompt (https://github.com/starship/starship)
 # ==========================================================
 
+# Change default starship.toml file location with STARSHIP_CONFIG
 export STARSHIP_CONFIG="${HOME}/.config/starship.toml"
-# Change default starship.toml file location with STARSHIP_CONFIG environment variable
 eval "$(starship init zsh)"
 
 # ==========================================================
-# 5. Aliases & Exports
+# 4. Aliases & Exports
 # ==========================================================
 
 # Source aliases and exports
@@ -104,22 +95,20 @@ elif [[ "${MACHINE}" == "Mac" ]]; then
     source "${PROJECT_ROOT}/env/macos/aliases-mac.sh"
 fi
 
-# Source all remaining files in the env folder
+# Source all remaining files in the shared env folder
 for file in "${PROJECT_ROOT}/env/shared/"*.sh; do
     # shellcheck source=/dev/null
     source "${file}"
 done
 
 # ==========================================================
-# 6. Utilities
+# 5. Utilities
 # ==========================================================
 
-source "${HOME}/.utils.sh"
-
-echo "Zsh configuration loaded"
+source "${HOME}/.utils.sh" # && echo "Zsh configuration loaded"
 
 # --- End of file ---
 
 # ==========================================================
-# 7. New entries (auto-added)
+# 6. New entries (auto-added)
 # ==========================================================

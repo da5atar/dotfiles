@@ -5,9 +5,9 @@
 echo "Installing Homebrew."
 
 if ! command -v brew &>/dev/null; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 else
-    echo "Homebrew is already installed"
+  echo "Homebrew is already installed"
 fi
 
 eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -31,26 +31,35 @@ brew install gnu-sed
 # Install useful binaries.
 
 brew install ack                         # text search tool
-brew install autojump                    # Directory navigation tool
 brew install atuin                       # shell history
+brew install autojump                    # Directory navigation tool
 brew install bat                         # cat alternative
 brew install block-goose-cli             # extensible AI agent
+brew install cmake                       # Cross-platform make
+brew install cmake-docs                  # cmake docs
 brew install colima                      # container runtime
 brew install docker                      # container runtime
 brew install docker-compose              # container orchestration
 brew install dust                        # Disk usage analyzer
 brew install fabric-ai                   # AI framework
 brew install fd                          # file finder
+brew install fzf                         # fuzzy finder
 brew install go                          # Programming Language
 brew install gh                          # GitHub CLI
 brew install git-ignore                  # git ignore file generator
 brew install git-lfs                     # Git Large File Storage
 brew install glib                        # library for computing the b2 hash
 brew install glow                        # terminal markdown viewer
+brew install lazygit                     # terminal git client
 brew install libb2                       # library for computing the b2 hash
 brew install lima-additional-guestagents # additional guest agents for Lima
 brew install lsd                         # file listing
+brew install lua                         # Programming language
+brew install luacheck                    # linting and static analysis
+brew install luarocks                    # Package manager for lua
 brew install lynis                       # security auditing tool
+brew install navi                        # cli cheatsheet
+brew install neovide                     # cross-platform nvim GUI
 brew install node                        # JavaScript runtime
 brew install ollama                      # LLM runner
 brew install openssl@3                   # OpenSSL library
@@ -58,17 +67,19 @@ brew install pango                       # library for rendering text and images
 brew install pigz                        # compression utility
 brew install pipx                        # Python package manager
 brew install pnpm                        # JavaScript package manager
+brew install pyenv                       # Python version manager
+brew install pyenv-virtualenv            # pyenv plugin
 brew install qemu                        # virtual machine emulator
 brew install quarkdown                   # Markdown-based typesetting system
 brew install ripgrep                     # fast regex search tool
 brew install readline                    # command line editing library
-brew install ripgrep                     # fast regex search tool
 brew install ruby                        # Ruby programming language
 brew install rust                        # Programming language
 brew install sha3sum                     # hash function
 brew install shellcheck                  # shell script linting tool
 brew install shfmt                       # shell script formatter
 brew install starship                    # cross-shell prompt
+brew install stylua                      # Lua formatter
 brew install task                        # Task runner
 brew install tcl-tk@8                    # Tcl/Tk scripting language
 brew install tealdeer                    # terminal documentation viewer
@@ -76,6 +87,8 @@ brew install television                  # file finder
 brew install tera                        # Radio streaming
 brew install tgpt                        # AI Chatbots in terminal
 brew install thefuck                     # Command correction tool
+brew install tree-sitter                 # Incremental parsing library
+brew install tree-sitter-cli             # Tree-sitter CLI tool
 brew install tokei                       # Code statistics tool
 brew install tree                        # directory listing tool
 brew install trippy                      # Network diagnostic tool
@@ -130,6 +143,8 @@ brew install keepingyouawake        # Keep your Mac awake
 brew install logseq                 # note-taking app
 brew install lulu                   # firewall
 brew install mark-text              # markdown editor (Deprecated, will be disabled on [[2026-09-01]])
+brew install micro                  # terminal text editor
+brew install neovim                 # vim based editor
 brew install obsidian               # note-taking app
 brew install openmtp                # Android file transfer
 brew install pearcleaner            # App cleaner
@@ -141,9 +156,9 @@ brew install stats                  # system monitoring tool
 brew install swiftbar               # menu bar app
 brew install utm                    # system emulator and virtual machine host
 brew install vlc                    # media player
-brew install void                   # ai code editor
-brew install zed                    # ai code editor
-brew install zoom                   # video conferencing app
+# brew install void                   # ai code editor
+# brew install zed                    # ai code editor
+# brew install zoom                   # video conferencing app
 brew install zotero                 # reference manager
 
 # Remove outdated versions from the cellar.

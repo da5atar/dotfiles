@@ -89,7 +89,7 @@ alias clone='git clone'
 # git-ignore https://github.com/sondr3/git-ignore
 alias gi='git-ignore'
 
-alias reload='exec ${SHELL} -l'
+alias reload='exec ${SHELL}'
 
 # Enable aliases to be sudo'ed
 alias sudo='sudo '
@@ -100,6 +100,8 @@ alias sudo='sudo '
 # `uv python install --default`
 # https://docs.astral.sh/uv/guides/install-python/
 alias python3='python'
+alias pip3='pip'
+alias pip='python -m pip'
 
 # ---- Search ----
 # Always enable colored `grep` output

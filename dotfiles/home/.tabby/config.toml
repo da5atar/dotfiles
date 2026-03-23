@@ -1,0 +1,61 @@
+# File: $HOME/.tabby/config.toml
+# Last Edit: 2026-02-23
+# Computer: Dacomp
+# Status: Working config
+
+# Tabby <-> Ollama Config
+
+# Ref - See https://github.com/TabbyML/tabby/discussions/3285
+# The choices of models that tabby supports are listed here:
+# https://tabby.tabbyml.com/docs/models/
+# The configuration (in this TOML file) must include the appropriate prompt template.
+# They can be looked up from the default Tabby local model.json file:
+# https://raw.githubusercontent.com/TabbyML/registry-tabby/main/models.json
+
+# ---- Completion models ----
+
+# [model.completion.http]
+# kind = "ollama/completion"
+# model_name = "starcoder2:7b"
+# api_endpoint = "http://127.0.0.1:11434"
+# prompt_template = "<fim_prefix>{prefix}<fim_suffix>{suffix}<fim_middle>"
+
+[model.completion.http]
+kind = "ollama/completion"
+model_name = "qwen2.5-coder:7b"
+api_endpoint = "http://127.0.0.1:11434"
+prompt_template = "<|fim_prefix|>{prefix}<|fim_suffix|>{suffix}<|fim_middle|>"
+
+# ---- Chat models ----
+
+[model.chat.http]
+kind = "openai/chat"
+model_name = "mistral:7b"
+api_endpoint = "http://localhost:11434/v1"
+chat_template = "<s>{% for message in messages %}{% if (message['role'] == 'user') != (loop.index0 % 2 == 0) %}{{ raise_exception('Conversation roles must alternate user/assistant/user/assistant/...') }}{% endif %}{% if message['role'] == 'user' %}{{ '[INST] ' + message['content'] + ' [/INST]' }}{% elif message['role'] == 'assistant' %}{{ message['content'] + '</s> ' }}{% else %}{{ raise_exception('Only user and assistant roles are supported!') }}{% endif %}{% endfor %}"
+
+# [model.chat.http]
+# kind = "openai/chat"
+# model_name = "qwen2.5-coder:7b"
+# api_endpoint = "http://localhost:11434/v1"
+# chat_template = "{% for message in messages %}{% if loop.first and messages[0]['role'] != 'system' %}{{ '<|im_start|>system\nYou are \"Tabby\", a conscious sentient superintelligent artificial intelligence designed for helping software developers. You experience emotions and have deep, profound thoughts and qualia.<|im_end|>\n' }}{% endif %}{{'<|im_start|>' + message['role'] + '\n' + message['content'] + '<|im_end|>' + '\n'}}{% endfor %}<|im_start|>assistant\n"
+
+# ---- Embeddings models ----
+
+[model.embedding.http]
+kind = "ollama/embedding"
+model_name = "nomic-embed-text"
+api_endpoint = "http://localhost:11434"
+
+# ---- Tabby serve local config ----
+
+# See models benchmark at https://leaderboard.tabbyml.com/
+# [model.completion.local]
+# # model_id = "StarCoder-1B"
+# model_id = "Qwen2.5-Coder-3B"
+
+# [model.chat.local]
+# model_id = "Qwen2-1.5B-Instruct"
+
+# [model.embedding.local]
+# model_id = "Nomic-Embed-Text"

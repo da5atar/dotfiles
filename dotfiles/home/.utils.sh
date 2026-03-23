@@ -1,23 +1,16 @@
 #!/usr/bin/env bash
+# ~/.utils.sh
+# Utilities shell integrations
+# last_edit: 2026-03-18
 # shellcheck disable=SC1090,1091,SC2154,SC2181,SC2230,SC2312
 
-# Environment Setup
-if [[ "${MACHINE}" == "Mac" ]]; then
-    export PATH="/Users/ms/.local/bin:$PATH" # find binaries in .local/bin
-fi
+## Utilities
 
-# Preferred Editor
-if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='nano'
-else
-    export EDITOR='zed'
-fi
-
-# ---- atuin ----
+### ---- atuin ----
 # Shell history manager https://atuin.sh
 eval "$(atuin init zsh)"
 
-# ---- bat ----
+### ---- bat ----
 # `bat` https://github.com/sharkdp/bat
 export BAT_CONFIG_PATH="{$HOME}/.config/bat/config"
 
@@ -29,7 +22,7 @@ help() {
 # Use `bat` as a colorized pager for `man`
 export MANPAGER="bat -plman"
 
-# ---- fabric ----
+### ---- fabric ----
 # Fabric https://github.com/danielmiessler/Fabric
 alias fabric='fabric-ai'
 # Define fabric patterns alias (i.e., `summarize` instead of `fabric -p summarize`)
@@ -41,7 +34,7 @@ for pattern_file in ~/.config/fabric/patterns/*; do
     eval "
     $pattern_name() {
         local title=\$1
-        local date_stamp=\$(date +'%Y-%m-%d')
+        local date_stamp=\$(command date +'%Y-%m-%d')
         local output_path=\"\$obsidian_base/\${date_stamp}-\${title}.md\"
         if [ -n \"\$title\" ]; then
             fabric --pattern \"$pattern_name\" -o \"\$output_path\"
@@ -68,7 +61,7 @@ yt() {
     fabric -y "$video_link" $transcript_flag
 }
 
-# ---- fzf ----
+### ---- fzf ----
 # fzf setup https://github.com/junegunn/fzf
 export FZF_DEFAULT_OPTS="
     --height 40%
@@ -83,30 +76,49 @@ export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 # Set up fzf key bindings and fuzzy completion
 source <(fzf --zsh)
 
-# ---- gh ----
+### ---- gh ----
 # GitHub (gh) CLI Copilot extension https://github.com/github/gh-copilot
 # eval "$(gh copilot alias -- zsh)"
 
-# ---- iTerm2 ----
+### ---- iTerm2 ----
 # https://iterm2.com/documentation-shell-integration.html
 # iTerm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
     source "${HOME}/.iterm2_shell_integration.zsh"
 
-# ---- notes ----
+### ---- navi ----
+# https://github.com/denisidoro/navi/
+if command -v "navi" &>/dev/null; then
+    eval "$(navi widget zsh)"
+fi
+
+# ---- ngrok ----
+# ngrok shell completion
+if command -v ngrok &>/dev/null; then
+    eval "$(ngrok completion)"
+fi
+
+### ---- notes ----
 # Shell Notes https://github.com/da5atar/shell-notes
 export NOTES_DIRECTORY # set in ~/.env
 
-# ---- python ----
-# Avoid global installs with pip
-export PIP_REQUIRE_VIRTUALENV=true
-
-# ---- television ----
+### ---- television ----
 # tv https://github.com/alexpasmantier/television
-eval "$(tv init zsh)"
+if command -v "tv" &>/dev/null; then
+    eval "$(tv init zsh)"
+fi
+
+## Customs
+
+# Preferred Editor
+if [[ -n $SSH_CONNECTION ]]; then
+    export EDITOR='nano'
+else
+    export EDITOR='zed --wait'
+fi
 
 # Custom aliases and env variables
-source "${HOME}/.aliases.sh" # local specific aliases
-source "${HOME}/.env"
+source "${HOME}/.env" # local apps variables and keys
+# source "${HOME}/.aliases.sh" # local specific aliases
 
 # ---- End of file ----
