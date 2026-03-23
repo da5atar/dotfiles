@@ -40,8 +40,16 @@ command find "$SCRIPT_DIR/dotfiles/home" -maxdepth 1 -type f -name '.*' -print |
         ln -s "$f" "$HOME/$FILE"
     done
 
-# 2. Recursively symlink files under ~/.config
+# 2. Recursively symlink files under:
+# ~/.config
 link_files "$SCRIPT_DIR/dotfiles/.config" "$HOME/.config"
+# ~/.tabby
+link_files "$SCRIPT_DIR/dotfiles/home/.tabby" "$HOME/.tabby"
+# ~/.tabby-client/agent
+link_files "$SCRIPT_DIR/dotfiles/home/.tabby-client/agent" "$HOME/.tabby-client/agent"
+# ~/.colima
+link_files "$SCRIPT_DIR/dotfiles/home/.colima" "$HOME/.colima"
+
 
 # 3. Copy git config files only if they do not already exist
 command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
