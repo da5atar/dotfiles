@@ -48,10 +48,13 @@ neovim() {
 # This function takes no parameters
 # -- Clears nvim cache and swap files
 clean_nvim() {
-  command rm -vrf "$HOME/.config/$NVIM_APPNAME" &&
-  command rm -vrf "$HOME/.local/share/$NVIM_APPNAME" &&
-  command rm -vrf "$HOME/.local/state/$NVIM_APPNAME" &&
-  command rm -vrf "$HOME/.cache/$NVIM_APPNAME" &&
+  local config=$(_select_nvim_config)
+  [[ -z $config ]] && echo "No config selected" && return
+  export NVIM_APPNAME=$config
+  rm -v "$HOME/.config/$NVIM_APPNAME" &&
+  rm -v "$HOME/.local/share/$NVIM_APPNAME" &&
+  rm -v "$HOME/.local/state/$NVIM_APPNAME" &&
+  rm -v "$HOME/.cache/$NVIM_APPNAME" &&
   echo "Done."
 }
 
