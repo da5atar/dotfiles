@@ -1,3 +1,4 @@
 -- main
+require("core.keymaps")
 require("core.options")
-require("plugin-manager")
+require("config.plugin-manager")

@@ -52,9 +52,9 @@ clean_nvim() {
   [[ -z $config ]] && echo "No config selected" && return
   export NVIM_APPNAME=$config
   rm -v "$HOME/.config/$NVIM_APPNAME" &&
-  rm -v "$HOME/.local/share/$NVIM_APPNAME" &&
-  rm -v "$HOME/.local/state/$NVIM_APPNAME" &&
-  rm -v "$HOME/.cache/$NVIM_APPNAME" &&
+  # rm -v "$HOME/.local/share/$NVIM_APPNAME" &&
+  # rm -v "$HOME/.local/state/$NVIM_APPNAME" &&
+  # rm -v "$HOME/.cache/$NVIM_APPNAME" &&
   echo "Done."
 }
 
