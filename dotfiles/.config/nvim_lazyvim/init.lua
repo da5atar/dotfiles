@@ -2,4 +2,4 @@
 require("config.lazy")
 
 -- Neovide
-require("config.neovide")
+require("config.neovide") -- symlinked
