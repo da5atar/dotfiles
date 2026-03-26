@@ -45,13 +45,13 @@ return {
 
       -- Dashboard Buttons using fzf-lua
       dashboard.section.buttons.val = {
-        dashboard.button("f", "󰈞  Find Files", ":FzfLua files<CR>", { desc = "Find Files" }),
-        dashboard.button("r", "  Recent Files", ":FzfLua oldfiles<CR>", { desc = "Recent Files" }),
-        dashboard.button("p", "󰚰  Command History", ":FzfLua command_history<CR>", { desc = "Command History" }),
-        dashboard.button("C", "  Config", ":lua require('fzf-lua').files({cwd=vim.fn.stdpath('config')})<CR>",
+        dashboard.button("\\f", "󰈞  Find Files", ":FzfLua files<CR>", { desc = "Find Files" }),
+        dashboard.button("\\r", "  Recent Files", ":FzfLua oldfiles<CR>", { desc = "Recent Files" }),
+        dashboard.button("\\c", "󰚰  Command History", ":FzfLua command_history<CR>", { desc = "Command History" }),
+        dashboard.button("\\C", "  Config", ":lua require('fzf-lua').files({cwd=vim.fn.stdpath('config')})<CR>",
           { desc = "Config" }),
-        dashboard.button("U", "󰄉  Update", ":Lazy update<CR>", { desc = "Update" }),
-        dashboard.button("q", "󰅚  Quit", ":qa<CR>", { desc = "Quit" }),
+        dashboard.button("\\U", "󰄉  Update", ":Lazy update<CR>", { desc = "Update" }),
+        dashboard.button("Q", "󰅚  Quit", ":qa<CR>", { desc = "Quit" }),
       }
 
       -- Assemble the layout

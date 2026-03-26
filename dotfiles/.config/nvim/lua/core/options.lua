@@ -5,22 +5,36 @@ local opt = vim.opt; -- Vim optionals
 -- Hint: use `:h <option>` to figure out the meaning if needed
 
 -- Clipboard & Mouse
-opt.clipboard = 'unnamedplus' -- Use system clipboard
+opt.clipboard = "unnamedplus" -- Use system clipboard
 opt.mouse = "a"               -- allow the mouse to be used in Nvim
 --
 
-opt.completeopt = { "menu", "menuone", "noselect" }
-opt.fixeol = false   -- Turn off appending new line in the end of a file
-opt.swapfile = false -- no .swp file
+-- Diagnostics
+vim.diagnostic.config({
+  float = { border = "rounded", source = "if_many" },
+  jump = { float = true },
+  -- signs = true,  -- Show signs for diagnostics
+  -- severity_sort = true, -- Sort diagnostics by severity
+  -- underline = true, -- Underline diagnostics
+  -- update_in_insert = false, -- Do not update diagnostics in insert mode
+  virtual_lines = true, -- Show virtual lines underneath for diagnostics
+})
+--
 
 -- Folding
-opt.foldmethod = 'syntax'
+opt.foldmethod = "syntax"
 
 -- Indentation
 opt.expandtab = true   -- use spaces instead of tabs
 opt.tabstop = 2        -- number of spaces per tab
 opt.shiftwidth = 2     -- number of spaces to use for indentation
 opt.smartindent = true -- Turn on smart indentation. See in the docs for more info
+--
+
+-- Misc
+opt.completeopt = { "menu", "menuone", "noselect" }
+opt.fixeol = false   -- Turn off appending new line in the end of a file
+opt.swapfile = false -- no .swp file
 --
 
 -- Searching
