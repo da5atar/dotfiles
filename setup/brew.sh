@@ -35,6 +35,7 @@ brew install atuin                       # shell history
 brew install autojump                    # Directory navigation tool
 brew install bat                         # cat alternative
 brew install block-goose-cli             # extensible AI agent
+brew install chafa                       # graphics renderer
 brew install cmake                       # Cross-platform make
 brew install cmake-docs                  # cmake docs
 brew install colima                      # container runtime
