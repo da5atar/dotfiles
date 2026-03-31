@@ -73,4 +73,8 @@ vim.keymap.set("n", "<leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
+-- Lines
+-- Break long lines
+vim.keymap.set("n", "<leader>q", "gqq", { desc = "Format current line" })
+
 -- vim: ts=2 sts=2 sw=2 et
