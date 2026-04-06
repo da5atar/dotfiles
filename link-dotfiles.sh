@@ -14,31 +14,31 @@ echo "Creating symlinks for dotfiles in $HOME"
 
 # Function to symlink files preserving relative path
 link_files() {
-    src_dir=$1
-    dst_dir=$2
-    # Ensure destination directory exists
-    mkdir -p "$dst_dir"
-    command find "$src_dir" -type f -print |
-        while IFS= read -r file; do
-            relative_path=${file#"$src_dir"/}
-            # Skip git config files
-            case "$relative_path" in
-                git/*) continue;;
-            esac
-            target="$dst_dir/$relative_path"
-            mkdir -p "$(dirname "$target")"
-            command rm -f "$target"
-            ln -s "$file" "$target"
-        done
+  src_dir=$1
+  dst_dir=$2
+  # Ensure destination directory exists
+  mkdir -p "$dst_dir"
+  command find "$src_dir" -type f -print |
+    while IFS= read -r file; do
+      relative_path=${file#"$src_dir"/}
+      # Skip git config files
+      case "$relative_path" in
+      git/*) continue ;;
+      esac
+      target="$dst_dir/$relative_path"
+      mkdir -p "$(dirname "$target")"
+      command rm -f "$target"
+      ln -s "$file" "$target"
+    done
 }
 
 # 1. Symlink top‑level dotfiles
 command find "$SCRIPT_DIR/dotfiles/home" -maxdepth 1 -type f -name '.*' -print |
-    while IFS= read -r f; do
-        FILE=$(basename "$f")
-        command rm -f "$HOME/$FILE"
-        ln -s "$f" "$HOME/$FILE"
-    done
+  while IFS= read -r f; do
+    FILE=$(basename "$f")
+    command rm -f "$HOME/$FILE"
+    ln -s "$f" "$HOME/$FILE"
+  done
 
 # 2. Recursively symlink files under:
 # ~/.config
@@ -49,15 +49,21 @@ link_files "$SCRIPT_DIR/dotfiles/home/.tabby" "$HOME/.tabby"
 link_files "$SCRIPT_DIR/dotfiles/home/.tabby-client/agent" "$HOME/.tabby-client/agent"
 # ~/.colima
 link_files "$SCRIPT_DIR/dotfiles/home/.colima" "$HOME/.colima"
-
+# ~/.tmux
+link_files "$SCRIPT_DIR/dotfiles/home/.tmux" "$HOME/.tmux"
 
 # 3. Copy git config files only if they do not already exist
 command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
-    while IFS= read -r g; do
-        FILE=$(basename "$g")
-        TARGET="$HOME/.config/git/$FILE"
-        mkdir -p "$HOME/.config/git"
-        [ ! -e "$TARGET" ] && cp -p "$g" "$TARGET"
-    done
+  while IFS= read -r g; do
+    FILE=$(basename "$g")
+    TARGET="$HOME/.config/git/$FILE"
+    mkdir -p "$HOME/.config/git"
+    [ ! -e "$TARGET" ] && cp -p "$g" "$TARGET"
+  done
+
+# 4. Link other files
+# Neovide config
+ln -sf "$PROJECT_ROOT/dotfiles/common/nvim/config/neovide.lua" ~/.config/nvim/lua/config/neovide.lua
+ln -sf "$PROJECT_ROOT/dotfiles/common/nvim/config/neovide.lua" ~/.config/nvim_lazyvim/lua/config/neovide.lua
 
 echo "Linked dotfiles. Please restart your shell."

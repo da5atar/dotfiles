@@ -35,6 +35,7 @@ brew install atuin                       # shell history
 brew install autojump                    # Directory navigation tool
 brew install bat                         # cat alternative
 brew install block-goose-cli             # extensible AI agent
+brew install chafa                       # graphics renderer
 brew install cmake                       # Cross-platform make
 brew install cmake-docs                  # cmake docs
 brew install colima                      # container runtime
@@ -81,15 +82,17 @@ brew install shfmt                       # shell script formatter
 brew install starship                    # cross-shell prompt
 brew install stylua                      # Lua formatter
 brew install task                        # Task runner
+brew install taplo                       # TOML linter
 brew install tcl-tk@8                    # Tcl/Tk scripting language
 brew install tealdeer                    # terminal documentation viewer
 brew install television                  # file finder
 brew install tera                        # Radio streaming
 brew install tgpt                        # AI Chatbots in terminal
 brew install thefuck                     # Command correction tool
+brew install tmux                        # Terminal multiplexer
+brew install tokei                       # Code statistics tool
 brew install tree-sitter                 # Incremental parsing library
 brew install tree-sitter-cli             # Tree-sitter CLI tool
-brew install tokei                       # Code statistics tool
 brew install tree                        # directory listing tool
 brew install trippy                      # Network diagnostic tool
 brew install tabbyml/tabby/tabby         # Self-hosted AI coding assistant
