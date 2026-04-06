@@ -1,19 +1,7 @@
 #!/usr/bin/env bash
 
-unameOut="$(uname -s)"
-case "${unameOut}" in
-Linux*) MACHINE=Linux ;;
-Darwin*) MACHINE=Mac ;;
-CYGWIN*) MACHINE=Cygwin ;;
-MINGW*) MACHINE=MinGw ;;
-*) MACHINE="UNKNOWN:${unameOut}" ;;
-esac
-export MACHINE
-
-# Set Dropbox and Dev Workspace folders
+# Set Dropbox and Workspace folders
 # Dropbox needs to be installed
-export HOSTNAME
-HOSTNAME="$(hostname)"
 
 export WORKSPACE
 WORKSPACE=${HOME} # Default

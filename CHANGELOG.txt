@@ -1,9 +1,35 @@
 Changelog
 =========
 
-2026-02-26
+2026-03-31
 ----------
+- Added nvim config
 
+2026-03-10
+----------
+- Added LunarVim config
+- Added Lazyvim config
+- Added Live Grep task to Zed
+
+2026-03-04
+----------
+- Added neovim
+
+2026-03-02
+----------
+- Added colima config
+
+2026-02-25
+----------
+- Added navi integration
+
+2026-02-24
+----------
+- Added TabbyML config
+
+- Added config files for `atuin` and `tv`
+2026-02-22
+----------
 - Added config files for `atuin` and `tv`
 - Added autoupdate plugin for Oh My Zsh
 - Added changelog
