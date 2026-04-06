@@ -1,13 +1,11 @@
 #!/usr/bin/env bash
 
-# Shortcuts
-alias f='open -a Finder'
+# ---- Homebrew ----
+alias bbd="brew bundle dump --global --force --describe"
+alias bbi="brew bundle install --global"
 
-# System
-alias os='sw_vers'
-alias sys-info='system_profiler SPHardwareDataType'
-alias updates='softwareupdate -l'
-alias ips='ifconfig | grep inet'
+# ---- Network ----
+alias local-ip="ipconfig getifaddr en0"
 
 # ---- Productivity ----
 
@@ -18,5 +16,11 @@ alias bc='bc -l'
 alias copy-file='pbcopy <'   # Copy file contents to clipboard: copy-file file.txt
 alias paste-file='pbpaste >' # Paste clipboard to file: paste-file file.txt
 
-# ---- Network ----
-alias local-ip="ipconfig getifaddr en0"
+# Shortcuts
+alias f='open -a Finder'
+
+# System
+alias os='sw_vers'
+alias sys-info='system_profiler SPHardwareDataType'
+alias updates='softwareupdate -l'
+alias ips='ifconfig | grep inet'
