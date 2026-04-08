@@ -1,18 +1,18 @@
 // Project tasks configuration. See https://zed.dev/docs/tasks for documentation.
 [
-    // https://alexpasmantier.github.io/television/community/showcase
-    {
-        "label": "File Finder",
-        "command": "zed $(tv files)",
-        "hide": "always",
-        "allow_concurrent_runs": true,
-        "use_new_terminal": true,
-    },
-    {
-        "label": "Live Grep",
-        "command": "zed $(tv text)",
-        "hide": "always",
-        "allow_concurrent_runs": true,
-        "use_new_terminal": true,
-    },
+  // https://alexpasmantier.github.io/television/community/showcase
+  {
+    "label": "File Finder",
+    "command": "zed $(tv files)",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true
+  },
+  {
+    "label": "Live Grep",
+    "command": "zed $(tv text)",
+    "hide": "always",
+    "allow_concurrent_runs": true,
+    "use_new_terminal": true
+  }
 ]

@@ -156,3 +156,16 @@ soldiers on at 3.1%, dutifully rendering pixels that nobody is looking at.
 - `apfel` installed and on PATH (`make install`)
 - Apple Intelligence enabled in System Settings
 - macOS 26+, Apple Silicon
+
+## Neovide
+
+### nv
+
+Opening files in Neovide from the shell or Finder.
+Optionally pass a line number to jump at after opening file.
+
+```bash
+nv "<path/to/file>:[lineno]"
+```
+
+See this [post from Kerry Buckley](https://www.kerrybuckley.org/2026/01/01/opening-files-in-neovide-from-the-shell-or-finder/) and this [repo](https://github.com/kerryb/nv/tree/main?tab=readme-ov-file)

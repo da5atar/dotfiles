@@ -1,0 +1,106 @@
+#!/bin/bash
+
+# Defaults
+socket_path="${HOME}/.neovide.sock"
+binary_path='/opt/homebrew/bin'
+
+# Ensure the script is running on a Mac
+if [ "$(uname -s)" != 'Darwin' ]; then
+  echo 'Error: This script can run only on macOS'
+  exit 1
+fi
+
+# Set up binaries
+for binary in nvim neovide; do
+  binary_path="$(which "$binary" 2>/dev/null)"
+  default_binary_path="${binary_path:-${binary_path}/${binary}}"
+  if ! which "$default_binary_path" >/dev/null 2>/dev/null; then
+    echo "Error: Can't find $binary: '$default_binary_path'" >&2
+    exit 1
+  fi
+  declare "$(echo -n "$binary" | tr '[:lower:]' '[:upper:]')=${default_binary_path}"
+done
+
+# Set up path to newer scp
+openssh_binary_path="$(
+  dirname "$(
+    ls -t1 $(
+      fd -p '/openssh/.*/bin/scp$' \
+        --type executable \
+        /opt/homebrew/Cellar
+    ) |
+      head -n 1
+  )"
+)"
+export PATH="$openssh_binary_path:$PATH"
+
+# Ensure neovide and nvim are running properly
+process_status="$(
+  ps -o command -u "$USER" |
+    grep -F "$socket_path"
+)"
+case $(
+  for binary in "$NVIM" "$NEOVIDE"; do
+    echo -n "$process_status" |
+      grep -E -c "^$binary"
+  done |
+    tr -dc 0-9
+) in
+11) # Both neovide and nvim are running
+  : # Nothing to do here
+  ;;
+00) # Neither neovide nor nvim is running
+  rm -f "$socket_path"
+  echo -n 'Starting neovide with neovim server...'
+  "$NEOVIDE" \
+    --neovim-bin "$NVIM" \
+    --fork \
+    --no-tabs \
+    -- \
+    --listen "$socket_path"
+  while ! [ -e "$socket_path" ]; do
+    sleep .1
+    echo -n '.'
+  done
+  echo ''
+  ;;
+*)
+  echo -e "Error: Something's wrong, see what's running:\n>=== CUT ===<\n${process_status}\n>=== CUT ===<" >&2
+  exit 1
+  ;;
+esac
+
+# Wait for the Neovide GUI window to come up
+while ! osascript -e 'tell the application named "neovide" to activate' 2>/dev/null; do
+  sleep .1
+done
+
+# Open / create / report file(s)
+for file in "$@"; do
+  if [[ "$file" == *:* ]]; then
+    file_path=${file%%:*}
+    line_number=${file#*:}
+  else
+    file_path=$file
+    line_number=""
+  fi
+  if ! [ -e "$file_path" ]; then
+    if [ -L "$file_path" ] || ! echo -n '' 2>/dev/null >"$file_path"; then
+      echo "Error: Not an ordinary file: '$file_path'" >&2
+      continue
+    fi
+  fi
+  real_path="$(realpath "$file_path")"
+  echo "Opening $real_path"
+  if [ -f "$real_path" ]; then
+    "$NVIM" --server "$socket_path" --remote "$real_path"
+  else
+    echo "Error: Something wrong with: '$file'→'$real_path'" >&2
+    continue
+  fi
+  sleep .1
+  if [[ -n "$line_number" ]]; then
+    echo "Jumping to line $line_number"
+    "$NVIM" --server "$socket_path" --remote-send ":$line_number<CR>"
+  fi
+done
