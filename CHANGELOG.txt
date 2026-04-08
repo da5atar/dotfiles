@@ -1,6 +1,10 @@
 Changelog
 =========
 
+2026-03-31
+----------
+- Added nvim config
+
 2026-03-10
 ----------
 - Added LunarVim config
@@ -23,6 +27,7 @@ Changelog
 ----------
 - Added TabbyML config
 
+- Added config files for `atuin` and `tv`
 2026-02-22
 ----------
 - Added config files for `atuin` and `tv`

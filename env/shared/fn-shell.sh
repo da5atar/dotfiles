@@ -81,3 +81,26 @@ exit_shell() {
     kill -TERM $(jobs -p) &> /dev/null
   fi
 }
+
+# ---- Commands ----
+
+# Find whether a command is a function, builtin, or alias
+# Usage: cmd_info <command>
+# Arguments:
+#   <command> - the command to check
+### cmd_info()
+cmd_info() {
+  if [[ -z "$1" ]]; then
+    echo "Usage: cmd_info <command>"
+    return 1
+  fi
+  local cmd=$(type -w "$1")
+  echo "$cmd"
+  case "$cmd" in
+    *alias) which ls && find_alias "$1" ;;
+    *command) type -p "$1" ;;
+    *function) type "$1" && type -f "$1" ;;
+    *builtin | *reserved) type -a "$1" ;;
+  esac
+  return 0
+}
