@@ -135,6 +135,8 @@ brew "television"
 brew "tgpt"
 # Terminal multiplexer
 brew "tmux"
+# Program that allows you to count code, quickly
+brew "tokei"
 # Display directories as trees (with optional color/HTML output)
 brew "tree"
 # Parser generator tool
@@ -203,7 +205,8 @@ cask "duckduckgo"
 cask "duplicati"
 # Collaborative team software
 cask "figma"
-# Fonts for terminal emulators and code editors
+# Web browser
+cask "firefox"
 cask "font-3270-nerd-font"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
@@ -281,7 +284,6 @@ cask "zen-privacy"
 cask "zoom"
 # Collect, organise, cite, and share research sources
 cask "zotero"
-# Apple Store
 mas "1Blocker", id: 1365531024
 mas "Ghostery Privacy Ad Blocker", id: 6504861501
 mas "Keynote", id: 409183694
@@ -293,7 +295,6 @@ mas "Refined GitHub", id: 1519867270
 mas "SingleFile", id: 6444322545
 mas "Speediness", id: 1596706466
 mas "Vimari", id: 1480933944
-# VSCode extensions
 vscode "aaron-bond.better-comments"
 vscode "alexcvzz.vscode-sqlite"
 vscode "aykutsarac.jsoncrack-vscode"

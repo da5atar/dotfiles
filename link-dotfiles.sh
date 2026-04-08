@@ -49,6 +49,8 @@ link_files "${SCRIPT_DIR}/dotfiles/home/.colima" "${HOME}/.colima"
 link_files "${SCRIPT_DIR}/dotfiles/home/.tabby" "${HOME}/.tabby"
 # ~/.tabby-client/agent
 link_files "${SCRIPT_DIR}/dotfiles/home/.tabby-client/agent" "${HOME}/.tabby-client/agent"
+# ~/.local/bin
+link_files "${SCRIPT_DIR}/dotfiles/home/.local/bin" "${HOME}/.local/bin"
 
 # 3. Copy git config files only if they do not already exist
 command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
