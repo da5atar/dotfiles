@@ -2,7 +2,7 @@
   {
     "bindings": {
       // replace file_finder::Toggle
-      "cmd-p": [
+      "space f f": [
         "task::Spawn",
         { "task_name": "File Finder", "reveal_target": "center" }
       ]
@@ -10,7 +10,7 @@
   },
   {
     "bindings": {
-      "space f w": [
+      "space f g": [
         "task::Spawn",
         { "task_name": "Live Grep", "reveal_target": "center" }
       ]
