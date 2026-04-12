@@ -65,20 +65,12 @@ show_fpath() {
 
 # ---- Logout ----
 
-# Usage: deactivate running shell processes including virtual envs for graceful exit and reload
-### no_dupes_path()
-exit_shell() {
-  # Deactivate any active pyenv virtual environment
-  if command -v deactivate &> /dev/null && command -v pyenv &> /dev/null; then
-    pyenv deactivate &> /dev/null
-  else
-  # Deactivate any active virtual environment
-    deactivate &> /dev/null
-  fi
-
+# Usage: deactivate running shell processes for graceful exit
+### exit()
+x_it() {
   # Gracefully exit any running shell processes
   if jobs &> /dev/null; then
-    kill -TERM $(jobs -p) &> /dev/null
+    kill -TERM "$(jobs -p)" &>/dev/null
   fi
 }
 
@@ -97,10 +89,19 @@ cmd_info() {
   local cmd=$(type -w "$1")
   echo "$cmd"
   case "$cmd" in
-    *alias) which ls && find_alias "$1" ;;
-    *command) type -p "$1" ;;
-    *function) type "$1" && type -f "$1" ;;
-    *builtin | *reserved) type -a "$1" ;;
+  *alias) which ls && find_alias "$1" ;;
+  *command) type -p "$1" ;;
+  *function) type "$1" && type -f "$1" ;;
+  *builtin | *reserved) type -a "$1" ;;
   esac
   return 0
+}
+
+# ---- Reload shell ----
+
+# Usage: reload
+### reload()
+reload() {
+  x_it
+  exec "${SHELL}"
 }
