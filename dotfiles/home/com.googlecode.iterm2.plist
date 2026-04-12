@@ -33,7 +33,7 @@
 	<key>AlwaysOpenWindowAtStartup</key>
 	<true/>
 	<key>AutoCommandHistory</key>
-	<false/>
+	<true/>
 	<key>AutoComposer</key>
 	<false/>
 	<key>ClickToSelectCommand</key>

@@ -21,6 +21,8 @@ brew "block-goose-cli"
 brew "glib"
 # General-purpose data compression with high compression ratio
 brew "xz"
+# Zstandard is a real-time compression algorithm
+brew "zstd"
 # Framework for layout and rendering of i18n text
 brew "pango"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -30,9 +32,13 @@ brew "cmake"
 # Documentation for CMake
 brew "cmake-docs"
 # Container runtimes on MacOS (and Linux) with minimal setup
-brew "colima", restart_service: :changed
+brew "colima"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# Library for command-line editing
+brew "readline"
+# Command-line interface for SQLite
+brew "sqlite"
 # Pack, ship and run any application as a lightweight container
 brew "docker"
 # Isolated development environments using Docker
@@ -216,6 +222,8 @@ cask "font-victor-mono-nerd-font"
 cask "freefilesync"
 # Mind mapping and knowledge management software
 cask "freeplane"
+# Terminal emulator that uses platform-native UI and GPU acceleration
+cask "ghostty"
 # Web browser
 cask "google-chrome"
 # Client for the Google Drive storage service
@@ -232,6 +240,8 @@ cask "jan"
 cask "jordanbaird-ice@beta"
 # Tool to prevent the system from going into sleep mode
 cask "keepingyouawake"
+# GPU-based terminal emulator
+cask "kitty"
 # Privacy-first, open-source platform for knowledge sharing and management
 cask "logseq"
 # Open-source firewall to block unknown outgoing connections

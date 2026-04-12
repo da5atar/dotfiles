@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # ~/.zshrc
 # computer: $HOSTNAME
-# last_edit: 2026-03-18
+# last_edit: 2026-04-12
 # Resources:
 #   ZSH cheat sheet: https://gist.github.com/da5atar/36f772d80d792a20b8543baef69c17c2
 #   Setting PATH for ZSH on macOS: https://gist.github.com/da5atar/b87af08926d268c590f82fa8047c429e
@@ -32,13 +32,25 @@ ZSH_THEME="random"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
     # Oh My Zsh Plugins
+    cp
     docker
     docker-compose
+    gh
     git
     git-prompt
+    iterm2
     macos
     npm
+    pip
+    pyenv
+    python
+    ssh
     starship
+    tldr
+    tmux
+    themes
+    uv
+    vi-mode
     z
     # $ZSH_CUSTOM
     autoupdate               # https://github.com/tamcore/autoupdate-oh-my-zsh-plugins
@@ -70,15 +82,7 @@ autoload -Uz compinit
 source ${OHMYZSH}/oh-my-zsh.sh
 
 # ==========================================================
-# 3. Starship command prompt (https://github.com/starship/starship)
-# ==========================================================
-
-# Change default starship.toml file location with STARSHIP_CONFIG
-export STARSHIP_CONFIG="${HOME}/.config/starship.toml"
-eval "$(starship init zsh)"
-
-# ==========================================================
-# 4. Aliases & Exports
+# 3. Aliases & Exports
 # ==========================================================
 
 # Source aliases and exports
@@ -102,7 +106,7 @@ for file in "${PROJECT_ROOT}/env/shared/"*.sh; do
 done
 
 # ==========================================================
-# 5. Utilities
+# 4. Utilities
 # ==========================================================
 
 source "${HOME}/.utils.sh" # && echo "Zsh configuration loaded"
@@ -110,5 +114,5 @@ source "${HOME}/.utils.sh" # && echo "Zsh configuration loaded"
 # --- End of file ---
 
 # ==========================================================
-# 6. New entries (auto-added)
+# 5. New entries (auto-added)
 # ==========================================================

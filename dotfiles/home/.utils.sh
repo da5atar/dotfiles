@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ~/.utils.sh
 # Utilities shell integrations
-# last_edit: 2026-03-18
+# last_edit: 2026-04-12
 # shellcheck disable=SC1090,1091,SC2154,SC2181,SC2230,SC2312
 
 ## Utilities
@@ -17,7 +17,7 @@ export BAT_CONFIG_PATH="{$HOME}/.config/bat/config"
 # use bat to colorize help text
 alias bathelp='bat --plain --language=help'
 help() {
-    "$@" --help 2>&1 | bathelp
+  "$@" --help 2>&1 | bathelp
 }
 # Use `bat` as a colorized pager for `man`
 export MANPAGER="bat -plman"
@@ -29,9 +29,9 @@ alias fabric='fabric-ai'
 # with option to save the output to Obsidian vault
 obsidian_base="${DROPBOX_FOLDER}/My_Files/Inbox/Fabric_AI"
 for pattern_file in ~/.config/fabric/patterns/*; do
-    pattern_name=$(basename "$pattern_file")
-    unalias "$pattern_name" 2>/dev/null
-    eval "
+  pattern_name=$(basename "$pattern_file")
+  unalias "$pattern_name" 2>/dev/null
+  eval "
     $pattern_name() {
         local title=\$1
         local date_stamp=\$(command date +'%Y-%m-%d')
@@ -47,18 +47,18 @@ done
 
 # yt alias to get transcripts, comments, and metadata.
 yt() {
-    if [ "$#" -eq 0 ] || [ "$#" -gt 2 ]; then
-        echo "Usage: yt [-t | --timestamps] youtube-link"
-        echo "Use the '-t' flag to get the transcript with timestamps."
-        return 1
-    fi
-    transcript_flag="--transcript"
-    if [ "$1" = "-t" ] || [ "$1" = "--timestamps" ]; then
-        transcript_flag="--transcript-with-timestamps"
-        shift
-    fi
-    local video_link="$1"
-    fabric -y "$video_link" $transcript_flag
+  if [ "$#" -eq 0 ] || [ "$#" -gt 2 ]; then
+    echo "Usage: yt [-t | --timestamps] youtube-link"
+    echo "Use the '-t' flag to get the transcript with timestamps."
+    return 1
+  fi
+  transcript_flag="--transcript"
+  if [ "$1" = "-t" ] || [ "$1" = "--timestamps" ]; then
+    transcript_flag="--transcript-with-timestamps"
+    shift
+  fi
+  local video_link="$1"
+  fabric -y "$video_link" $transcript_flag
 }
 
 ### ---- fzf ----
@@ -84,37 +84,42 @@ source <(fzf --zsh)
 # https://iterm2.com/documentation-shell-integration.html
 # iTerm2 shell integration
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
-    source "${HOME}/.iterm2_shell_integration.zsh"
+  source "${HOME}/.iterm2_shell_integration.zsh"
 
 ### ---- navi ----
 # https://github.com/denisidoro/navi/
 if command -v "navi" &>/dev/null; then
-    eval "$(navi widget zsh)"
+  eval "$(navi widget zsh)"
 fi
 
 # ---- ngrok ----
 # ngrok shell completion
 if command -v ngrok &>/dev/null; then
-    eval "$(ngrok completion)"
+  eval "$(ngrok completion)"
 fi
 
 ### ---- notes ----
 # Shell Notes https://github.com/da5atar/shell-notes
 export NOTES_DIRECTORY # set in ~/.env
 
+### ---- pyenv plugins ----
+# pyenv-virtualenv
+# https://github.com/pyenv/pyenv-virtualenv
+eval "$(pyenv virtualenv-init -)"
+
 ### ---- television ----
 # tv https://github.com/alexpasmantier/television
 if command -v "tv" &>/dev/null; then
-    eval "$(tv init zsh)"
+  eval "$(tv init zsh)"
 fi
 
 ## Customs
 
 # Preferred Editor
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='nano'
+  export EDITOR='nano'
 else
-    export EDITOR='zed --wait'
+  export EDITOR='zed --wait'
 fi
 
 # Custom aliases and env variables
