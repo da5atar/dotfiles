@@ -102,6 +102,7 @@ cmd_info() {
 # Usage: reload
 ### reload()
 reload() {
+  d_activate
   x_it
   exec "${SHELL}"
 }

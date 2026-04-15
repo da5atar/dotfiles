@@ -31,34 +31,34 @@ ZSH_THEME="random"
 # Plugins
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
-    # Oh My Zsh Plugins
-    cp
-    docker
-    docker-compose
-    gh
-    git
-    git-prompt
-    iterm2
-    macos
-    npm
-    pip
-    pyenv
-    python
-    ssh
-    starship
-    tldr
-    tmux
-    themes
-    uv
-    vi-mode
-    z
-    # $ZSH_CUSTOM
-    autoupdate               # https://github.com/tamcore/autoupdate-oh-my-zsh-plugins
-    autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
-    fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
-    ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
-    zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
-    zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
+  # Oh My Zsh Plugins
+  cp
+  docker
+  docker-compose
+  gh
+  git
+  git-prompt
+  iterm2
+  macos
+  npm
+  pip
+  pyenv
+  python
+  ssh
+  starship
+  tldr
+  tmux
+  themes
+  uv
+  vi-mode
+  z
+  # $ZSH_CUSTOM
+  autoupdate               # https://github.com/tamcore/autoupdate-oh-my-zsh-plugins
+  autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+  fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
+  ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
+  zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
+  zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
 )
 
 # ==========================================================
@@ -88,21 +88,21 @@ source ${OHMYZSH}/oh-my-zsh.sh
 # Source aliases and exports
 # For a full list of active aliases, run `alias`.
 if [[ "${MACHINE}" == "Linux" ]]; then
-    # shellcheck source=/dev/null
-    source "${PROJECT_ROOT}/env/linux/exports-linux.sh"
-    # shellcheck source=/dev/null
-    source "${PROJECT_ROOT}/env/linux/aliases-linux.sh"
+  # shellcheck source=/dev/null
+  source "${PROJECT_ROOT}/env/linux/exports-linux.sh"
+  # shellcheck source=/dev/null
+  source "${PROJECT_ROOT}/env/linux/aliases-linux.sh"
 elif [[ "${MACHINE}" == "Mac" ]]; then
-    # shellcheck source=/dev/null
-    source "${PROJECT_ROOT}/env/macos/exports-mac.sh"
-    # shellcheck source=/dev/null
-    source "${PROJECT_ROOT}/env/macos/aliases-mac.sh"
+  # shellcheck source=/dev/null
+  source "${PROJECT_ROOT}/env/macos/exports-mac.sh"
+  # shellcheck source=/dev/null
+  source "${PROJECT_ROOT}/env/macos/aliases-mac.sh"
 fi
 
 # Source all remaining files in the shared env folder
 for file in "${PROJECT_ROOT}/env/shared/"*.sh; do
-    # shellcheck source=/dev/null
-    source "${file}"
+  # shellcheck source=/dev/null
+  source "${file}"
 done
 
 # ==========================================================

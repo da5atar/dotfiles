@@ -84,7 +84,7 @@ alias path='echo -e ${PATH//:/\\n}'
 alias edit='${EDITOR}'
 
 # Git
-alias clone='git clone'
+# alias clone='git clone'
 
 # git-ignore https://github.com/sondr3/git-ignore
 alias gi='git-ignore'
