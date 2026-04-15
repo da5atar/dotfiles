@@ -13,3 +13,5 @@ export TERM_PROGRAM="iTerm.app"
 export SHELL=/bin/zsh
 
 umask 022
+
+# printf "PATH from .zshenv:\n %s\n" "${PATH}" >> ~/PATH.txt 2>&1

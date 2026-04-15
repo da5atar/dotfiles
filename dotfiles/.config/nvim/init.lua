@@ -6,3 +6,5 @@ require("core.options")
 require("config.plugin-manager")
 -- neovide
 require("config.neovide") -- symlinked
+-- shared options
+require("config.shared-options") -- symlinked

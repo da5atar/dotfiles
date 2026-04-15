@@ -63,8 +63,11 @@ command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
 
 # 4. Link other files
 # Neovide config
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/config/neovide.lua" ~/.config/nvim/lua/config/neovide.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/config/neovide.lua" ~/.config/nvim_lazyvim/lua/config/neovide.lua
+ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim/lua/config/neovide.lua
+ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim_lazyvim/lua/config/neovide.lua
+# neovim shared options
+ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim/lua/config/shared-options.lua
+ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim_lazyvim/lua/config/shared-options.lua
 # iterm2 config
 ln -sf "${SCRIPT_DIR}/dotfiles/home/com.googlecode.iterm2.plist" "${HOME}/com.googlecode.iterm2.plist"
 
