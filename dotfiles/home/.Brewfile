@@ -17,6 +17,8 @@ brew "openssl@3"
 brew "bat"
 # Open source, extensible AI agent that goes beyond code suggestions
 brew "block-goose-cli"
+# Yet another cross-platform graphical process/system monitor
+brew "bottom"
 # Core application library for C
 brew "glib"
 # General-purpose data compression with high compression ratio
