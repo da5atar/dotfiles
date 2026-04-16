@@ -91,6 +91,8 @@ brew "lynis"
 brew "mas"
 # Modern and intuitive terminal-based text editor
 brew "micro"
+# Deep clean and optimize your Mac
+brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
 # Feature-rich command-line audio/video downloader

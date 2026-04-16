@@ -89,7 +89,7 @@ cmd_info() {
   local cmd=$(type -w "$1")
   echo "$cmd"
   case "$cmd" in
-  *alias) which ls && find_alias "$1" ;;
+  *alias) which "$1" && find_alias "$1" ;;
   *command) type -p "$1" ;;
   *function) type "$1" && type -f "$1" ;;
   *builtin | *reserved) type -a "$1" ;;
