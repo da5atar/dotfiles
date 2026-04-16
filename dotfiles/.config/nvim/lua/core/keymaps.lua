@@ -24,16 +24,16 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Buffers
-vim.keymap.set("n", "<leader>B", "", { desc = "[B]uffer" })
+vim.keymap.set("n", "<Leader>B", "", { desc = "[B]uffer" })
 
 -- Diagnostics
-vim.keymap.set("n", "<leader>D", "", { desc = "[D]iagnostics" })
+vim.keymap.set("n", "<Leader>D", "", { desc = "[D]iagnostics" })
 
 -- Find
-vim.keymap.set("n", "<leader>F", "", { desc = "[F]ind/[F]iles" })
+vim.keymap.set("n", "<Leader>F", "", { desc = "[F]ind/[F]iles" })
 
 -- Git
-vim.keymap.set("n", "<leader>G", "", { desc = "[G]it" })
+vim.keymap.set("n", "<Leader>G", "", { desc = "[G]it" })
 
 -- Window Splits
 -- Keybinds to make split navigation easier.
@@ -52,12 +52,12 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Tabs
-vim.keymap.set("n", "<leader>t", "", { desc = "[t]abs" })
-vim.keymap.set("n", "<leader>tn", "<cmd>tabnext<cr>", { desc = "tab [n]ext" })
-vim.keymap.set("n", "<leader>tp", "<cmd>tabprevious<cr>", { desc = "tab [p]revious" })
-vim.keymap.set("n", "<leader>tc", "<cmd>tabclose<cr>", { desc = "tab [c]lose" })
-vim.keymap.set("n", "<leader>to", "<cmd>tabonly<cr>", { desc = "tab [o]nly" })
-vim.keymap.set("n", "<leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
+vim.keymap.set("n", "<Leader>t", "", { desc = "[t]abs" })
+vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<cr>", { desc = "tab [n]ext" })
+vim.keymap.set("n", "<Leader>tp", "<cmd>tabprevious<cr>", { desc = "tab [p]revious" })
+vim.keymap.set("n", "<Leader>tc", "<cmd>tabclose<cr>", { desc = "tab [c]lose" })
+vim.keymap.set("n", "<Leader>to", "<cmd>tabonly<cr>", { desc = "tab [o]nly" })
+vim.keymap.set("n", "<Leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
 
 -- NOTE: Buffers hold the files in memory, Windows display them, and Tabs organize the workspace.
 -- -- Use splits to view multiple files or parts of the same file side-by-side within one tab.
@@ -75,6 +75,6 @@ vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" }
 
 -- Lines
 -- Break long lines
-vim.keymap.set("n", "<leader>q", "gqq", { desc = "Format current line" })
+vim.keymap.set("n", "<Leader>q", "gqq", { desc = "Format current line" })
 
 -- vim: ts=2 sts=2 sw=2 et
