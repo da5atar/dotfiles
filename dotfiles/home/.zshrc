@@ -57,7 +57,6 @@ plugins=(
   autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
   fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
   ollama                   # https://github.com/Katrovsky/zsh-ollama-completion
-  zsh-autocomplete         # https://github.com/marlonrichert/zsh-autocomplete
   zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
 )
 
@@ -71,8 +70,6 @@ fpath+=${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}/plugins/zsh-completions/src
 # Add local functions directory to fpath
 fpath=(~/.local/share/zsh/site-functions $fpath)
 
-# Initialize ZSH completion system
-autoload -Uz compinit
 # Oh-My-ZSH calls compinit when loading zsh
 
 # ==========================================================
