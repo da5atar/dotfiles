@@ -32,10 +32,6 @@ printf "Installing ZSH Plugins\n"
 
 # Installs ZSH plugins
 
-# ZSH Auto Complete
-git clone --depth 1 -- https://github.com/marlonrichert/zsh-autocomplete \
-  "${ZSH_CUSTOM:-${ZSH:-~/.oh-my-zsh}/custom}"/plugins/zsh-autocomplete
-
 # ZSH Auto Suggestions
 git clone https://github.com/zsh-users/zsh-autosuggestions.git \
   "${ZSH_CUSTOM:-~/.oh-my-zsh/custom}"/plugins/zsh-autosuggestions
