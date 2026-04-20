@@ -56,6 +56,9 @@ git clone https://github.com/Katrovsky/zsh-ollama-completion.git \
 mkdir -p "${ZSH_CUSTOM}"/plugins/autoupdate
 git clone https://github.com/TamCore/autoupdate-oh-my-zsh-plugins "${ZSH_CUSTOM}"/plugins/autoupdate
 
+# fzf-tab
+git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/fzf-tab
+
 printf "Done installing ZSH Plugins!\n"
 
 # source .zshrc
