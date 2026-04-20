@@ -14,16 +14,21 @@ eval "$(atuin init zsh)"
 # `bat` https://github.com/sharkdp/bat
 export BAT_CONFIG_PATH="{$HOME}/.config/bat/config"
 
-# use bat to colorize help text
+# use `bat` to colorize help text
 alias bathelp='bat --plain --language=help'
 help() {
   "$@" --help 2>&1 | bathelp
 }
+
+# Override -h and --help to use `bat` for help text
+alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
+alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
+
 # Use `bat` as a colorized pager for `man`
 export MANPAGER="bat -plman"
 
 ### ---- fabric ----
-# Fabric https://github.com/danielmiessler/Fabric
+# https://github.com/danielmiessler/Fabric
 alias fabric='fabric-ai'
 # Define fabric patterns alias (i.e., `summarize` instead of `fabric -p summarize`)
 # with option to save the output to Obsidian vault
