@@ -1,7 +1,7 @@
 #!/usr/bin/env zsh
 # ~/.zshrc
 # computer: $HOSTNAME
-# last_edit: 2026-04-12
+# last_edit: 2026-04-20
 # Resources:
 #   ZSH cheat sheet: https://gist.github.com/da5atar/36f772d80d792a20b8543baef69c17c2
 #   Setting PATH for ZSH on macOS: https://gist.github.com/da5atar/b87af08926d268c590f82fa8047c429e

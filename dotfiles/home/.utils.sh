@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # ~/.utils.sh
 # Utilities shell integrations
-# last_edit: 2026-04-12
+# last_edit: 2026-04-20
 # shellcheck disable=SC1090,1091,SC2154,SC2181,SC2230,SC2312
 
 ## Utilities

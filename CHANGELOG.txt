@@ -1,6 +1,18 @@
 Changelog
 =========
 
+2026-04-21
+----------
+- Added vim config
+
+2026-04-15
+----------
+- Added AstroNvim config
+
+2026-04-06
+----------
+- Added Brewfile
+
 2026-03-31
 ----------
 - Added nvim config

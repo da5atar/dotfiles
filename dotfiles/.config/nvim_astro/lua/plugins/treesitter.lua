@@ -15,8 +15,20 @@ return {
       indent = true, -- enable/disable treesitter based indentation
       auto_install = true, -- enable/disable automatic installation of detected languages
       ensure_installed = {
+        "bash",
+        "css",
+        "dockerfile",
+        "html",
+        "json",
+        "javascript",
         "lua",
+        "markdown",
+        "python",
+        "rust",
+        "toml",
+        "typescript",
         "vim",
+        "yaml",
         -- add more arguments for adding more treesitter parsers
       },
     },
