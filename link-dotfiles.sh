@@ -64,15 +64,11 @@ command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
   done
 
 # 4. Link other files
-# Neovide config
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim/lua/config/neovide.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim_lazyvim/lua/config/neovide.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim_astro/lua/config/neovide.lua
-# neovim shared options
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim/lua/config/shared-options.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim_lazyvim/lua/config/shared-options.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim_astro/lua/config/shared-options.lua
-# neovim shared plugins
+# Neovim config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim/lua/config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_lazyvim/lua/config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_astro/lua/config
+# Neovim shared plugins
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim/lua/plugins
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_lazyvim/lua/plugins
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_astro/lua/plugins

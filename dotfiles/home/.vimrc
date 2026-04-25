@@ -91,8 +91,8 @@ set wildignore=*.docx,*.jpg,*.png,*.gif,*.pdf,*.pyc,*.exe,*.flv,*.img,*.xlsx
 call plug#begin('~/.vim/plugged')
 
   Plug 'dense-analysis/ale'
-
   Plug 'preservim/nerdtree'
+  Plug 'machakann/vim-highlightedyank'
 
 call plug#end()
 

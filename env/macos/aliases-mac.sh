@@ -16,9 +16,6 @@ alias bc='bc -l'
 alias copy-file='pbcopy <'   # Copy file contents to clipboard: copy-file file.txt
 alias paste-file='pbpaste >' # Paste clipboard to file: paste-file file.txt
 
-# Shortcuts
-alias f='open -a Finder'
-
 # System
 alias os='sw_vers'
 alias sys-info='system_profiler SPHardwareDataType'

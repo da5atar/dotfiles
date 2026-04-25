@@ -4,6 +4,8 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = "\\"
 
+local set = vim.keymap.set
+
 -- Arrows
 -- Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -24,26 +26,30 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 })
 
 -- Buffers
-vim.keymap.set("n", "<Leader>B", "", { desc = "[B]uffer" })
+set("n", "<Leader>b", "", { desc = "[b]uffers" })
+set("n", "<Leader>bn", ":enew<CR>", { desc = "[b]uffer [n]ew" })
+set("n", "<Leader>bd", ":bd<CR>", { desc = "[b]uffer [d]elete" })
+set("n", "<Leader>bl", ":bnext<CR>", { desc = "[b]uffer [n]ext" })
+set("n", "<Leader>bh", ":bprev<CR>", { desc = "[b]uffer [p]rev" })
 
 -- Diagnostics
-vim.keymap.set("n", "<Leader>D", "", { desc = "[D]iagnostics" })
+set("n", "<Leader>D", "", { desc = "[D]iagnostics" })
 
 -- Find
-vim.keymap.set("n", "<Leader>F", "", { desc = "[F]ind/[F]iles" })
+set("n", "<Leader>F", "", { desc = "[F]ind/[F]iles" })
 
 -- Git
-vim.keymap.set("n", "<Leader>G", "", { desc = "[G]it" })
+set("n", "<Leader>G", "", { desc = "[G]it" })
 
 -- Window Splits
 -- Keybinds to make split navigation easier.
 --  Use CTRL+<hjkl> to switch between windows
 --
 --  See `:help wincmd` for a list of all window commands
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window split" })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window split" })
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window split" })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window split" })
+set("n", "<C-h>", "<C-w><C-h>", { desc = "Move focus to the left window split" })
+set("n", "<C-l>", "<C-w><C-l>", { desc = "Move focus to the right window split" })
+set("n", "<C-j>", "<C-w><C-j>", { desc = "Move focus to the lower window split" })
+set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper window split" })
 
 -- NOTE: Some terminals have colliding keymaps or are not able to send distinct keycodes
 -- vim.keymap.set("n", "<C-S-h>", "<C-w>H", { desc = "Move window to the left" })
@@ -52,12 +58,12 @@ vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { desc = "Move focus to the upper win
 -- vim.keymap.set("n", "<C-S-k>", "<C-w>K", { desc = "Move window to the upper" })
 
 -- Tabs
-vim.keymap.set("n", "<Leader>t", "", { desc = "[t]abs" })
-vim.keymap.set("n", "<Leader>tn", "<cmd>tabnext<cr>", { desc = "tab [n]ext" })
-vim.keymap.set("n", "<Leader>tp", "<cmd>tabprevious<cr>", { desc = "tab [p]revious" })
-vim.keymap.set("n", "<Leader>tc", "<cmd>tabclose<cr>", { desc = "tab [c]lose" })
-vim.keymap.set("n", "<Leader>to", "<cmd>tabonly<cr>", { desc = "tab [o]nly" })
-vim.keymap.set("n", "<Leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
+set("n", "<Leader>t", "", { desc = "[t]abs" })
+set("n", "<Leader>tn", "<cmd>tabnext<cr>", { desc = "tab [n]ext" })
+set("n", "<Leader>tp", "<cmd>tabprevious<cr>", { desc = "tab [p]revious" })
+set("n", "<Leader>tc", "<cmd>tabclose<cr>", { desc = "tab [c]lose" })
+set("n", "<Leader>to", "<cmd>tabonly<cr>", { desc = "tab [o]nly" })
+set("n", "<Leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
 
 -- NOTE: Buffers hold the files in memory, Windows display them, and Tabs organize the workspace.
 -- -- Use splits to view multiple files or parts of the same file side-by-side within one tab.
@@ -71,10 +77,10 @@ vim.keymap.set("n", "<Leader>tN", "<cmd>tabnew<cr>", { desc = "tab [N]ew" })
 --
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
-vim.keymap.set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
+set("t", "<Esc><Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Lines
 -- Break long lines
-vim.keymap.set("n", "<Leader>q", "gqq", { desc = "Format current line" })
+set("n", "<Leader>q", "gqq", { desc = "Format current line" })
 
 -- vim: ts=2 sts=2 sw=2 et

@@ -1,10 +1,9 @@
 -- main
--- core
-require("core.keymaps")
-require("core.options")
 -- config
-require("config.plugin-manager")
--- neovide
-require("config.neovide") -- symlinked
--- shared options
+require("config.keymaps")
+require("config.lazy")
+require("config.options")
+-- Shared Neovim config
+require("config.keys")           -- symlinked
+require("config.neovide")        -- symlinked
 require("config.shared-options") -- symlinked

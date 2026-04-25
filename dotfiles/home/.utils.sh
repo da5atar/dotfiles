@@ -91,6 +91,10 @@ source <(fzf --zsh)
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
   source "${HOME}/.iterm2_shell_integration.zsh"
 
+### ---- Mise ----
+# https://mise.jdx.dev/getting-started.html
+eval "$(mise activate zsh)"
+
 ### ---- navi ----
 # https://github.com/denisidoro/navi/
 if command -v "navi" &>/dev/null; then

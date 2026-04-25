@@ -29,6 +29,9 @@ if not pcall(require, "lazy") then
 end
 
 require "lazy_setup"
+-- Shared Neovim config
+require("config.keys")           -- symlinked
+require("config.neovide")        -- symlinked
+require("config.shared-options") -- symlinked
+--
 require "polish"
-require "config.neovide"        --symlinked
-require "config.shared-options" --symlinked
