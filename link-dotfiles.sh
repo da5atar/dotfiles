@@ -45,12 +45,14 @@ command find "${SCRIPT_DIR}/dotfiles/home" -maxdepth 1 -type f -name '.*' -print
 link_files "${SCRIPT_DIR}/dotfiles/.config" "${HOME}/.config"
 # ~/.colima
 link_files "${SCRIPT_DIR}/dotfiles/home/.colima" "${HOME}/.colima"
+# ~/.local/bin
+link_files "${SCRIPT_DIR}/dotfiles/home/.local/bin" "${HOME}/.local/bin"
 # ~/.tabby
 link_files "${SCRIPT_DIR}/dotfiles/home/.tabby" "${HOME}/.tabby"
 # ~/.tabby-client/agent
 link_files "${SCRIPT_DIR}/dotfiles/home/.tabby-client/agent" "${HOME}/.tabby-client/agent"
-# ~/.local/bin
-link_files "${SCRIPT_DIR}/dotfiles/home/.local/bin" "${HOME}/.local/bin"
+# ~/.vim
+link_files "${SCRIPT_DIR}/dotfiles/home/.vim" "${HOME}/.vim"
 
 # 3. Copy git config files only if they do not already exist
 command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
@@ -62,14 +64,14 @@ command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
   done
 
 # 4. Link other files
-# Neovide config
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim/lua/config/neovide.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim_lazyvim/lua/config/neovide.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/neovide.lua" ~/.config/nvim_astro/lua/config/neovide.lua
-# neovim shared options
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim/lua/config/shared-options.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim_lazyvim/lua/config/shared-options.lua
-ln -sf "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config/shared-options.lua" ~/.config/nvim_astro/lua/config/shared-options.lua
+# Neovim config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim/lua/config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_lazyvim/lua/config
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_astro/lua/config
+# Neovim shared plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim/lua/plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_lazyvim/lua/plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_astro/lua/plugins
 # iterm2 config
 ln -sf "${SCRIPT_DIR}/dotfiles/home/com.googlecode.iterm2.plist" "${HOME}/com.googlecode.iterm2.plist"
 

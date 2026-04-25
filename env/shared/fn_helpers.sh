@@ -31,3 +31,10 @@ _exit_on_error() {
     exit "$exit_code"
   fi
 }
+
+# Function to echo the current time
+### timestamp()
+# Just echoes the formatted time
+timestamp() {
+  date "+%Y-%m-%d_%H:%M:%S"
+}

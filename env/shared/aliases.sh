@@ -9,7 +9,7 @@ alias .....="cd ../../../.."
 alias -- -="cd -" # Change directory to the previous directory
 
 # ---- File permissions ----
-alias mx='chmod a+x'     # Make executable
+alias cx='chmod a+x'     # Make executable
 alias 000='chmod -R 000' # No permissions
 alias 644='chmod -R 644' # Read and write for owner, read for group and others
 alias 666='chmod -R 666' # Read and write for owner, group, and others
@@ -19,9 +19,9 @@ alias 777='chmod -R 777' # Read, write, and execute for owner, group, and others
 
 # ---- Date and Time ----
 alias date='date "+%Y-%m-%d %A %T %Z"' # Formatted date
-alias now='date +"%T"'                 # Show current time
-alias today='date +"%Y-%m-%d"'         # Show current date
-alias week='date +%V'                  # Get week number
+alias now='\date +"%T"'                # Show current time
+alias today='\date +"%Y-%m-%d"'        # Show current date
+alias week='\date +%V'                 # Get week number
 
 # ---- Directories ----
 # cd into the old directory
@@ -31,27 +31,17 @@ alias bd='cd "$OLDPWD"'
 alias ls='lsd'
 
 # Aliases for multiple directory listing commands
-alias l='command ls -lF"'                     # List all files in long format
-alias lc='ls -lAF"'                           # List all files in long format, excluding . and ..
-alias lod='ls -lF" | grep --color=never '^d'' # List only directories
-alias la='ls -AlFh'                           # show hidden files
-alias lx='command ls -lXBh"'                  # sort by extension
-alias lsz='ls -lSrh'                          # sort by size
-alias lct='command ls -lcrh"'                 # sort by change time
-alias lat='command ls -lurh'                  # sort by access time
-alias lr='ls -lRh'                            # recursive ls
-alias ldt='ls -ltrh'                          # sort by date
-alias lm='ls -alh | more'                     # pipe through 'more'
-alias lw='command ls -xAh"'                   # wide listing format
-alias labc='command ls -lap "'                # alphabetical sort
-
-alias mkdir='mkdir -p' # Create parent directories as needed
-
-# Show disk space usage
-alias dirsize='du -hd 1'                                                         # Show folders and their sizes
-alias dirsort='\find . -maxdepth 1 -type d -print0 | xargs -0 du -sk | sort -rn' # Sort folders by size
-alias tree='tree -CAhF --dirsfirst'                                              # Show directory tree with files and directories
-alias dirtree='tree -CAFd'                                                       # Show directory tree with only directories
+alias l='ls -lF'                    # List files in long format
+alias la='ls -AlF'                  # show all including hidden files
+alias lc='ls -lt'                   # sort by change time
+alias lm='ls -alh | more'           # pipe through 'more'
+alias lr='ls -lR'                   # recursive ls
+alias lt='command ls -lurh'         # sort by access time
+alias lx='ls -lX'                   # sort by extension
+alias lz='ls -lS'                   # sort by size
+alias dirsize='du -hd 1'            # Show folders and their sizes
+alias tree='tree -CAhF --dirsfirst' # Show directory tree with files and directories
+alias dirtree='tree -CAFd'          # Show directory tree with only directories
 
 # ---- Files  ----
 alias cp='cp -i'        # Interactive copy
@@ -82,9 +72,6 @@ alias path='echo -e ${PATH//:/\\n}'
 
 # Edit with the default editor
 alias edit='${EDITOR}'
-
-# Git
-# alias clone='git clone'
 
 # git-ignore https://github.com/sondr3/git-ignore
 alias gi='git-ignore'

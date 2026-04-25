@@ -91,6 +91,8 @@ brew "lynis"
 brew "mas"
 # Modern and intuitive terminal-based text editor
 brew "micro"
+# Polyglot runtime manager (asdf rust clone)
+brew "mise"
 # Deep clean and optimize your Mac
 brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
@@ -113,6 +115,8 @@ brew "pigz"
 brew "pipx"
 # Fast, disk space efficient package manager
 brew "pnpm"
+# Tool for managing OCI containers and pods
+brew "podman"
 # Python version management
 brew "pyenv"
 # Pyenv plugin to manage virtualenv
@@ -268,6 +272,8 @@ cask "openmtp"
 cask "osaurus"
 # Utility to uninstall apps and remove leftover files from old/uninstalled apps
 cask "pearcleaner"
+# Browse, manage, inspect containers and images
+cask "podman-desktop"
 # Data science IDE
 cask "positron"
 # Client for Proton Mail and Proton Calendar
@@ -382,6 +388,7 @@ vscode "wattenberger.footsteps"
 vscode "wholroyd.jinja"
 vscode "wix.vscode-import-cost"
 vscode "xabikos.javascriptsnippets"
+vscode "xadillax.viml"
 vscode "yzhang.markdown-all-in-one"
 vscode "zokugun.cron-tasks"
 vscode "zokugun.sync-settings"

@@ -1,7 +1,7 @@
 [user]
-    name = Your Name
-    email = your.email@example.com
-    signingkey = ~/.ssh/id_ed25519.pub
+name = Your Name
+email = your.email@example.com
+signingkey = ~/.ssh/id_ed25519.pub
 
 [commit]
 	gpgsign = true
@@ -91,13 +91,12 @@ defaultBranch = main
 	colorMoved = plain
 	mnemonicPrefix = true
 	renames = true
-	tool = vscodium
+	tool = vimdiff
 	indentHeuristic = true
 	colorMovedWS = allow-indentation-change
 	submodule = log
 
 [difftool]
-    cmd = cmd = codium --wait --diff $LOCAL $REMOTE
 	prompt = false
 	trustExitCode = true
 
@@ -135,7 +134,7 @@ defaultBranch = main
 enabled = true
 autoupdate = true
 [core]
-	editor = codium --wait
+	editor = nvim
 	excludesfile = ~/.gitignore_global
 	fsmonitor = true
 	untrackedCache = true
@@ -148,11 +147,10 @@ autoStash = true
 updateRefs = true
 [merge]
 	conflictstyle = zdiff3
-	tool = vscodium
+	tool = vimdiff
 	ff = only
 
 [mergetool]
-    cmd = cmd = codium --wait --merge $REMOTE $LOCAL $BASE $MERGED
 	prompt = false
 	keepBackup = false
 	trustExitCode = true
