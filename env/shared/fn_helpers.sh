@@ -38,3 +38,17 @@ _exit_on_error() {
 timestamp() {
   date "+%Y-%m-%d_%H:%M:%S"
 }
+
+# Function to check if a command is installed
+### _is_installed()
+# Usage: _is_installed <command>
+_is_installed() {
+  if [ "$1" = "" ]; then
+    echo "Usage: _is_installed <command>"
+    return 1
+  fi
+  if ! command -v "$1" &> /dev/null; then
+    echo "$1 is not installed"
+    return 1
+  fi
+}

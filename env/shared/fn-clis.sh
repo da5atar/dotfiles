@@ -29,18 +29,15 @@ _select_nvim_config() {
 neovim() {
   local config=$(_select_nvim_config)
   [[ -z $config ]] && echo "No config selected" && return
-  export NVIM_APPNAME=$config && \
-  case "$config" in
-    nvim* )
+  export NVIM_APPNAME=$config &&
+    case "$config" in
+    nvim*)
       nvim "$@"
       ;;
-    lvim )
-      lvim "$@"
-      ;;
-    * )
+    *)
       echo "Unknown config: $config"
       ;;
-  esac
+    esac
 }
 
 # Clean nvim
@@ -51,10 +48,11 @@ clean_nvim() {
   local config=$(_select_nvim_config)
   [[ -z $config ]] && echo "No config selected" && return
   export NVIM_APPNAME=$config
-  rm -v "$HOME/.config/$NVIM_APPNAME" &&
-  # rm -v "$HOME/.local/share/$NVIM_APPNAME" &&
-  # rm -v "$HOME/.local/state/$NVIM_APPNAME" &&
-  # rm -v "$HOME/.cache/$NVIM_APPNAME" &&
+  [ -d "$HOME/.config/$NVIM_APPNAME" ] && rm -v "$HOME/.config/$NVIM_APPNAME"
+  # [ -d "$HOME/.config/local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.config/local/share/$NVIM_APPNAME"
+  # [ -d "$HOME/.local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.local/share/$NVIM_APPNAME"
+  # [ -d "$HOME/.local/state/$NVIM_APPNAME" ] && rm -v "$HOME/.local/state/$NVIM_APPNAME"
+  # [ -d "$HOME/.cache/$NVIM_APPNAME" ] && rm -v "$HOME/.cache/$NVIM_APPNAME"
   echo "Done."
 }
 

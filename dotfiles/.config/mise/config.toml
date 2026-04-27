@@ -1,0 +1,16 @@
+[tools]
+"aqua:LuaLS/lua-language-server" = "latest"
+aube = "latest"
+node = "latest"
+pnpm = "latest"
+python = "3.14"
+uv = "latest"
+
+[env]
+# See https://mise.jdx.dev/lang/python.html
+# See https://mise.jdx.dev/mise-cookbook/python.html
+# ensure uv uses mise's managed Python interpreter:
+UV_PYTHON = { value = "{{ tools.python.path }}", tools = true }
+
+[settings]
+# python.uv_venv_auto = "create|source"

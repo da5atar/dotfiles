@@ -13,6 +13,8 @@
   // ────────────────────────────────────────────────
   // 1️⃣ Editor & Language Settings
   // ────────────────────────────────────────────────
+  "diff_view_style": "unified",
+  "cli_default_open_behavior": "existing_window",
   "vim_mode": true,
   "colorize_brackets": true,
   "inlay_hints": {
@@ -22,8 +24,9 @@
   "auto_signature_help": true,
   "wrap_guides": [25, 50, 80],
   "edit_predictions": {
+    "mode": "subtle",
     "ollama": {
-      "model": "qwen2.5-coder:7b",
+      "model": "rnj-1:8b-instruct-q4_K_M",
     },
     "provider": "zed",
   },
@@ -63,6 +66,7 @@
   "gutter": {
     "line_numbers": true,
   },
+  "relative_line_numbers": "enabled",
 
   // ────────────────────────────────────────────────
   // 3️⃣ UI Layout & Appearance
@@ -122,18 +126,19 @@
   // 5️⃣ Agent & AI
   // ────────────────────────────────────────────────
   "agent": {
+    "enable_feedback": false,
     "sidebar_side": "right",
     "dock": "right",
     "favorite_models": [
       {
         "provider": "ollama",
-        "model": "gpt-oss",
-        "enable_thinking": true,
+        "model": "rnj-1:8b-instruct-q4_K_M",
+        "enable_thinking": false,
       },
       {
-        "provider": "JanAI",
-        "model": "janhq/Jan-code-4b-Q4_K_M",
-        "enable_thinking": false,
+        "provider": "ollama",
+        "model": "gpt-oss:latest",
+        "enable_thinking": true,
       },
     ],
     "inline_assistant_model": {
@@ -142,9 +147,9 @@
     },
     "default_profile": "write",
     "default_model": {
-      "enable_thinking": true,
+      "enable_thinking": false,
       "provider": "ollama",
-      "model": "gpt-oss",
+      "model": "rnj-1:8b-instruct-q4_K_M",
     },
     "use_modifier_to_send": true,
     "play_sound_when_agent_done": "when_hidden",
@@ -157,9 +162,7 @@
         "available_models": [
           {
             "name": "janhq/Jan-code-4b-Q4_K_M",
-            "max_tokens": 120000,
-            "max_output_tokens": 32000,
-            "max_completion_tokens": 120000,
+            "max_tokens": 65536, // model context window size
             "capabilities": {
               "tools": true,
               "images": false,
@@ -175,7 +178,7 @@
       "api_url": "http://localhost:11434",
       "available_models": [
         {
-          "name": "gpt-oss",
+          "name": "gpt-oss:latest",
           "supports_tools": true,
           "supports_thinking": true,
           "max_tokens": 32768,

@@ -10,6 +10,9 @@
 # Resolve script directory
 SCRIPT_DIR=$(command cd "$(dirname "$0")" && pwd)
 
+# Resolve script directory
+SCRIPT_DIR=$(command cd "$(dirname "$0")" && pwd)
+
 echo "Creating symlinks for dotfiles in $HOME"
 
 # Function to symlink files preserving relative path
@@ -31,6 +34,8 @@ link_files() {
       ln -s "$file" "$target"
     done
 }
+
+echo "Creating symlinks for dotfiles in $HOME"
 
 # 1. Symlink top‑level dotfiles
 command find "${SCRIPT_DIR}/dotfiles/home" -maxdepth 1 -type f -name '.*' -print |
@@ -64,14 +69,15 @@ command find "$SCRIPT_DIR/dotfiles/.config/git" -maxdepth 1 -type f -print |
   done
 
 # 4. Link other files
-# Neovim config
+# Neovim shared config
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim/lua/config
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_lazyvim/lua/config
 link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/config" ~/.config/nvim_astro/lua/config
 # Neovim shared plugins
-link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim/lua/plugins
-link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_lazyvim/lua/plugins
-link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugs" ~/.config/nvim_astro/lua/plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugins" ~/.config/nvim/lua/plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugins" ~/.config/nvim_lazyvim/lua/plugins
+link_files "${PROJECT_ROOT}/dotfiles/common/nvim/lua/plugins" ~/.config/nvim_astro/lua/plugins
+
 # iterm2 config
 ln -sf "${SCRIPT_DIR}/dotfiles/home/com.googlecode.iterm2.plist" "${HOME}/com.googlecode.iterm2.plist"
 

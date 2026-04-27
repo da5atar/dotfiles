@@ -27,19 +27,30 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 
 -- Buffers
 set("n", "<Leader>b", "", { desc = "[b]uffers" })
-set("n", "<Leader>bn", ":enew<CR>", { desc = "[b]uffer [n]ew" })
+set("n", "<Leader>bc", ":enew<CR>", { desc = "[b]uffer [c]reate" })
 set("n", "<Leader>bd", ":bd<CR>", { desc = "[b]uffer [d]elete" })
-set("n", "<Leader>bl", ":bnext<CR>", { desc = "[b]uffer [n]ext" })
-set("n", "<Leader>bh", ":bprev<CR>", { desc = "[b]uffer [p]rev" })
+set("n", "<Leader>bn", ":bnext<CR>", { desc = "[b]uffer [n]ext" })
+set("n", "<Leader>bp", ":bprev<CR>", { desc = "[b]uffer [p]rev" })
+
+-- Raise dialog for unsaved buffers
+vim.o.confirm = true
 
 -- Diagnostics
-set("n", "<Leader>D", "", { desc = "[D]iagnostics" })
+set("n", "<Leader>d", "", { desc = "[D]iagnostics" })
+
+-- Editing
+-- '_' is the black hole register
+set("x", "<leader>p", '"_dP', { desc = "Replace without yanking" })
+set("n", "<leader>d", '"_d', { desc = "Delete without yanking" }) -- e.g <leader>dd deletes the current line without yanking it
+set("n", "<leader>D", '"_D', { desc = "Delete until EOL without yanking" })
+set("n", "<leader>c", '"_c', { desc = "Change without yanking" })
+set("n", "<leader>C", '"_C', { desc = "Change until EOL without yanking" })
 
 -- Find
-set("n", "<Leader>F", "", { desc = "[F]ind/[F]iles" })
+set("n", "<Leader>f", "", { desc = "[F]ind/[F]iles" })
 
 -- Git
-set("n", "<Leader>G", "", { desc = "[G]it" })
+set("n", "<Leader>g", "", { desc = "[G]it" })
 
 -- Window Splits
 -- Keybinds to make split navigation easier.

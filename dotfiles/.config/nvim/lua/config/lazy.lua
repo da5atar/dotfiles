@@ -1,5 +1,6 @@
 -- Set up lazy.nvim (Bootstrap)
 -- See https://lazy.folke.io/installation
+-- NOTE: vim.fn allows vimscript function access from lua
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -31,6 +32,8 @@ require("lazy").setup({
     },
     -- import your plugins
     { import = "plugins" },
+    { import = "plugins.shared" }, -- Symlinked
+    { import = "plugins.extras" }, -- Symlinked
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.

@@ -52,7 +52,5 @@ export PATH="${HOME}/.local/bin:$PATH"
 # Avoid global installs with pip
 export PIP_REQUIRE_VIRTUALENV=true
 
-# Pyenv
-# https://github.com/pyenv/pyenv
-export PYENV_ROOT="$HOME/.pyenv"
-[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+### Neovide
+export NVIM_APPNAME=nvim_astro

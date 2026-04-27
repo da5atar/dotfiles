@@ -5,7 +5,7 @@ return {
     "nvim-telescope/telescope.nvim",
   },
   keys = {
-    { "<leader>Fc", "<CMD>Telescope commander<CR>", desc = "Find [c]ommand", mode = "n" },
+    { "<leader>fc", "<CMD>Telescope commander<CR>", desc = "Find [c]ommand", mode = "n" },
   },
   config = function()
     require("commander").setup({
@@ -18,7 +18,7 @@ return {
         "DESC",
         "KEYS",
         "CAT",
-        "CMD"
+        "CMD",
       },
       integration = {
         telescope = {
@@ -26,9 +26,9 @@ return {
         },
         lazy = {
           enable = true,
-          set_plugin_name_as_cat = true
-        }
-      }
+          set_plugin_name_as_cat = true,
+        },
+      },
     })
   end,
 }

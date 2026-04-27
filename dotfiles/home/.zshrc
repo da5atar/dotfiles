@@ -32,6 +32,7 @@ ZSH_THEME="random"
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
   # Oh My Zsh Plugins
+  # https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins
   cp
   docker
   docker-compose
@@ -40,15 +41,15 @@ plugins=(
   git-prompt
   iterm2
   macos
+  mise
   npm
   pip
-  pyenv
   python
   ssh
   starship
   tldr
   tmux
-  themes
+  themes # usage: `omz theme <theme>`
   uv
   vi-mode
   z
@@ -59,6 +60,7 @@ plugins=(
   autoswitch_virtualenv    # https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
   fast-syntax-highlighting # https://github.com/zdharma-continuum/fast-syntax-highlighting
   zsh-autosuggestions      # https://github.com/zsh-users/zsh-autosuggestions
+  # Dynamically enabled with `omz plugin enable <plugin>`
 )
 
 # ==========================================================

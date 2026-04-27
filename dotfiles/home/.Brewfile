@@ -55,6 +55,8 @@ brew "fd"
 brew "findutils"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# Disk usage analyzer with console interface written in Go
+brew "gdu"
 # GitHub command-line tool
 brew "gh"
 # List, fetch and generate .gitignore templates
@@ -65,8 +67,14 @@ brew "git-lfs"
 brew "glow"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU Privacy Guard (OpenPGP)
+brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Post-modern modal text editor
+brew "helix"
+# Instant coding answers via the command-line
+brew "howdoi"
 # Crawling and spidering framework
 brew "katana"
 # Simple terminal UI for git commands
@@ -105,22 +113,12 @@ brew "navi"
 brew "tree-sitter"
 # Ambitious Vim-fork focused on extensibility and agility
 brew "neovim"
-# Open-source, cross-platform JavaScript runtime environment
-brew "node"
 # Create, run, and share large language models (LLMs)
 brew "ollama", restart_service: :changed
 # Parallel gzip
 brew "pigz"
-# Execute binaries from Python packages in isolated environments
-brew "pipx"
-# Fast, disk space efficient package manager
-brew "pnpm"
 # Tool for managing OCI containers and pods
 brew "podman"
-# Python version management
-brew "pyenv"
-# Pyenv plugin to manage virtualenv
-brew "pyenv-virtualenv"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Powerful, clean, object-oriented scripting language
@@ -157,8 +155,6 @@ brew "tree"
 brew "tree-sitter-cli"
 # Network diagnostic tool, inspired by mtr
 brew "trippy"
-# Extremely fast Python package installer and resolver, written in Rust
-brew "uv"
 # Tool for creating isolated virtual python environments
 brew "virtualenv"
 # Convert HTML to PDF
@@ -185,7 +181,7 @@ brew "tabbyml/tabby/tabby"
 brew "thezoraiz/ascii-image-converter/ascii-image-converter"
 # Android SDK component
 cask "android-platform-tools"
-# AI Coding Agent IDE
+# Agent orchestration platform
 cask "antigravity"
 # Inspect application bundles
 cask "apparency"
@@ -219,11 +215,10 @@ cask "duckduckgo"
 cask "duplicati"
 # Collaborative team software
 cask "figma"
-# Web browser
-cask "firefox"
 cask "font-3270-nerd-font"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
+cask "font-iosevka-term-nerd-font"
 cask "font-monaspice-nerd-font"
 cask "font-victor-mono-nerd-font"
 # Folder comparison and synchronization software
@@ -290,6 +285,8 @@ cask "stats"
 cask "swiftbar"
 # Virtual machines UI using QEMU
 cask "utm"
+# Web browser with built-in email client focusing on customization and control
+cask "vivaldi"
 # Multimedia player
 cask "vlc"
 # AI code editor
@@ -345,14 +342,12 @@ vscode "kevinrose.vsc-python-indent"
 vscode "mechatroner.rainbow-csv"
 vscode "mhutchie.git-graph"
 vscode "mkhl.shfmt"
-vscode "mohsen1.prettify-json"
 vscode "ms-azuretools.vscode-containers"
 vscode "ms-azuretools.vscode-docker"
 vscode "ms-python.debugpy"
 vscode "ms-python.isort"
 vscode "ms-python.pylint"
 vscode "ms-python.python"
-vscode "ms-python.vscode-pylance"
 vscode "ms-python.vscode-python-envs"
 vscode "ms-toolsai.jupyter"
 vscode "ms-toolsai.jupyter-keymap"
@@ -395,3 +390,4 @@ vscode "zokugun.sync-settings"
 go "github.com/projectdiscovery/katana/cmd/katana"
 go "github.com/taigrr/spank"
 cargo "somo"
+npm "standard"

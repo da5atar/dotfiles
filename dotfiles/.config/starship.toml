@@ -121,9 +121,9 @@ style = "bg:color_bg4 fg:#6295CB"
 symbol = " "
 
 [docker_context]
-format ="via [$symbol $context]($style) "
+format = "via [$symbol $context]($style) "
 symbol = ""
-style  =  "bg:color_bg4 fg:#5FEE4E"
+style = "bg:color_bg4 fg:#5FEE4E"
 
 [java]
 format = '[$symbol ]($style)'

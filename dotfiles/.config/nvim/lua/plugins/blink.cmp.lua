@@ -1,5 +1,11 @@
-return {
+-- Auto-completion
+-- See https://cmp.saghen.dev/installation
+---@module "Lazy"
+---@type LazySpec
+return { -- Auto-completion
   "saghen/blink.cmp",
+  event = "VimEnter",
+
   -- optional: provides snippets for the snippet source
   dependencies = { "rafamadriz/friendly-snippets" },
 
@@ -34,20 +40,13 @@ return {
     },
 
     -- (Default) Only show the documentation popup when manually triggered
-    completion = { documentation = { auto_show = true } },
+    -- By default, you may press `<c-space>` to show the documentation.
+    completion = { documentation = { auto_show = true, auto_show_delay_ms = 500 } },
 
     -- Default list of enabled providers defined so that you can extend it
     -- elsewhere in your config, without redefining it, due to `opts_extend`
     sources = {
-      default = { "lazydev", "lsp", "path", "snippets", "buffer" },
-      providers = {
-        lazydev = {
-          name = "LazyDev",
-          module = "lazydev.integrations.blink",
-          -- make lazydev completions top priority (see `:h blink.cmp`)
-          score_offset = 100,
-        },
-      },
+      default = { "lsp", "path", "snippets", "buffer" },
     },
 
     -- (Default) Rust fuzzy matcher for typo resistance and significantly better performance
@@ -57,5 +56,8 @@ return {
     -- See the fuzzy documentation for more information
     fuzzy = { implementation = "prefer_rust_with_warning" }
   },
-  opts_extend = { "sources.default" }
+  opts_extend = { "sources.default" },
+
+  -- Shows a signature help window while you type arguments for a function
+  signature = { enabled = true },
 }

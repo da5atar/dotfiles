@@ -1,4 +1,5 @@
 -- Treesitter
+-- Interface to treesitter core in nvim for installing parsers
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -10,9 +11,11 @@ return {
     },
     config = function()
       -- Auto-install parsers and enable treesitter highlight/indent per filetype.
-      -- See: https://github.com/nvim-treesitter/nvim-treesitter/discussions/7927
+      -- See:
+      -- - https://github.com/nvim-treesitter/nvim-treesitter/discussions/7927
+      -- - https://github.com/nvim-treesitter/nvim-treesitter/discussions/8621
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = { '*' },
+        pattern = { "*" },
         callback = function(args)
           local ft = vim.bo[args.buf].filetype
           local lang = vim.treesitter.language.get_lang(ft)
@@ -72,93 +75,112 @@ return {
           -- and should return the mode ("v", "V", or "<c-v>") or a table
           -- mapping query_strings to modes.
           selection_modes = {
-            ["@parameter.outer"] = 'v', -- charwise
-            ["@function.outer"] = 'V',  -- linewise
+            ["@parameter.outer"] = "v", -- charwise
+            ["@function.outer"] = "V", -- linewise
             ["@class.outer"] = "<c-v>", -- blockwise
-            ["@local.scope"] = 'V',     -- linewise
+            ["@local.scope"] = "V", -- linewise
           },
           move = {
             -- whether to set jumps in the jumplist
             -- This is similar to ]m, [m, ]M, [M Neovim"s mappings to jump to the next or previous function.
             set_jumps = true,
           },
-        }
+        },
       })
-      local map = vim.keymap.set
-      local select = require("nvim-treesitter-textobjects.select").select_textobject
+
       -- Textobject selections
-      map({ 'x', 'o' }, "af", function()
+      local set = vim.keymap.set
+      local select = require("nvim-treesitter-textobjects.select").select_textobject
+
+      set({ "x", "o" }, "af", function()
         select("@function.outer", "textobjects")
       end, { desc = "outer function" })
-      map({ 'x', 'o' }, "if", function()
+      set({ "x", "o" }, "if", function()
         select("@function.inner", "textobjects")
       end, { desc = "inner function" })
-      map({ 'x', 'o' }, "ac", function()
+      set({ "x", "o" }, "ac", function()
         select("@class.outer", "textobjects")
       end, { desc = "outer class" })
-      map({ 'x', 'o' }, "ic", function()
+      set({ "x", "o" }, "ic", function()
         select("@class.inner", "textobjects")
       end, { desc = "inner class" })
-      map({ 'x', 'o' }, "aa", function()
+      set({ "x", "o" }, "aa", function()
         select("@parameter.outer", "textobjects")
       end, { desc = "outer argument" })
-      map({ 'x', 'o' }, "ia", function()
+      set({ "x", "o" }, "ia", function()
         select("@parameter.inner", "textobjects")
       end, { desc = "inner argument" })
-      map({ 'x', 'o' }, "as", function()
+      set({ "x", "o" }, "as", function()
         select("@local.scope", "locals")
       end, { desc = "outer scope" })
       --
-      local move = require("nvim-treesitter-textobjects.move")
+
       -- Movement
-      map({ 'n', 'x', 'o' }, "]f", function()
+      local move = require("nvim-treesitter-textobjects.move")
+
+      set({ "n", "x", "o" }, "]f", function()
         move.goto_next_start("@function.outer", "textobjects")
       end, { desc = "next function start" })
-      map({ 'n', 'x', 'o' }, "[f", function()
+      set({ "n", "x", "o" }, "[f", function()
         move.goto_previous_start("@function.outer", "textobjects")
       end, { desc = "previous function start" })
-      map({ 'n', 'x', 'o' }, "]F", function()
+      set({ "n", "x", "o" }, "]F", function()
         move.goto_next_end("@function.outer", "textobjects")
       end, { desc = "next function end" })
-      map({ 'n', 'x', 'o' }, "[F", function()
+      set({ "n", "x", "o" }, "[F", function()
         move.goto_previous_end("@function.outer", "textobjects")
       end, { desc = "previous function end" })
-      map({ 'n', 'x', 'o' }, "]k", function()
+      set({ "n", "x", "o" }, "]c", function()
         move.goto_next_start("@class.outer", "textobjects")
       end, { desc = "next class start" })
-      map({ 'n', 'x', 'o' }, "[k", function()
+      set({ "n", "x", "o" }, "[c", function()
         move.goto_previous_start("@class.outer", "textobjects")
       end, { desc = "previous class start" })
-      map({ 'n', 'x', 'o' }, "]K", function()
+      set({ "n", "x", "o" }, "]C", function()
         move.goto_next_end("@class.outer", "textobjects")
       end, { desc = "next class end" })
-      map({ 'n', 'x', 'o' }, "[K", function()
+      set({ "n", "x", "o" }, "[C", function()
         move.goto_previous_end("@class.outer", "textobjects")
       end, { desc = "previous class end" })
       --
-      local swap = require("nvim-treesitter-textobjects.swap")
+
       -- Swaps
-      map({ 'n', 'x', 'o' }, "<leader>a", function()
+      local swap = require("nvim-treesitter-textobjects.swap")
+
+      set({ "n", "x", "o" }, "<localleader>san", function()
+        swap.swap_textobject("@parameter.inner.next", "textobjects")
+      end, { desc = "swap next argument" })
+      set({ "n", "x", "o" }, "<localleader>sap", function()
+        swap.swap_textobject("@parameter.inner.prev", "textobjects")
+      end, { desc = "swap previous argument" })
+      set({ "n", "x", "o" }, "<localleader>sa", function()
         swap.swap_textobject("@parameter.inner", "textobjects")
       end, { desc = "swap argument" })
 
+      -- set({ "n", "x", "o" }, "<localleader>sfn", function()
+      --   swap.swap_next("@function.outer")
+      -- end)
+      -- set("n", "<localleader>sfp", function()
+      --   swap.swap_previous("@function.outer")
+      -- end)
+
       -- repeat
-      local ts_repeat_move = require "nvim-treesitter-textobjects.repeatable_move"
+      local ts_repeat_move = require("nvim-treesitter-textobjects.repeatable_move")
 
       -- Repeat movement with ; and ,
       -- ensure ; goes forward and , goes backward regardless of the last direction
-      map({ 'n', 'x', 'o' }, ';', ts_repeat_move.repeat_last_move_next, { desc = "repeat last move next" })
-      map({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_previous, { desc = "repeat last move previous" })
+      set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move_next, { desc = "repeat last move next" })
+      set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_previous, { desc = "repeat last move previous" })
 
       -- vim way: ; goes to the direction you were moving.
-      -- vim.keymap.set({ 'n', 'x', 'o' }, ';', ts_repeat_move.repeat_last_move, { desc = "repeat last move" })
-      -- vim.keymap.set({ 'n', 'x', 'o' }, ',', ts_repeat_move.repeat_last_move_opposite, { desc = "repeat last move opposite" })
+      set({ "n", "x", "o" }, ";", ts_repeat_move.repeat_last_move, { desc = "repeat last move" })
+      set({ "n", "x", "o" }, ",", ts_repeat_move.repeat_last_move_opposite, { desc = "repeat last move opposite" })
 
       -- Optionally, make builtin f, F, t, T also repeatable with ; and ,
-      map({ 'n', 'x', 'o' }, 'f', ts_repeat_move.builtin_f_expr, { expr = true })
-      map({ 'n', 'x', 'o' }, 'F', ts_repeat_move.builtin_F_expr, { expr = true })
-      map({ 'n', 'x', 'o' }, 't', ts_repeat_move.builtin_t_expr, { expr = true })
-      map({ 'n', 'x', 'o' }, 'T', ts_repeat_move.builtin_T_expr, { expr = true })
+      set({ "n", "x", "o" }, "f", ts_repeat_move.builtin_f_expr, { expr = true })
+      set({ "n", "x", "o" }, "F", ts_repeat_move.builtin_F_expr, { expr = true })
+      set({ "n", "x", "o" }, "t", ts_repeat_move.builtin_t_expr, { expr = true })
+      set({ "n", "x", "o" }, "T", ts_repeat_move.builtin_T_expr, { expr = true })
       --
     end,
     --
@@ -169,12 +191,12 @@ return {
     event = "VeryLazy",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     opts = {
-      max_lines = 3,
+      max_lines = 5,
       min_window_height = 20,
     },
     keys = {
       {
-        "[C",
+        "[c",
         function()
           require("treesitter-context").go_to_context()
         end,

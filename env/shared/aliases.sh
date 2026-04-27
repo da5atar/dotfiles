@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+# ---- Binaries ----
+# https://github.com/dundee/gdu
+alias gdu="gdu-go" # resolve conflict with `gdu` from Homebrew coreutils
+
 # ---- Easier navigation ----
 alias home='cd ~'
 alias ..="cd .."
@@ -87,6 +91,12 @@ alias sudo='sudo '
 alias python3='python'
 alias pip3='pip'
 alias pip='python -m pip'
+
+# url encode/decode
+alias urldecode='python -c "import sys, urllib.parse as ul; \
+    print(ul.unquote_plus(sys.argv[1]))"'
+alias urlencode='python -c "import sys, urllib.parse as ul; \
+    print (ul.quote_plus(sys.argv[1]))"'
 
 # ---- Search ----
 # Always enable colored `grep` output

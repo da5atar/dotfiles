@@ -91,10 +91,6 @@ source <(fzf --zsh)
 test -e "${HOME}/.iterm2_shell_integration.zsh" &&
   source "${HOME}/.iterm2_shell_integration.zsh"
 
-### ---- Mise ----
-# https://mise.jdx.dev/getting-started.html
-eval "$(mise activate zsh)"
-
 ### ---- navi ----
 # https://github.com/denisidoro/navi/
 if command -v "navi" &>/dev/null; then
@@ -111,10 +107,12 @@ fi
 # Shell Notes https://github.com/da5atar/shell-notes
 export NOTES_DIRECTORY # set in ~/.env
 
-### ---- pyenv plugins ----
-# pyenv-virtualenv
-# https://github.com/pyenv/pyenv-virtualenv
-eval "$(pyenv virtualenv-init -)"
+# pnpm
+export PNPM_HOME="/Users/ms/.config/local/share/pnpm"
+case ":$PATH:" in
+*":$PNPM_HOME/bin:"*) ;;
+*) export PATH="$PNPM_HOME/bin:$PATH" ;;
+esac
 
 ### ---- television ----
 # tv https://github.com/alexpasmantier/television
@@ -128,11 +126,11 @@ fi
 if [[ -n $SSH_CONNECTION ]]; then
   export EDITOR='nano'
 else
-  export EDITOR='zed --wait'
+  export EDITOR='vim'
 fi
 
 # Custom aliases and env variables
-source "${HOME}/.env" # local apps variables and keys
-# source "${HOME}/.aliases.sh" # local specific aliases
+source "${HOME}/.env"        # local apps variables and keys
+source "${HOME}/.aliases.sh" # local specific aliases
 
 # ---- End of file ----

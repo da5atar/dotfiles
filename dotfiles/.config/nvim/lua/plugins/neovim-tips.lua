@@ -1,7 +1,7 @@
 return {
   "saxon1964/neovim-tips",
   version = "*", -- Only update on tagged releases
-  lazy = false,  -- Load only when keybinds are triggered
+  lazy = false, -- Load only when keybinds are triggered
   dependencies = {
     "MeanderingProgrammer/render-markdown.nvim",
   },
@@ -17,6 +17,6 @@ return {
   init = function()
     -- OPTIONAL: Change to your liking or drop completely
     -- The plugin does not provide default key mappings, only commands
-    vim.keymap.set("n", "<leader>Ft", ":NeovimTips<CR>", { desc = "Neovim [t]ips", silent = true })
+    vim.keymap.set("n", "<leader>ft", ":NeovimTips<CR>", { desc = "Neovim [t]ips", silent = true })
   end,
 }

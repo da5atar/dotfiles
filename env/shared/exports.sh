@@ -5,3 +5,5 @@
 # export NVIM_APPNAME=nvim
 export NVIM_APPNAME=nvim_lazyvim
 
+# base virtual environment
+export VENV_PATH="${HOME}/.virtualenvs/base"

@@ -1,0 +1,40 @@
+# See https://samuellawrentz.com/blog/mac-terminal-setup-2026-ghostty-starship-catppuccin/
+palette = "catppuccin_mocha"
+
+[palettes.catppuccin_mocha]
+rosewater = "#f5e0dc"
+flamingo = "#f2cdcd"
+mauve = "#cba6f7"
+red = "#f38ba8"
+peach = "#fab387"
+yellow = "#f9e2af"
+green = "#a6e3a1"
+blue = "#89b4fa"
+text = "#cdd6f4"
+surface1 = "#45475a"
+base = "#1e1e2e"
+
+[git_branch]
+format = "[$symbol$branch]($style) "
+style = "bold mauve"
+
+[git_status]
+format = "([$all_status$ahead_behind]($style) )"
+style = "bold red"
+
+[cmd_duration]
+min_time = 2000
+format = "[$duration]($style) "
+style = "yellow"
+
+[nodejs]
+format = "[$symbol($version )]($style)"
+style = "green"
+
+[python]
+format = "[$symbol($version )]($style)"
+style = "peach"
+
+[character]
+success_symbol = "[❯](bold green)"
+error_symbol = "[❯](bold red)"

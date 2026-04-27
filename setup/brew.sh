@@ -47,6 +47,7 @@ brew install fd                          # file finder
 brew install fzf                         # fuzzy finder
 brew install go                          # Programming Language
 brew install gh                          # GitHub CLI
+brew install -f gdu                      # Disk Usage Anlayzer
 brew install git-ignore                  # git ignore file generator
 brew install git-lfs                     # Git Large File Storage
 brew install glib                        # library for computing the b2 hash
@@ -66,10 +67,6 @@ brew install ollama                      # LLM runner
 brew install openssl@3                   # OpenSSL library
 brew install pango                       # library for rendering text and images
 brew install pigz                        # compression utility
-brew install pipx                        # Python package manager
-brew install pnpm                        # JavaScript package manager
-brew install pyenv                       # Python version manager
-brew install pyenv-virtualenv            # pyenv plugin
 brew install qemu                        # virtual machine emulator
 brew install quarkdown                   # Markdown-based typesetting system
 brew install ripgrep                     # fast regex search tool
@@ -96,7 +93,6 @@ brew install tree-sitter-cli             # Tree-sitter CLI tool
 brew install tree                        # directory listing tool
 brew install trippy                      # Network diagnostic tool
 brew install tabbyml/tabby/tabby         # Self-hosted AI coding assistant
-brew install uv                          # python package manager
 brew install virtualenv                  # python virtual environment manager
 brew install weasyprint                  # HTML to PDF converter
 brew install wget                        # download tool

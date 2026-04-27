@@ -1,0 +1,100 @@
+# Vimium options
+
+unmapAll
+
+## Navigation
+map j scrollDown
+map <c-e> scrollDown
+map k scrollUp
+map <c-y> scrollUp
+map gg scrollFullPageUp
+map G scrollFullPageDown
+" default: d
+map <c-d> scrollPageDown
+" default: u
+map <c-u> scrollPageUp
+map h scrollLeft
+map l scrollRight
+map zH scrollToLeft
+map zL scrollToRight
+map <c-r> reload
+map yy copyCurrentUrl
+" default: p
+map gp openCopiedUrlInCurrentTab
+" default: P
+map gP openCopiedUrlInNewTab
+" Go up the URL hierarchy
+map gu goUp
+" Go to the root of the current URL hierarchy
+map gU goToRoot
+map i enterInsertMode
+map v enterVisualMode
+map V enterVisualLineMode
+" Focus the first text input on the page
+map gi focusInput
+" Open a link in the current tab. Default f
+map s LinkHints.activateMode
+" Open a link in a new tab. Default F
+map S LinkHints.activateModeToOpenInNewTab
+map <a-f>  LinkHints.activateModeWithQueue
+map yf LinkHints.activateModeToCopyLinkUrl
+map [[ goPrevious
+map ]] goNext
+map gf nextFrame
+map gF mainFrame
+map m Marks.activateCreateMode
+map ` Marks.activateGotoMode
+
+## Using the vomnibar
+" Open URL, bookmark or history entry. Default o
+map go Vomnibar.activate
+" Open URL, bookmark or history entry in a new tab. Default O
+map gO Vomnibar.activateInNewTab
+" Open a bookmark. Default b
+map gb Vomnibar.activateBookmarks
+" Open a bookmark in a new tab. Default B
+map gB Vomnibar.activateBookmarksInNewTab
+" Search through your open tabs. Default T
+map T Vomnibar.activateTabSelection
+" Edit the current URL
+map ge Vomnibar.activateEditUrl
+" Edit the current URL and open in a new tab.
+map gE Vomnibar.activateEditUrlInNewTab
+
+## Using find
+map / enterFindMode
+map n performFind
+map N performBackwardsFind
+
+## Navigating history
+" default H
+map J goBack
+" default L
+map K goForward
+
+## Tabs
+map t createTab
+" default J
+map H previousTab
+map gT previousTab
+" default K
+map L nextTab
+map gt nextTab
+map ^ visitPreviousTab
+map g0 firstTab
+map g$ lastTab
+map yt duplicateTab
+map <a-p> togglePinTab
+map <a-m> toggleMuteTab
+" Close tab. Default x
+map <c-q> removeTab
+" Restore tab. Default X
+map <c-R> restoreTab
+" Move tab to new window. Default W
+map <c-W> moveTabToNewWindow
+map << moveTabLeft
+map >> moveTabRight
+
+# Miscellaneous
+map ? showHelp
+map gs toggleViewSource

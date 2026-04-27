@@ -1,0 +1,6 @@
+# Refer to https://neovide.dev/command-line-reference.html
+chdir = "~/Dev/Projects/" # Start neovim in the specified working directory or use $NEOVIDE_CHDIR
+
+[font]
+normal = [] # Will use the bundled Fira Code Nerd Font by default
+size = 14.0

@@ -113,13 +113,13 @@ return {
 
       -- Custom keymaps
       local builtin = require("telescope.builtin")
-      vim.keymap.set("n", "<leader>Ff", builtin.find_files, { desc = "Telescope [f]ind files" })
-      vim.keymap.set("n", "<leader>Fg", builtin.live_grep, { desc = "Telescope live [g]rep" })
-      vim.keymap.set("n", "<leader>Fb", builtin.buffers, { desc = "Telescope [b]uffers" })
-      vim.keymap.set("n", "<leader>Fh", builtin.help_tags, { desc = "Telescope [h]elp tags" })
-      vim.keymap.set("n", "<leader>Fm", "<cmd>Telescope media_files<CR>", { desc = "Telescope [m]edia files" })
-      vim.keymap.set("n", "<leader>Fp", "<cmd>Telescope project<CR>", { desc = "Telescope [p]roject" })
-      vim.keymap.set("n", "<leader>Fr", "<cmd>Telescope repo list<CR>", { desc = "List [r]epos" })
+      vim.keymap.set("n", "<leader>ff", builtin.find_files, { desc = "Telescope [f]ind files" })
+      vim.keymap.set("n", "<leader>fg", builtin.live_grep, { desc = "Telescope live [g]rep" })
+      vim.keymap.set("n", "<leader>fb", builtin.buffers, { desc = "Telescope [b]uffers" })
+      vim.keymap.set("n", "<leader>fh", builtin.help_tags, { desc = "Telescope [h]elp tags" })
+      vim.keymap.set("n", "<leader>fm", "<cmd>Telescope media_files<CR>", { desc = "Telescope [m]edia files" })
+      vim.keymap.set("n", "<leader>fp", "<cmd>Telescope project<CR>", { desc = "Telescope [p]roject" })
+      vim.keymap.set("n", "<leader>fr", "<cmd>Telescope repo list<CR>", { desc = "List [r]epos" })
     end,
     --
   },

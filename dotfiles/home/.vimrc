@@ -8,6 +8,8 @@
 "                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Colors
+colorscheme molokai
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
@@ -26,6 +28,9 @@ syntax on
 
 " Add numbers to the file.
 set number
+
+" Relative line numbers
+set relativenumber
 
 " Highlight cursor line underneath the cursor horizontally.
 set cursorline
@@ -195,7 +200,7 @@ if has('gui_running')
     set background=dark
 
     " Set the color scheme.
-    colorscheme ThemerVictorMono
+    colorscheme molokai
 
     " Set a custom font you have installed on your computer.
     " Syntax: <font_name>\ <weight>\ <size>

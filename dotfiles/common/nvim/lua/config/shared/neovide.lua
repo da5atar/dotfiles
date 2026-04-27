@@ -3,7 +3,7 @@
 if vim.g.neovide then
   -- Put anything you want to happen only in Neovide here
   -- Font
-  vim.o.guifont = "MonaspiceRn Nerd Font:h14"
+  -- vim.o.guifont = "MonaspiceRn Nerd Font:h14"
   --
   -- Window blur
   vim.g.neovide_window_blurred = true

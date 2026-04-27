@@ -30,8 +30,8 @@ end
 
 require "lazy_setup"
 -- Shared Neovim config
-require("config.keys")           -- symlinked
-require("config.neovide")        -- symlinked
-require("config.shared-options") -- symlinked
+require "config.shared.keys" -- symlinked
+require "config.shared.neovide" -- symlinked
+require "config.shared.opts" -- symlinked
 --
 require "polish"

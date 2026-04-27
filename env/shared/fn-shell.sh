@@ -65,31 +65,37 @@ fi
 #   fdsummary -n 100         # show the top 100 processes instead of 50
 #
 fdsummary() {
-    local use_sudo=no          # flag: do we need sudo?
-    local limit=50             # default top‑N
+  local use_sudo=no # flag: do we need sudo?
+  local limit=50    # default top‑N
 
-    # ----- parse options ---------------------------------------------
-    while [[ $# -gt 0 ]]; do
-        case "$1" in
-            --sudo) use_sudo=yes; shift;;
-            -n|--limit)
-                shift
-                limit="${1:-$limit}"
-                shift
-                ;;
-            *)  echo "fdsummary: unknown option: $1" >&2; return 1;;
-        esac
-    done
+  # ----- parse options ---------------------------------------------
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+    --sudo)
+      use_sudo=yes
+      shift
+      ;;
+    -n | --limit)
+      shift
+      limit="${1:-$limit}"
+      shift
+      ;;
+    *)
+      echo "fdsummary: unknown option: $1" >&2
+      return 1
+      ;;
+    esac
+  done
 
-    # ----- build the lsof command ------------------------------------
-    local lsof_cmd="lsof -nP"
-    [[ $use_sudo == yes ]] && lsof_cmd="sudo $lsof_cmd"
+  # ----- build the lsof command ------------------------------------
+  local lsof_cmd="lsof -nP"
+  [[ $use_sudo == yes ]] && lsof_cmd="sudo $lsof_cmd"
 
-    # ----- run lsof, count descriptors per PID, sort, truncate -------
-    eval "$lsof_cmd" | \
-        awk 'NR>1{count[$2]++; cmd[$2]=$1} \
-             END{for(p in count) printf "%6d %6d %s\n", count[p], p, cmd[p] | "sort -nr"}' | \
-        head -n "$limit"
+  # ----- run lsof, count descriptors per PID, sort, truncate -------
+  eval "$lsof_cmd" |
+    awk 'NR>1{count[$2]++; cmd[$2]=$1} \
+             END{for(p in count) printf "%6d %6d %s\n", count[p], p, cmd[p] | "sort -nr"}' |
+    head -n "$limit"
 }
 
 # ---- FPATH ----
@@ -103,10 +109,10 @@ show_fpath() {
 # ---- Logout ----
 
 # Usage: deactivate running shell processes for graceful exit
-### exit()
+### x_it()
 x_it() {
   # Gracefully exit any running shell processes
-  if jobs &> /dev/null; then
+  if jobs &>/dev/null; then
     kill -TERM "$(jobs -p)" &>/dev/null
   fi
 }
@@ -142,7 +148,7 @@ set_no_dupes_path() {
 # Usage: reload
 ### reload()
 reload() {
-  d_activate
+  command -v deactivate >/dev/null && deactivate nondesctructive
   x_it
-  exec "${SHELL}"
+  exec "${SHELL}" -l
 }
