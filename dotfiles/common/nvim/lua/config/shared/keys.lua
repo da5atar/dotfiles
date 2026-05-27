@@ -15,4 +15,4 @@ set("i", "jj", "<Esc>", { desc = "Faster Escape" })
 -- Command-line mode
 --
 -- Enter command-line mode
--- set("n", "<Leader><Leader>", ":", { desc = "Command-line mode" })
+set("n", "<Leader><Leader>", ":", { desc = "Command-line mode" })

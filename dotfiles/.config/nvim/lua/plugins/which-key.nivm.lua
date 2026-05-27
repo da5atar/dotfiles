@@ -5,7 +5,7 @@ return {
   opts = {},
   keys = {
     {
-      "<leader>k",
+      "<leader>bk",
       function()
         require("which-key").show({ global = false })
       end,
