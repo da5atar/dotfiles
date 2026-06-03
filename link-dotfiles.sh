@@ -10,9 +10,6 @@
 # Resolve script directory
 SCRIPT_DIR=$(command cd "$(dirname "$0")" && pwd)
 
-# Resolve script directory
-SCRIPT_DIR=$(command cd "$(dirname "$0")" && pwd)
-
 echo "Creating symlinks for dotfiles in $HOME"
 
 # Function to symlink files preserving relative path
@@ -34,8 +31,6 @@ link_files() {
       ln -s "$file" "$target"
     done
 }
-
-echo "Creating symlinks for dotfiles in $HOME"
 
 # 1. Symlink top‑level dotfiles
 command find "${SCRIPT_DIR}/dotfiles/home" -maxdepth 1 -type f -name '.*' -print |

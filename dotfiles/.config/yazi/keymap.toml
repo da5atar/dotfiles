@@ -1,7 +1,7 @@
-# A TOML linter such as https://taplo.tamasfe.dev/ can use this schema to validate your config.
-# If you encounter any issues, please make an issue at https://github.com/yazi-rs/schemas.
-# See https://yazi-rs.github.io/docs/quick-start
-"$schema" = "https://yazi-rs.github.io/schemas/keymap.json"
+# A TOML linter such as https://github.com/tombi-toml/tombi can use this schema to validate your config.
+# If you encounter any problems, please make an issue at https://github.com/yazi-rs/schemas.
+
+#:schema https://yazi-rs.github.io/schemas/keymap.json
 
 [mgr]
 
@@ -122,19 +122,19 @@ keymap = [
   { on = [
     "c",
     "c",
-  ], run = "copy path", desc = "Copy the file path" },
+  ], run = "copy path", desc = "Copy file URL" },
   { on = [
     "c",
     "d",
-  ], run = "copy dirname", desc = "Copy the directory path" },
+  ], run = "copy dirname", desc = "Copy directory URL" },
   { on = [
     "c",
     "f",
-  ], run = "copy filename", desc = "Copy the filename" },
+  ], run = "copy filename", desc = "Copy filename" },
   { on = [
     "c",
     "n",
-  ], run = "copy name_without_ext", desc = "Copy the filename without extension" },
+  ], run = "copy name_without_ext", desc = "Copy filename without extension" },
 
   # Filter
   { on = "f", run = "filter --smart", desc = "Filter files" },
@@ -240,7 +240,14 @@ keymap = [
   ], run = "follow", desc = "Follow hovered symlink" },
 
   # Tabs
-  { on = "t", run = "tab_create --current", desc = "Create a new tab with CWD" },
+  { on = [
+    "t",
+    "t",
+  ], run = "tab_create --current", desc = "Create a new tab in CWD" },
+  { on = [
+    "t",
+    "r",
+  ], run = "tab_rename --interactive", desc = "Rename current tab" },
 
   { on = "1", run = "tab_switch 0", desc = "Switch to first tab" },
   { on = "2", run = "tab_switch 1", desc = "Switch to second tab" },
@@ -269,17 +276,17 @@ keymap = [
 # tv.yazi
 # https://github.com/cap153/tv.yazi
 [[mgr.prepend_keymap]]
-on  = "<C-t>"
+on = "<S-f>"
 run = "plugin tv"
 desc = "Jump to a file via television"
 
 [[mgr.prepend_keymap]]
-on  = "<C-d>"
+on = "<S-o>"
 run = "plugin tv dirs"
 desc = "Jump to a directory via television"
 
 [[mgr.prepend_keymap]]
-on  = "<C-f>"
+on = "<S-e>"
 run = "plugin tv text"
 desc = "Open files using neovim and jump to where the string is located"
 

@@ -49,12 +49,14 @@ custom-shader = ./shaders/ripple_cursor.glsl
 
 # macOS Alt key fix
 macos-option-as-alt = left
+
+# Unbindings
 keybind = alt+left=unbind
 keybind = alt+right=unbind
 
 # Split Management
-keybind = alt+v=new_split:right
-keybind = alt+d=new_split:down
+keybind = alt+/=new_split:right
+keybind = alt+-=new_split:down
 keybind = alt+q=close_surface
 keybind = alt+z=toggle_fullscreen
 
