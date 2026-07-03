@@ -8,10 +8,6 @@
 "                 ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Colorscheme
-" Use molokai for GUI version, terminal will use default or separate config
-colorscheme molokai
-set termguicolors
 
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
@@ -32,6 +28,8 @@ set scrolloff=10
 " }}}
 
 " UI ---------------------------------------------------------------- {{{
+
+set termguicolors
 
 " Add line numbers to the file.
 set number
@@ -132,14 +130,8 @@ set splitright
 " Vim-Plug plugin manager
 call plug#begin('~/.vim/plugged')
 
-  " ALE: Asynchronous Lint Engine
-  " Provides real-time syntax checking and linting for your code.
-  " Alternative: Consider coc.nvim or vim-lsp for better LSP support.
-  Plug 'dense-analysis/ale'
-
   " NERDTree: File explorer
   " Tree-based file explorer that works like a file manager.
-  " Alternative: vim-pane or neogit for more modern alternatives.
   Plug 'preservim/nerdtree'
 
   " vim-highlightedyank: Highlights last yanked text
@@ -149,6 +141,10 @@ call plug#begin('~/.vim/plugged')
   " fzf: Fuzzy finder
   " Fuzzy search for files and text within your project.
   Plug 'junegunn/fzf'
+  
+  " V language syntax-highlighting
+  " Auto-Indent and syntactic folding
+  Plug 'cheap-glitch/vim-v'
 
 call plug#end()
 
@@ -174,30 +170,16 @@ nnoremap <leader>rn :set relativenumber!<CR>
 nnoremap <leader>cl :set cursorline!<CR>
 " Toggle cursorcolumn
 nnoremap <leader>cc :set cursorcolumn!<CR>
-" Quick search in file
-nnoremap <leader>/ :/\<CR>
-" Quick search backwards in file
-nnoremap <leader>? :?\<CR>
-" Replace in file
-nnoremap <leader>rg :%s///g?<CR>
-" Replace all in file
-nnoremap <leader>R :%s///g<CR>
 " Toggle spell check
 nnoremap <leader>sp :set spell!<CR>
-" Toggle paste mode
-nnoremap <leader>p :set paste!<CR>
-
-" Removed: Press \p to print to printer (Linux-only, doesn't work on macOS)
-" Use system terminal commands instead for printing on macOS.
-" Alternative: nnoremap <leader>p :terminal !lp<CR>
 
 " Type jj to exit insert mode quickly.
 " Common vim practice - escape with jj instead of escaping the key.
 inoremap jj <Esc>
 
-" Press the space bar to type the : character in command mode.
+" Press the space bar twice to type the : character in command mode.
 " Quick access to commands when you need to type them.
-nnoremap <space> :
+nnoremap <space><space> :
 
 " Pressing the letter o will open a new line below the current one.
 " Exit insert mode after creating a new line above or below.
@@ -236,22 +218,13 @@ noremap <c-left> <c-w>>
 noremap <c-right> <c-w><
 
 " NERDTree specific mappings.
-" Map the F3 key to toggle NERDTree open and close.
-nnoremap <F3> :NERDTreeToggle<cr>
 
 " Have nerdtree ignore certain files and directories.
 " Keep your file tree clean by hiding unnecessary files.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
 
 " NERDTree enhanced mappings
-nnoremap <leader>e :NERDTree<CR>
-nnoremap <leader>te :NERDTreeToggle<CR>
-nnoremap <leader>cd :NERDTree CDir<CR>
-nnoremap <leader>fu :NERDTree Find<CR>
-
-" ALE specific mappings
-" Toggle ALE quiet mode
-nnoremap <leader>aq :set ALEWarnUnusedImports! ALEWarnUnusedVariable! ALEWarnUnusedSyntax!<CR>
+nnoremap <leader>e :NERDTreeToggle<CR>
 
 " FZF (fuzzy finder) integration
 " Requires fzf.vim plugin
@@ -334,6 +307,23 @@ if has('gui_running')
         \endif<CR>
 
 endif
+
+" Automatically maintain a consistent quickfix window height across window switches
+function MaximizeAndResizeQuickfix(quickfixHeight)
+  set lazyredraw
+  set ei=WinEnter
+  wincmd _
+  if (getbufvar(winbufnr(winnr()), "&buftype") == "quickfix")
+    wincmd p
+    resize
+    wincmd p
+    exe "resize " . a:quickfixHeight
+  endif
+  set ei-=WinEnter
+  set nolazyredraw
+endfunction
+
+au WinEnter * call MaximizeAndResizeQuickfix(8)
 
 " }}}
 

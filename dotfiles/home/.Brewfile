@@ -1,16 +1,16 @@
-tap "alexsjones/llmfit"
-tap "arthur-ficial/tap"
-tap "ashwch/tap"
-tap "browsers-software/tap"
-tap "buo/cask-upgrade"
-tap "ggozad/formulas"
-tap "quarkdown-labs/quarkdown"
-tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu"
-tap "shinokada/tera"
-tap "tabbyml/tabby"
-tap "thezoraiz/ascii-image-converter"
+tap "alexsjones/llmfit", trusted: true
+tap "arthur-ficial/tap", trusted: true
+tap "ashwch/tap", trusted: true
+tap "browsers-software/tap", trusted: true
+tap "buo/cask-upgrade", trusted: true
+tap "ggozad/formulas", trusted: true
+tap "quarkdown-labs/quarkdown", trusted: true
+tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu", trusted: true
+tap "shinokada/tera", trusted: true
+tap "tabbyml/tabby", trusted: true
+tap "thezoraiz/ascii-image-converter", trusted: true
 # Improved shell history for zsh, bash, fish and nushell
-brew "atuin", restart_service: :changed
+brew "atuin"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # Clone of cat(1) with syntax highlighting and Git integration
@@ -42,7 +42,7 @@ brew "readline"
 # Command-line interface for SQLite
 brew "sqlite"
 # Pack, ship and run any application as a lightweight container
-brew "docker"
+brew "docker", link: false
 # Isolated development environments using Docker
 brew "docker-compose"
 # Perl lib for reading and writing EXIF metadata
@@ -85,6 +85,8 @@ brew "libb2"
 brew "qemu"
 # Additional guest agents for Lima
 brew "lima-additional-guestagents"
+# LLM inference in C/C++
+brew "llama.cpp"
 # Find what models run on your hardware
 brew "llmfit"
 # Clone of ls with colorful output, file type icons, and more
@@ -105,8 +107,6 @@ brew "mise"
 brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Interactive cheatsheet tool for the command-line
 brew "navi"
 # Incremental parsing library
@@ -122,7 +122,7 @@ brew "podman"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Powerful, clean, object-oriented scripting language
-brew "ruby"
+brew "ruby", link: false
 # Safe, concurrent, practical language
 brew "rust"
 # Keccak, SHA-3, SHAKE, and RawSHAKE checksum utilities
@@ -165,6 +165,8 @@ brew "wget"
 brew "witr"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
+# Feature-rich command-line audio/video downloader
+brew "yt-dlp"
 # General-purpose lossless data-compression library
 brew "zlib"
 # On-device Apple FoundationModels CLI and OpenAI-compatible server
@@ -176,13 +178,21 @@ brew "quarkdown-labs/quarkdown/quarkdown"
 # Terminal-based internet radio player
 brew "shinokada/tera/tera"
 # Tabby: AI Coding Assistant
-brew "tabbyml/tabby/tabby"
+brew "tabbyml/tabby/tabby", link: false
 # Convert images into ascii art
 brew "thezoraiz/ascii-image-converter/ascii-image-converter"
 # Android SDK component
 cask "android-platform-tools"
 # Agent orchestration platform
 cask "antigravity"
+# Super-fast on-device AI chat for macOS — powered by apfel
+cask "arthur-ficial/tap/apfel-chat"
+# AI-powered clipboard actions from the macOS menu bar
+cask "arthur-ficial/tap/apfel-clip"
+# Instant AI overlay for macOS — press a key, ask anything
+cask "arthur-ficial/tap/apfel-quick"
+# A formula notepad for thinking — on-device AI as a first-class function
+cask "arthur-ficial/tap/apfelpad"
 # Inspect application bundles
 cask "apparency"
 # Application uninstaller
@@ -195,8 +205,6 @@ cask "atuin-desktop"
 cask "balenaetcher"
 # Desktop password and login vault
 cask "bitwarden"
-# Open source, extensible AI agent that goes beyond code suggestions
-cask "block-goose"
 # Web browser focusing on privacy
 cask "brave-browser"
 # Open the right browser at the right time
@@ -245,16 +253,14 @@ cask "jordanbaird-ice@beta"
 cask "keepingyouawake"
 # GPU-based terminal emulator
 cask "kitty"
+# Menu bar app for running local LLMs
+cask "llamabarn"
 # Privacy-first, open-source platform for knowledge sharing and management
 cask "logseq"
 # Open-source firewall to block unknown outgoing connections
 cask "lulu"
-# Adaptive brightness for external displays
-cask "lunar"
 # Clipboard manager
 cask "maccy"
-# Markdown editor
-cask "mark-text"
 # Neovim Client
 cask "neovide-app"
 # Reverse proxy, secure introspectable tunnels to localhost
@@ -387,7 +393,7 @@ vscode "xadillax.viml"
 vscode "yzhang.markdown-all-in-one"
 vscode "zokugun.cron-tasks"
 vscode "zokugun.sync-settings"
-go "github.com/projectdiscovery/katana/cmd/katana"
-go "github.com/taigrr/spank"
+go "cmd/go"
+go "cmd/gofmt"
 cargo "somo"
 npm "standard"

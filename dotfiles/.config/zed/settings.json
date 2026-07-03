@@ -18,7 +18,7 @@
   "vim_mode": true,
   "colorize_brackets": true,
   "inlay_hints": {
-    "show_background": true
+    "show_background": true,
   },
   "show_signature_help_after_edits": true,
   "auto_signature_help": true,
@@ -27,9 +27,9 @@
     "mode": "subtle",
     "ollama": {
       "api_url": "",
-      "model": "qwen3:4b"
+      "model": "qwen3:4b",
     },
-    "provider": "zed"
+    "provider": "zed",
   },
   "languages": {
     "Markdown-Inline": {
@@ -40,15 +40,15 @@
       "wrap_guides": [25, 50, 80],
       "soft_wrap": "editor_width",
       "indent_guides": {
-        "enabled": false
+        "enabled": false,
       },
-      "hard_tabs": false
-    }
+      "hard_tabs": false,
+    },
   },
   "diagnostics": {
     "inline": {
-      "enabled": true
-    }
+      "enabled": true,
+    },
   },
   "buffer_font_weight": 200.0,
   "buffer_font_size": 14,
@@ -65,7 +65,7 @@
   "cursor_shape": "bar",
   "cursor_blink": true,
   "gutter": {
-    "line_numbers": true
+    "line_numbers": true,
   },
   "relative_line_numbers": "enabled",
 
@@ -73,32 +73,32 @@
   // 3️⃣ UI Layout & Appearance
   // ────────────────────────────────────────────────
   "minimap": {
-    "show": "auto"
+    "show": "auto",
   },
   "tab_bar": {
-    "show": true
+    "show": true,
   },
   "scrollbar": {
-    "show": "auto"
+    "show": "auto",
   },
   "tabs": {
     "file_icons": false,
-    "show_diagnostics": "errors"
+    "show_diagnostics": "errors",
   },
   "indent_guides": {
     "background_coloring": "indent_aware",
     "enabled": false,
-    "coloring": "indent_aware"
+    "coloring": "indent_aware",
   },
   "icon_theme": {
     "mode": "system",
     "light": "Zed (Default)",
-    "dark": "Zed (Default)"
+    "dark": "Zed (Default)",
   },
   "theme": {
     "mode": "system",
     "light": "Ayu Light",
-    "dark": "Ayu Dark"
+    "dark": "Ayu Dark",
   },
   "base_keymap": "VSCode",
   "ui_font_family": ".SystemUIFont",
@@ -109,18 +109,18 @@
   // ────────────────────────────────────────────────
   "git_panel": {
     "tree_view": true,
-    "dock": "right"
+    "dock": "right",
   },
   "project_panel": {
     "button": true,
     "dock": "left",
-    "git_status": true
+    "git_status": true,
   },
   "outline_panel": {
-    "dock": "right"
+    "dock": "right",
   },
   "collaboration_panel": {
-    "dock": "left"
+    "dock": "left",
   },
 
   // ────────────────────────────────────────────────
@@ -134,60 +134,77 @@
       {
         "provider": "oMLX-Qwen3.5",
         "model": "Qwen3.5-9B-OptiQ-4bit",
-        "enable_thinking": false
-      }
+        "enable_thinking": false,
+      },
     ],
     "default_profile": "write",
     "default_model": {
       "enable_thinking": false,
-      "provider": "oMLX-Qwen3.5",
-      "model": "Qwen3.5-9B-OptiQ-4bit"
+      "provider": "Llama",
+      "model": "deepreinforce-ai/Ornith-1.0-9B-GGUF:Q4_K_M",
     },
     "use_modifier_to_send": true,
     "play_sound_when_agent_done": "when_hidden",
-    "model_parameters": []
+    "model_parameters": [],
   },
   "language_models": {
     "openai_compatible": {
-      "LlamaBarn-Gemma4": {
-        "api_url": "http://localhost:2276/v1",
+      "Llama": {
+        "api_url": "http://localhost:8085/v1",
         "available_models": [
           {
-            "name": "gemma-4-e4b",
-            "max_tokens": 120000,
-            "max_output_tokens": 12000,
-            "max_completion_tokens": 4096,
+            "name": "gemma-4-e4b-it:Q8_0",
+            "max_tokens": 64000,
+            "max_output_tokens": 8192,
+            "max_completion_tokens": 2048,
+            "reasoning_effort": "medium",
             "capabilities": {
               "tools": true,
               "images": true,
+              "parallel_tool_calls": true,
+              "prompt_cache_key": false,
+              "chat_completions": true,
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": false,
+            },
+          },
+          {
+            "name": "deepreinforce-ai/Ornith-1.0-9B-GGUF:Q4_K_M",
+            "max_tokens": 64000,
+            "max_output_tokens": 8192,
+            "max_completion_tokens": 2048,
+            "capabilities": {
+              "tools": true,
+              "images": false,
               "parallel_tool_calls": false,
               "prompt_cache_key": false,
               "chat_completions": true,
-              "interleaved_reasoning": false
-            }
-          }
-        ]
+              "interleaved_reasoning": false,
+              "max_tokens_parameter": false,
+            },
+          },
+        ],
       },
-      "oMLX-Qwen3.5": {
-        "api_url": "http://127.0.0.1:8000/v1",
+      "oMLX": {
+        "api_url": "http://127.0.0.1:8084/v1",
         "available_models": [
           {
             "name": "Qwen3.5-9B-OptiQ-4bit",
-            "max_tokens": 200000,
-            "max_output_tokens": 20000,
-            "max_completion_tokens": 4096,
+            "max_tokens": 64000,
+            "max_output_tokens": 8192,
+            "max_completion_tokens": 2048,
             "capabilities": {
               "tools": true,
               "images": true,
               "parallel_tool_calls": false,
               "prompt_cache_key": false,
               "chat_completions": true,
-              "interleaved_reasoning": false
-            }
-          }
-        ]
-      }
-    }
+              "interleaved_reasoning": false,
+            },
+          },
+        ],
+      },
+    },
   },
 
   // ────────────────────────────────────────────────
@@ -198,15 +215,15 @@
       "enabled": true,
       "remote": false,
       "settings": {
-        "tavily_api_key": "$tavily_api_key"
-      }
+        "tavily_api_key": "$tavily_api_key",
+      },
     },
     "mcp-server-context7": {
       "enabled": true,
       "settings": {
-        "context7_api_key": ""
-      }
-    }
+        "context7_api_key": "",
+      },
+    },
   },
 
   // ────────────────────────────────────────────────
@@ -216,14 +233,14 @@
     "blinking": "on",
     "cursor_shape": "bar",
     "line_height": {
-      "custom": 1.2
+      "custom": 1.2,
     },
     "font_family": "MonaspiceKr Nerd Font",
     "font_fallbacks": ["3270 Nerd Font", ".ZedMono"],
     "font_size": 14.0,
     "env": {
-      "EDITOR": "zed --wait"
-    }
+      "EDITOR": "zed --wait",
+    },
   },
 
   // ────────────────────────────────────────────────
@@ -231,7 +248,7 @@
   // ────────────────────────────────────────────────
   "file_types": {
     "Dockerfile": ["Dockerfile", "Dockerfile.*"],
-    "JSON": ["json", "jsonc", "*.code-snippets"]
+    "JSON": ["json", "jsonc", "*.code-snippets"],
   },
   "file_scan_exclusions": [
     "**/.git",
@@ -253,7 +270,7 @@
     "**/.tap",
     "**/.nyc_output",
     "**/report",
-    "**/node_modules"
+    "**/node_modules",
   ],
 
   // ────────────────────────────────────────────────
@@ -261,14 +278,14 @@
   // ────────────────────────────────────────────────
   "telemetry": {
     "diagnostics": false,
-    "metrics": false
+    "metrics": false,
   },
   "redact_private_values": true,
   "preview_tabs": {
-    "enabled": false
+    "enabled": false,
   },
   "status_bar": {
-    "experimental.show": true
+    "experimental.show": true,
   },
-  "multi_cursor_modifier": "cmd_or_ctrl"
+  "multi_cursor_modifier": "cmd_or_ctrl",
 }

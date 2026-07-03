@@ -10,7 +10,7 @@ return {
       ["File Explorer"] = "",
       ["Editing"] = "",
       ["Comments"] = "",
-      ["Debugging"] = "",
+      ["Debugging"] = "🕷️",
       ["Testing"] = "",
       ["Terminal"] = "",
       ["Other"] = "󰜡",
@@ -29,6 +29,6 @@ return {
     },
   },
   keys = {
-    { "<leader>k", "<cmd>Keymaps<cr>", desc = "Show Keymaps" },
+    { "<leader>fk", "<cmd>Keymaps<cr>", desc = "Keymaps" },
   },
 }

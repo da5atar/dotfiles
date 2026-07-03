@@ -1,5 +1,4 @@
 return {
-  -- Catpuccin
   {
     "LazyVim/LazyVim",
     opts = {

@@ -33,5 +33,6 @@ require "lazy_setup"
 require "config.shared.keys" -- symlinked
 require "config.shared.neovide" -- symlinked
 require "config.shared.opts" -- symlinked
+require "config.shared.hooks" -- symlinked
 --
 require "polish"

@@ -1,6 +1,6 @@
 # File: $HOME/.tabby-client/agent/config.toml
 # Ollama - See https://github.com/TabbyML/tabby/discussions/3285
-# Last Edit: 2026-02-23
+# Last Edit: 2026-06-21
 # Computer: Dacomp
 # Status: Working config
 
@@ -13,7 +13,7 @@
 ## Server
 ## You can set the server endpoint and token here.
 [server]
-endpoint = "http://localhost:8080" # http or https URL
+endpoint = "http://localhost:8081" # http or https URL
 token = "auth_7e499a052c3f434eb19a5dfdd4efcde9" # if set, request header Authorization = "Bearer $token" will be added
 
 ## You can add custom request headers.

@@ -1,70 +1,130 @@
-# ---- Font ----
+
+# ---- Appearance ----
+
+# Font
 font-family = "VictorMono Nerd Font Mono"
 font-size = 14
 
-# ---- Theme ----
-# https://ghostty.org/docs/features/theme
-theme = Catppuccin Mocha
-
-# ---- Window ----
-
-# Background
-window-height = 100
-window-width = 100
-
-background-opacity = 0.95
-background-blur-radius = 20
-
-window-padding-x = 10
-window-padding-y = 10
-window-padding-color = extend
-window-padding-balance = true
-
-window-decoration = true
-
-window-step-resize = false
-
-# ---- Shaders ----
+# Shaders
 # https://github.com/0xhckr/ghostty-shaders
 
-# Config 1
+# Starfield
 # custom-shader = ./shaders/starfield-colors.glsl
 
-# Config 2
+# Matrix 1
 custom-shader = ./shaders/matrix-hallway.glsl
 
-# Config 3
+# Matrix 2
 # custom-shader = ./shaders/inside-the-matrix.glsl
 
 # Cursor shaders
 # https://github.com/sahaj-b/ghostty-cursor-shaders
 
-# custom-shader = ./shaders/cursor_blaze.glsl
-custom-shader = ./shaders/cursor_blaze_2.glsl
+custom-shader = ./shaders/cursor_blaze.glsl
 custom-shader = ./shaders/cursor_smear_gradient.glsl
 custom-shader = ./shaders/ripple_cursor.glsl
-# custom-shader = ./shaders/auto-tracking-spotlight
+
+# Theme
+# https://ghostty.org/docs/features/theme
+
+theme = Catppuccin Mocha
+
+# Base Colors
+background = 06080f
+foreground = f3f6f9
+cursor-color = e0c15a
+selection-background = 263356
+selection-foreground = f3f6f9
+
+# Normal Colors
+palette = 0=#06080f
+palette = 1=#cb7c94
+palette = 2=#b7cc85
+palette = 3=#ffe066
+palette = 4=#7fb4ca
+palette = 5=#ff8dd7
+palette = 6=#7aa89f
+palette = 7=#f3f6f9
+
+# Bright Colors
+palette = 8=#8a8fa3
+palette = 9=#de8fa8
+palette = 10=#d1e8a9
+palette = 11=#fff7b1
+palette = 12=#a3d4d5
+palette = 13=#ffaeea
+palette = 14=#7fb4ca
+palette = 15=#f3f6f9
+
+# Window
+
+# Background
+window-height = 90
+window-width = 90
+
+background-opacity = 0.95
+background-blur-radius = 20
+
+window-padding-x = 5
+window-padding-y = 5
+window-padding-color = extend
+window-padding-balance = true
+
+window-decoration = true
+window-step-resize = false
 
 # ---- Keybindings ----
+
+# https://ghostty.org/docs/config/keybind
+# `ghostty +list-keybinds --default` to see defaults
+
+# Clear all keybindings
+keybind=clear
 
 # macOS Alt key fix
 macos-option-as-alt = left
 
-# Unbindings
-keybind = alt+left=unbind
-keybind = alt+right=unbind
+# Common
+keybind = super+,=open_config
+keybind = ctrl+a>r=reload_config
+keybind = super+n=new_window
+keybind = super+q=quit
+keybind = super+p=toggle_command_palette
+keybind = super+enter=toggle_fullscreen
+keybind = super+c=copy_to_clipboard:mixed
+keybind = super+v=paste_from_clipboard
+
+# Editing
+keybind = super+a=select_all
+keybind = super+z=undo
+keybind = super+shift+z=redo
+keybind = super+f=start_search
+keybind = ctrl+a>c=clear_screen
+keybind = ctrl+a>i=inspector:toggle
+
+# Font
+keybind = super++=increase_font_size:1
+keybind = super+-=decrease_font_size:1
+keybind = super+==reset_font_size
+
+# Selections (modifier: shift)
+keybind = shift+arrow_left=adjust_selection:left
+keybind = shift+arrow_right=adjust_selection:right
+keybind = shift+arrow_up=adjust_selection:up
+keybind = shift+arrow_down=adjust_selection:down
 
 # Split Management
-keybind = alt+/=new_split:right
-keybind = alt+-=new_split:down
-keybind = alt+q=close_surface
-keybind = alt+z=toggle_fullscreen
+keybind = ctrl+a>s=new_split:right
+keybind = ctrl+a>d=new_split:down
+keybind = ctrl+a>q=close_surface
+keybind = ctrl+a>z=toggle_split_zoom
+keybind = ctrl+a>==equalize_splits
 
 # Split Navigation
-keybind = alt+k=goto_split:up
-keybind = alt+j=goto_split:down
-keybind = alt+h=goto_split:left
-keybind = alt+l=goto_split:right
+keybind = ctrl+a>k=goto_split:up
+keybind = ctrl+a>j=goto_split:down
+keybind = ctrl+a>h=goto_split:left
+keybind = ctrl+a>l=goto_split:right
 
 # Split Resize
 keybind = ctrl+shift+j=resize_split:up,10
@@ -72,8 +132,31 @@ keybind = ctrl+shift+k=resize_split:down,10
 keybind = ctrl+shift+h=resize_split:left,10
 keybind = ctrl+shift+l=resize_split:right,10
 
+# Tabs
+keybind = super+n=new_tab
+
+# Tab navigation
+keybind = ctrl+a>digit_1=goto_tab:1
+keybind = ctrl+a>1=goto_tab:1
+keybind = ctrl+a>digit_2=goto_tab:2
+keybind = ctrl+a>2=goto_tab:2
+keybind = ctrl+a>digit_3=goto_tab:3
+keybind = ctrl+a>3=goto_tab:3
+keybind = ctrl+a>digit_4=goto_tab:4
+keybind = ctrl+a>4=goto_tab:4
+keybind = ctrl+a>digit_5=goto_tab:5
+keybind = ctrl+a>5=goto_tab:5
+keybind = ctrl+a>digit_6=goto_tab:6
+keybind = ctrl+a>6=goto_tab:6
+keybind = ctrl+a>digit_7=goto_tab:7
+keybind = ctrl+a>7=goto_tab:7
+keybind = ctrl+a>digit_8=goto_tab:8
+keybind = ctrl+a>8=goto_tab:8
+keybind = ctrl+a>9=last_tab
+keybind = ctrl+shift+q=close_tab:this
+
 # Quake mode
-keybind = global:ctrl+t=toggle_quick_terminal
+keybind = global:super+alt+t=toggle_quick_terminal
 
 # ---- Optimizations ----
 
@@ -85,32 +168,3 @@ window-save-state = always
 
 # Performance optimization
 shell-integration = detect
-
-# ---- Theme ----
-
-# --- Base Colors ---
-background = 06080f
-foreground = f3f6f9
-cursor-color = e0c15a
-selection-background = 263356
-selection-foreground = f3f6f9
-
-# --- Normal Colors ---
-palette = 0=#06080f
-palette = 1=#cb7c94
-palette = 2=#b7cc85
-palette = 3=#ffe066
-palette = 4=#7fb4ca
-palette = 5=#ff8dd7
-palette = 6=#7aa89f
-palette = 7=#f3f6f9
-
-# --- Bright Colors ---
-palette = 8=#8a8fa3
-palette = 9=#de8fa8
-palette = 10=#d1e8a9
-palette = 11=#fff7b1
-palette = 12=#a3d4d5
-palette = 13=#ffaeea
-palette = 14=#7fb4ca
-palette = 15=#f3f6f9

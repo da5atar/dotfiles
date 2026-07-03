@@ -14,7 +14,7 @@ export LESS="-R"
 
 export TERM="xterm-256color"
 
-export TERM_PROGRAM="iTerm.app"
+export TERM_PROGRAM="ghostty.app"
 
 export SHELL=/bin/zsh
 

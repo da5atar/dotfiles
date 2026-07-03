@@ -30,6 +30,7 @@ export MANPAGER="bat -plman"
 ### ---- fabric ----
 # https://github.com/danielmiessler/Fabric
 alias fabric='fabric-ai'
+
 # Define fabric patterns alias (i.e., `summarize` instead of `fabric -p summarize`)
 # with option to save the output to Obsidian vault
 obsidian_base="${DROPBOX_FOLDER}/My_Files/Inbox/Fabric_AI"
@@ -132,5 +133,10 @@ fi
 # Custom aliases and env variables
 source "${HOME}/.env"        # local apps variables and keys
 source "${HOME}/.aliases.sh" # local specific aliases
+
+# Toggles
+if [ -z "$mise_toggled" ]; then
+  tg mise
+fi
 
 # ---- End of file ----

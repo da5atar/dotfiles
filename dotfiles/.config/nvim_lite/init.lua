@@ -39,91 +39,90 @@ set_transparent()
 -- ============================================================================
 
 -- Lines
-opt.number = true         -- line number
+opt.number = true -- line number
 opt.relativenumber = true -- relative line numbers
-opt.cursorline = true     -- highlight current line
-opt.wrap = false          -- do not wrap lines by default
-opt.scrolloff = 10        -- keep 10 lines above/below cursor
-opt.sidescrolloff = 10    -- keep 10 lines to left/right of cursor
+opt.cursorline = true -- highlight current line
+opt.wrap = false -- do not wrap lines by default
+opt.scrolloff = 10 -- keep 10 lines above/below cursor
+opt.sidescrolloff = 10 -- keep 10 lines to left/right of cursor
 
 -- Indentation
-opt.tabstop = 2        -- tabwidth
-opt.shiftwidth = 2     -- indent width
-opt.softtabstop = 2    -- soft tab stop not tabs on tab/backspace
-opt.expandtab = true   -- use spaces instead of tabs
+opt.tabstop = 2 -- tabwidth
+opt.shiftwidth = 2 -- indent width
+opt.softtabstop = 2 -- soft tab stop not tabs on tab/backspace
+opt.expandtab = true -- use spaces instead of tabs
 opt.smartindent = true -- smart auto-indent
-opt.autoindent = true  -- copy indent from current line
+opt.autoindent = true -- copy indent from current line
 
 -- Search
 opt.ignorecase = true -- case insensitive search
-opt.smartcase = true  -- case sensitive if uppercase in string
-opt.hlsearch = true   -- highlight search matches
-opt.incsearch = true  -- show matches as you type
+opt.smartcase = true -- case sensitive if uppercase in string
+opt.hlsearch = true -- highlight search matches
+opt.incsearch = true -- show matches as you type
 
 -- Completion
-opt.signcolumn = "yes"                        -- always show a sign column
-opt.colorcolumn = "100"                       -- show a column at 100 position chars
-opt.showmatch = true                          -- highlights matching brackets
-opt.cmdheight = 1                             -- single line command line
+opt.signcolumn = "yes" -- always show a sign column
+opt.colorcolumn = "100" -- show a column at 100 position chars
+opt.showmatch = true -- highlights matching brackets
+opt.cmdheight = 1 -- single line command line
 opt.completeopt = "menuone,noinsert,noselect" -- completion options
-opt.showmode = false                          -- do not show the mode, instead have it in statusline
-opt.pumheight = 10                            -- popup menu height
-opt.pumblend = 10                             -- popup menu transparency
-opt.winblend = 0                              -- floating window transparency
-opt.conceallevel = 2                          -- obsidian requirement
-opt.concealcursor = ""                        -- do not hide cursorline in markup
-opt.lazyredraw = true                         -- do not redraw during macros
-opt.synmaxcol = 300                           -- syntax highlighting limit
-opt.fillchars = { eob = " " }                 -- hide "~" on empty lines
+opt.showmode = false -- do not show the mode, instead have it in statusline
+opt.pumheight = 10 -- popup menu height
+opt.pumblend = 10 -- popup menu transparency
+opt.winblend = 0 -- floating window transparency
+opt.conceallevel = 2 -- obsidian.nvim requirement
+opt.concealcursor = "" -- do not hide cursorline in markup
+opt.lazyredraw = true -- do not redraw during macros
+opt.synmaxcol = 300 -- syntax highlighting limit
+opt.fillchars = { eob = " " } -- hide "~" on empty lines
 
 -- Persist undo history
 local undodir = fn.expand("~/.vim/undodir")
 if
-    fn.isdirectory(undodir) == 0 -- create undodir if nonexistent
+  fn.isdirectory(undodir) == 0 -- create undodir if nonexistent
 then
   fn.mkdir(undodir, "p")
 end
 
-opt.backup = false                  -- do not create a backup file
-opt.writebackup = false             -- do not write to a backup file
-opt.swapfile = false                -- do not create a swapfile
-opt.undofile = true                 -- do create an undo file
-opt.undodir = undodir               -- set the undo directory
-opt.updatetime = 300                -- faster completion
-opt.timeoutlen = 500                -- timeout duration
-opt.ttimeoutlen = 50                -- key code timeout
-opt.autoread = true                 -- auto-reload changes if outside of neovim
-opt.autowrite = false               -- do not auto-save
+opt.backup = false -- do not create a backup file
+opt.writebackup = false -- do not write to a backup file
+opt.swapfile = false -- do not create a swapfile
+opt.undofile = true -- do create an undo file
+opt.undodir = undodir -- set the undo directory
+opt.updatetime = 300 -- faster completion
+opt.timeoutlen = 500 -- timeout duration
+opt.ttimeoutlen = 50 -- key code timeout
+opt.autoread = true -- auto-reload changes if outside of neovim
+opt.autowrite = false -- do not auto-save
 
-opt.hidden = true                   -- allow hidden buffers
-opt.errorbells = false              -- no error sounds
-opt.backspace = "indent,eol,start"  -- better backspace behaviour
-opt.autochdir = false               -- do not autochange directories
-opt.iskeyword:append("-")           -- include - in words
-opt.path:append("**")               -- include subdirs in search
-opt.selection = "inclusive"         -- include last char in selection
-opt.mouse = "a"                     -- enable mouse support
+opt.hidden = true -- allow hidden buffers
+opt.errorbells = false -- no error sounds
+opt.backspace = "indent,eol,start" -- better backspace behaviour
+opt.autochdir = false -- do not autochange directories
+opt.iskeyword:append("-") -- include - in words
+opt.path:append("**") -- include subdirs in search
+opt.selection = "inclusive" -- include last char in selection
+opt.mouse = "a" -- enable mouse support
 opt.clipboard:append("unnamedplus") -- use system clipboard
-opt.modifiable = true               -- allow buffer modifications
-opt.encoding = "utf-8"              -- set encoding
+opt.modifiable = true -- allow buffer modifications
+opt.encoding = "utf-8" -- set encoding
 
 -- Block and blinking cursor in normal, insert, visual, and replace modes
 -- vim.opt.guicursor = "n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor,sm:block-blinkwait175-blinkoff150-blinkon175"
 
 -- Folding: requires treesitter available at runtime; safe fallback if not
-opt.foldmethod = "expr"                          -- use expression for folding
+opt.foldmethod = "expr" -- use expression for folding
 opt.foldexpr = "v:lua.vim.treesitter.foldexpr()" -- use treesitter for folding
-opt.foldlevel = 99                               -- start with all folds open
+opt.foldlevel = 99 -- start with all folds open
 
-opt.splitbelow = true                            -- horizontal splits go below
-opt.splitright = true                            -- vertical splits go right
+opt.splitbelow = true -- horizontal splits go below
+opt.splitright = true -- vertical splits go right
 
-opt.wildmenu = true                              -- tab completion
-opt.wildmode =
-"longest:full,full"                              -- complete longest common match, full completion list, cycle through with Tab
-opt.diffopt:append("linematch:60")               -- improve diff display
-opt.redrawtime = 10000                           -- increase neovim redraw tolerance
-opt.maxmempattern = 20000                        -- increase max memory
+opt.wildmenu = true -- tab completion
+opt.wildmode = "longest:full,full" -- complete longest common match, full completion list, cycle through with Tab
+opt.diffopt:append("linematch:60") -- improve diff display
+opt.redrawtime = 10000 -- increase neovim redraw tolerance
+opt.maxmempattern = 20000 -- increase max memory
 
 -- ============================================================================
 -- STATUSLINE
@@ -148,28 +147,28 @@ end
 local function file_type()
   local ft = bo.filetype
   local icons = {
-    lua = "\u{e620} ",        -- nf-dev-lua
-    python = "\u{e73c} ",     -- nf-dev-python
+    lua = "\u{e620} ", -- nf-dev-lua
+    python = "\u{e73c} ", -- nf-dev-python
     javascript = "\u{e74e} ", -- nf-dev-javascript
     typescript = "\u{e628} ", -- nf-dev-typescript
     javascriptreact = "\u{e7ba} ",
     typescriptreact = "\u{e7ba} ",
-    html = "\u{e736} ",     -- nf-dev-html5
-    css = "\u{e749} ",      -- nf-dev-css3
+    html = "\u{e736} ", -- nf-dev-html5
+    css = "\u{e749} ", -- nf-dev-css3
     scss = "\u{e749} ",
-    json = "\u{e60b} ",     -- nf-dev-json
+    json = "\u{e60b} ", -- nf-dev-json
     markdown = "\u{e73e} ", -- nf-dev-markdown
-    vim = "\u{e62b} ",      -- nf-dev-vim
-    sh = "\u{f489} ",       -- nf-oct-terminal
+    vim = "\u{e62b} ", -- nf-dev-vim
+    sh = "\u{f489} ", -- nf-oct-terminal
     bash = "\u{f489} ",
     zsh = "\u{f489} ",
-    rust = "\u{e7a8} ",  -- nf-dev-rust
-    go = "\u{e724} ",    -- nf-dev-go
-    c = "\u{e61e} ",     -- nf-dev-c
-    cpp = "\u{e61d} ",   -- nf-dev-cplusplus
-    java = "\u{e738} ",  -- nf-dev-java
-    php = "\u{e73d} ",   -- nf-dev-php
-    ruby = "\u{e739} ",  -- nf-dev-ruby
+    rust = "\u{e7a8} ", -- nf-dev-rust
+    go = "\u{e724} ", -- nf-dev-go
+    c = "\u{e61e} ", -- nf-dev-c
+    cpp = "\u{e61d} ", -- nf-dev-cplusplus
+    java = "\u{e738} ", -- nf-dev-java
+    php = "\u{e73d} ", -- nf-dev-php
+    ruby = "\u{e739} ", -- nf-dev-ruby
     swift = "\u{e755} ", -- nf-dev-swift
     kotlin = "\u{e634} ",
     dart = "\u{e798} ",
@@ -180,9 +179,9 @@ local function file_type()
     toml = "\u{e615} ",
     xml = "\u{f05c} ",
     dockerfile = "\u{f308} ", -- nf-linux-docker
-    gitcommit = "\u{f418} ",  -- nf-oct-git_commit
-    gitconfig = "\u{f1d3} ",  -- nf-fa-git
-    vue = "\u{fd42} ",        -- nf-md-vuejs
+    gitcommit = "\u{f418} ", -- nf-oct-git_commit
+    gitconfig = "\u{f1d3} ", -- nf-fa-git
+    vue = "\u{fd42} ", -- nf-md-vuejs
     svelte = "\u{e697} ",
     astro = "\u{e628} ",
   }
@@ -251,13 +250,13 @@ local function setup_dynamic_statusline()
         "%#StatusLineBold#",
         "%{v:lua.mode_icon()}",
         "%#StatusLine#",
-        " \u{e0b1} %f %h%m%r",  -- nf-pl-left_hard_divider
+        " \u{e0b1} %f %h%m%r", -- nf-pl-left_hard_divider
         "%{v:lua.git_branch()}",
-        "\u{e0b1} ",            -- nf-pl-left_hard_divider
+        "\u{e0b1} ", -- nf-pl-left_hard_divider
         "%{v:lua.file_type()}",
-        "\u{e0b1} ",            -- nf-pl-left_hard_divider
+        "\u{e0b1} ", -- nf-pl-left_hard_divider
         "%{v:lua.file_size()}",
-        "%=",                   -- Right-align everything after this
+        "%=", -- Right-align everything after this
         " \u{f017} %l:%c  %P ", -- nf-fa-clock_o for line/col
       })
     end,
@@ -277,7 +276,7 @@ setup_dynamic_statusline()
 -- KEYMAPS
 -- ============================================================================
 
-vim.g.mapleader = " "       -- space for leader
+vim.g.mapleader = " " -- space for leader
 vim.g.maplocalleader = "\\" -- Backslash for localleader
 
 -- better movement in wrapped text
@@ -595,12 +594,12 @@ require("mini.icons").setup({})
 
 require("gitsigns").setup({
   signs = {
-    add = { text = "\u{2590}" },          -- ▏
-    change = { text = "\u{2590}" },       -- ▐
-    delete = { text = "\u{2590}" },       -- ◦
-    topdelete = { text = "\u{25e6}" },    -- ◦
+    add = { text = "\u{2590}" }, -- ▏
+    change = { text = "\u{2590}" }, -- ▐
+    delete = { text = "\u{2590}" }, -- ◦
+    topdelete = { text = "\u{25e6}" }, -- ◦
     changedelete = { text = "\u{25cf}" }, -- ●
-    untracked = { text = "\u{25cb}" },    -- ○
+    untracked = { text = "\u{25cb}" }, -- ○
   },
   signcolumn = true,
   current_line_blame = false,
