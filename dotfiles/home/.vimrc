@@ -9,6 +9,10 @@
 "
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
+
+" Set the color scheme.
+colorscheme molokai
+
 " Disable compatibility with vi which can cause unexpected issues.
 set nocompatible
 
@@ -20,6 +24,10 @@ set history=1000
 
 " Do not save backup files (keeps directory clean).
 set nobackup
+
+" Set cursor shape
+let &t_SI = "\e[6 q"
+let &t_EI = "\e[2 q"
 
 " Do not let cursor scroll below or above N number of lines when scrolling.
 " Helps maintain context while reading/editing.
@@ -40,10 +48,6 @@ set relativenumber
 " Highlight cursor line underneath the cursor horizontally.
 " Improves focus and visibility of current line.
 set cursorline
-
-" Highlight cursor column underneath the cursor vertically.
-" Helps track cursor position across windows.
-set cursorcolumn
 
 " Show partial command you type in the last line of the screen.
 " Useful for remembering long commands.
@@ -140,11 +144,33 @@ call plug#begin('~/.vim/plugged')
 
   " fzf: Fuzzy finder
   " Fuzzy search for files and text within your project.
-  Plug 'junegunn/fzf'
-  
+  Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+  Plug 'junegunn/fzf.vim'
+
   " V language syntax-highlighting
   " Auto-Indent and syntactic folding
   Plug 'cheap-glitch/vim-v'
+
+  " Surround
+  Plug 'tpope/vim-surround'
+
+  " Repeat
+  Plug 'tpope/vim-repeat'
+
+  "Paste with indentation
+  Plug 'sickill/vim-pasta'
+
+  " Indent guides
+  Plug 'nathanaelkane/vim-indent-guides'
+
+  " Git
+  Plug 'airblade/vim-gitgutter'
+
+  " Quick Toggle and Navigation
+  Plug 'tpope/vim-unimpaired'
+
+  " which-key
+  Plug 'liuchengxu/vim-which-key'
 
 call plug#end()
 
@@ -152,10 +178,8 @@ call plug#end()
 
 " MAPPINGS --------------------------------------------------------------- {{{
 
-" Set the space bar as the leader key.
-" Changed from backslash (\) to space for easier access.
-" The leader key is used to prefix custom mappings.
 let mapleader = " "
+let maplocalleader = "\\"
 
 " Leader key mappings for common commands
 " Quick save
@@ -176,6 +200,14 @@ nnoremap <leader>sp :set spell!<CR>
 " Type jj to exit insert mode quickly.
 " Common vim practice - escape with jj instead of escaping the key.
 inoremap jj <Esc>
+
+" Move to next closing delimiter: ', ", `, >, ), ], }
+nnoremap <silent> jl /['"`>\)\]\}]<CR>:nohlsearch<CR>
+inoremap <silent> jl <C-o>h<C-o>/['"`>\)\]\}]<CR><C-o>:nohlsearch<CR><C-o>a<Space><BS>
+
+" Move to previous opening delimiter: ', ", `, <, (, {, [
+nnoremap <silent> jh ?['"`<\(\{\[]<CR>:nohlsearch<CR>
+inoremap <silent> jh <C-o>?['"`<\(\{\[]<CR><C-o>:nohlsearch<CR><C-o>h
 
 " Press the space bar twice to type the : character in command mode.
 " Quick access to commands when you need to type them.
@@ -217,8 +249,6 @@ noremap <c-down> <c-w>-
 noremap <c-left> <c-w>>
 noremap <c-right> <c-w><
 
-" NERDTree specific mappings.
-
 " Have nerdtree ignore certain files and directories.
 " Keep your file tree clean by hiding unnecessary files.
 let NERDTreeIgnore=['\.git$', '\.jpg$', '\.mp4$', '\.ogg$', '\.iso$', '\.pdf$', '\.pyc$', '\.odt$', '\.png$', '\.gif$', '\.db$']
@@ -234,8 +264,21 @@ nnoremap <leader>ff :Files<CR>
 nnoremap <leader>fb :Buffers<CR>
 " Navigate commands with fuzzy search
 nnoremap <leader>fc :Commands<CR>
-" Select recent changes with fuzzy search
-nnoremap <leader>fr :RecentChanges<CR>
+" Select colorscheme
+nnoremap <leader>uc :Colors<CR>
+" Search Pattern
+nnoremap <leader>fp :Rg<CR>
+" Navigate Windows
+nnoremap <leader>fw :Windows<CR>
+" Search opened files
+nnoremap <leader>fo :History<CR>
+" Search command history
+nnoremap <leader>fC :History:<CR>
+" Search history
+nnoremap <leader>fs :History/<CR>
+
+" Which-key
+nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 
 " }}}
 
@@ -263,13 +306,16 @@ if version >= 703
     set undoreload=10000
 endif
 
-" Display cursorline and cursorcolumn ONLY in active window.
+" Display cursorline only in active window.
+" Display cursorcolumn only in Insert mode
 " When you switch windows, turn off cursor highlighting in the inactive window.
 " This reduces visual clutter when managing multiple splits.
 augroup cursor_off
     autocmd!
     autocmd WinLeave * set nocursorline nocursorcolumn
-    autocmd WinEnter * set cursorline cursorcolumn
+    autocmd WinEnter * set cursorline
+    autocmd InsertEnter * set cursorcolumn
+    autocmd InsertLeave * set nocursorcolumn
 augroup END
 
 " If GUI version of Vim is running, set these options.

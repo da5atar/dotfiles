@@ -25,7 +25,7 @@ alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
 # Use `bat` as a colorized pager for `man`
-export MANPAGER="bat -plman"
+# export MANPAGER="bat -plman"
 
 ### ---- fabric ----
 # https://github.com/danielmiessler/Fabric
@@ -74,8 +74,8 @@ export FZF_DEFAULT_OPTS="
     --layout=reverse
     --border
     --inline-info
-    --preview 'bat --style=numbers --color=always --line-range :500 {}'
 "
+
 # Use fd instead of find
 export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --exclude .git'
 
