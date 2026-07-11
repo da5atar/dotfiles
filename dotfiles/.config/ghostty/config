@@ -127,10 +127,34 @@ keybind = ctrl+a>h=goto_split:left
 keybind = ctrl+a>l=goto_split:right
 
 # Split Resize
-keybind = ctrl+shift+j=resize_split:up,10
-keybind = ctrl+shift+k=resize_split:down,10
-keybind = ctrl+shift+h=resize_split:left,10
-keybind = ctrl+shift+l=resize_split:right,10
+# performable because nvim uses same keybindings to resize splits
+keybind = performable:ctrl+arrow_up=resize_split:up,10
+keybind = performable:ctrl+arrow_down=resize_split:down,10
+keybind = performable:ctrl+arrow_left=resize_split:left,10
+keybind = performable:ctrl+arrow_right=resize_split:right,10
+
+# Tabs
+keybind = super+n=new_tab
+
+# Tab navigation
+keybind = ctrl+a>digit_1=goto_tab:1
+keybind = ctrl+a>1=goto_tab:1
+keybind = ctrl+a>digit_2=goto_tab:2
+keybind = ctrl+a>2=goto_tab:2
+keybind = ctrl+a>digit_3=goto_tab:3
+keybind = ctrl+a>3=goto_tab:3
+keybind = ctrl+a>digit_4=goto_tab:4
+keybind = ctrl+a>4=goto_tab:4
+keybind = ctrl+a>digit_5=goto_tab:5
+keybind = ctrl+a>5=goto_tab:5
+keybind = ctrl+a>digit_6=goto_tab:6
+keybind = ctrl+a>6=goto_tab:6
+keybind = ctrl+a>digit_7=goto_tab:7
+keybind = ctrl+a>7=goto_tab:7
+keybind = ctrl+a>digit_8=goto_tab:8
+keybind = ctrl+a>8=goto_tab:8
+keybind = ctrl+a>9=last_tab
+keybind = ctrl+shift+q=close_tab:this
 
 # Tabs
 keybind = super+n=new_tab
