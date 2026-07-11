@@ -10,3 +10,6 @@ g.python_host_prog = "~/.virtualenvs/base/bin/python"
 
 -- Completion
 opt.conceallevel = 2 -- obsidian.nvim requirement
+
+-- Set the winbar content (displayed at the top of the window)
+opt.winbar = "%=%m %f"
