@@ -1,5 +1,5 @@
-tap "alexsjones/llmfit", trusted: true
-tap "arthur-ficial/tap", trusted: true
+tap "alexsjones/llmfit", "https://github.com/AlexsJones/homebrew-llmfit", trusted: true
+tap "arthur-ficial/tap", "https://github.com/Arthur-Ficial/homebrew-tap", trusted: true
 tap "ashwch/tap", trusted: true
 tap "browsers-software/tap", trusted: true
 tap "buo/cask-upgrade", trusted: true
@@ -8,11 +8,25 @@ tap "quarkdown-labs/quarkdown", trusted: true
 tap "quickemu-project/quickemu", "https://github.com/quickemu-project/quickemu", trusted: true
 tap "shinokada/tera", trusted: true
 tap "tabbyml/tabby", trusted: true
-tap "thezoraiz/ascii-image-converter", trusted: true
+tap "thezoraiz/ascii-image-converter", "https://github.com/TheZoraiz/homebrew-ascii-image-converter", trusted: true
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
+# Library for command-line editing
+brew "readline"
+# Command-line interface for SQLite
+brew "sqlite"
+# General-purpose data compression with high compression ratio
+brew "xz"
+# Zstandard is a real-time compression algorithm
+brew "zstd"
+# Open-source, cross-platform JavaScript runtime environment
+brew "node"
+# Pyright fork with various improvements and built-in pylance features
+brew "basedpyright"
+# Language Server for Bash
+brew "bash-language-server"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
 # Open source, extensible AI agent that goes beyond code suggestions
@@ -21,10 +35,6 @@ brew "block-goose-cli"
 brew "bottom"
 # Core application library for C
 brew "glib"
-# General-purpose data compression with high compression ratio
-brew "xz"
-# Zstandard is a real-time compression algorithm
-brew "zstd"
 # Framework for layout and rendering of i18n text
 brew "pango"
 # Versatile and fast Unicode/ASCII/ANSI graphics renderer
@@ -37,10 +47,6 @@ brew "cmake-docs"
 brew "colima"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
-# Library for command-line editing
-brew "readline"
-# Command-line interface for SQLite
-brew "sqlite"
 # Pack, ship and run any application as a lightweight container
 brew "docker", link: false
 # Isolated development environments using Docker
@@ -53,12 +59,24 @@ brew "fabric-ai"
 brew "fd"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
+# User-friendly command-line shell for UNIX-like operating systems
+brew "fish"
+# LSP implementation for the fish shell language
+brew "fish-lsp"
 # Command-line fuzzy finder written in Go
 brew "fzf"
 # Disk usage analyzer with console interface written in Go
 brew "gdu"
 # GitHub command-line tool
 brew "gh"
+# Secure hashing function
+brew "libb2"
+# Interpreter for PostScript and PDF
+brew "ghostscript"
+# Distributed revision control system
+brew "git"
+# Syntax-highlighting pager for git and diff output
+brew "git-delta"
 # List, fetch and generate .gitignore templates
 brew "git-ignore"
 # Git extension for versioning large files
@@ -71,16 +89,24 @@ brew "gnu-sed"
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
 brew "go"
+# Stricter gofmt
+brew "gofumpt"
+# Go formatter that additionally inserts import statements
+brew "goimports"
+# Language server for the Go language
+brew "gopls"
 # Post-modern modal text editor
 brew "helix"
 # Instant coding answers via the command-line
 brew "howdoi"
+# User-friendly cURL replacement (command-line HTTP client)
+brew "httpie"
+# Tools and libraries to manipulate images in select formats
+brew "imagemagick"
 # Crawling and spidering framework
 brew "katana"
 # Simple terminal UI for git commands
 brew "lazygit"
-# Secure hashing function
-brew "libb2"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Additional guest agents for Lima
@@ -91,12 +117,22 @@ brew "llama.cpp"
 brew "llmfit"
 # Clone of ls with colorful output, file type icons, and more
 brew "lsd"
+# Powerful, lightweight programming language
+brew "lua"
+# Language Server for the Lua language
+brew "lua-language-server"
 # Tool for linting and static analysis of Lua code
 brew "luacheck"
+# Just-In-Time Compiler (JIT) for the Lua programming language
+brew "luajit"
 # Package manager for the Lua programming language
 brew "luarocks"
 # Security and system auditing tool to harden systems
 brew "lynis"
+# CLI for Node.js style checker and lint tool for Markdown files
+brew "markdownlint-cli"
+# Language Server Protocol for Markdown
+brew "marksman"
 # Mac App Store command-line interface
 brew "mas"
 # Modern and intuitive terminal-based text editor
@@ -117,14 +153,24 @@ brew "neovim"
 brew "ollama", restart_service: :changed
 # Parallel gzip
 brew "pigz"
+# Paste PNG into files
+brew "pngpaste"
 # Tool for managing OCI containers and pods
 brew "podman"
+# Code formatter for JavaScript, CSS, JSON, GraphQL, Markdown, YAML
+brew "prettier"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
 # Powerful, clean, object-oriented scripting language
 brew "ruby", link: false
+# Extremely fast Python linter, written in Rust
+brew "ruff"
 # Safe, concurrent, practical language
 brew "rust"
+# Experimental Rust compiler front-end for IDEs
+brew "rust-analyzer"
+# Blazing-fast modern Lua linter
+brew "selene"
 # Keccak, SHA-3, SHAKE, and RawSHAKE checksum utilities
 brew "sha3sum"
 # Static analysis and lint tool, for (ba)sh scripts
@@ -133,18 +179,26 @@ brew "shellcheck"
 brew "shfmt"
 # Cross-shell prompt for astronauts
 brew "starship"
+# State of the art linter for the Go programming language
+brew "staticcheck"
 # Opinionated Lua code formatter
 brew "stylua"
 # TOML toolkit written in Rust
 brew "taplo"
 # Tool Command Language
 brew "tcl-tk@8"
-# Very fast implementation of tldr in Rust
-brew "tealdeer"
+# Modernized, complete, self-contained TeX/LaTeX engine
+brew "tectonic"
 # General purpose fuzzy finder TUI
 brew "television"
 # AI Chatbots in terminal without needing API keys
 brew "tgpt"
+# Code-search similar to ack
+brew "the_silver_searcher"
+# Services for Typst
+brew "tinymist"
+# Simplified and community-driven man pages
+brew "tldr"
 # Terminal multiplexer
 brew "tmux"
 # Program that allows you to count code, quickly
@@ -157,12 +211,20 @@ brew "tree-sitter-cli"
 brew "trippy"
 # Tool for creating isolated virtual python environments
 brew "virtualenv"
+# Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
+brew "vscode-langservers-extracted"
+# LSP wrapper for typescript extension of vscode
+brew "vtsls"
 # Convert HTML to PDF
 brew "weasyprint"
 # Internet file retriever
 brew "wget"
 # Why is this running?
 brew "witr"
+# Language Server for Yaml Files
+brew "yaml-language-server"
+# Linter for YAML files
+brew "yamllint"
 # Blazing fast terminal file manager written in Rust, based on async I/O
 brew "yazi"
 # Feature-rich command-line audio/video downloader
@@ -254,7 +316,7 @@ cask "keepingyouawake"
 # GPU-based terminal emulator
 cask "kitty"
 # Menu bar app for running local LLMs
-cask "llamabarn"
+cask "llama-app"
 # Privacy-first, open-source platform for knowledge sharing and management
 cask "logseq"
 # Open-source firewall to block unknown outgoing connections
@@ -382,7 +444,10 @@ vscode "timonwong.shellcheck"
 vscode "tomoki1207.pdf"
 vscode "ultram4rine.vscode-choosealicense"
 vscode "usernamehw.errorlens"
+vscode "vosca.vscode-v-analyzer"
 vscode "vscode-icons-team.vscode-icons"
+vscode "vscodevim.vim"
+vscode "vspacecode.whichkey"
 vscode "waderyan.gitblame"
 vscode "wakatime.vscode-wakatime"
 vscode "wattenberger.footsteps"

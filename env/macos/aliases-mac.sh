@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
 
 # ---- Homebrew ----
-alias bbd="brew bundle dump --global --force --describe"
+
+# bundle: https://docs.brew.sh/Brew-Bundle-and-Brewfile
+alias bbd="brew bundle dump --global --force"
 alias bbi="brew bundle install --global"
+alias bbc="brew bundle check --global --verbose"
 
 # ---- Network ----
 alias local-ip="ipconfig getifaddr en0"

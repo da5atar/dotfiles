@@ -523,16 +523,13 @@ local function setup_obsidian()
     picker = { name = "fzf-lua" },
   })
 
-  set("n", "<leader>nn", function()
-    cmd("Obsidian workspace")
-    vim.defer_fn(function()
-      cmd("Obsidian new")
-    end, 500)
-  end, { desc = "New note" })
+  set("n", "<leader>O", "", { desc = "Obsidian" })
+  set("n", "<leader>On", "<cmd>Obsidian new<cr>", { desc = "New note" })
   set("n", "<leader>nf", "<cmd>Obsidian quick_switch<cr>", { desc = "Find note" })
   set("n", "<leader>ns", "<cmd>Obsidian search<cr>", { desc = "Search notes" })
   set("n", "<leader>nt", "<cmd>Obsidian today<cr>", { desc = "Today's daily note" })
   set("n", "<leader>nw", "<cmd>Obsidian workspace<cr>", { desc = "Switch workspace" })
+  set("n", "<leader>Oz", "<cmd>Obsidian unique_note<cr>", { desc = "New unique note" })
 end
 
 setup_obsidian()
