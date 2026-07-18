@@ -139,7 +139,7 @@
     ],
     "default_profile": "write",
     "default_model": {
-      "enable_thinking": true,
+      "enable_thinking": false,
       "provider": "llama.cpp",
       "model": "deepreinforce-ai/Ornith-1.0-9B-GGUF:Q4_K_M"
     },

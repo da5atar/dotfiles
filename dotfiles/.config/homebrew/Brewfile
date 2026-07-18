@@ -11,6 +11,8 @@ tap "tabbyml/tabby", trusted: true
 tap "thezoraiz/ascii-image-converter", "https://github.com/TheZoraiz/homebrew-ascii-image-converter", trusted: true
 # Improved shell history for zsh, bash, fish and nushell
 brew "atuin"
+# Automatic configure script builder
+brew "autoconf"
 # Cryptography and SSL/TLS Toolkit
 brew "openssl@3"
 # Library for command-line editing
@@ -25,10 +27,18 @@ brew "zstd"
 brew "node"
 # Pyright fork with various improvements and built-in pylance features
 brew "basedpyright"
+# Bourne-Again SHell, a UNIX command interpreter
+brew "bash"
 # Language Server for Bash
 brew "bash-language-server"
 # Clone of cat(1) with syntax highlighting and Git integration
 brew "bat"
+# Bash scripts that integrate bat with various command-line tools
+brew "bat-extras"
+# GNU binary tools for native development
+brew "binutils"
+# Parser generator
+brew "bison"
 # Open source, extensible AI agent that goes beyond code suggestions
 brew "block-goose-cli"
 # Yet another cross-platform graphical process/system monitor
@@ -47,24 +57,36 @@ brew "cmake-docs"
 brew "colima"
 # GNU File, Shell, and Text utilities
 brew "coreutils"
+# File comparison utilities
+brew "diffutils"
 # Pack, ship and run any application as a lightweight container
-brew "docker", link: false
+brew "docker"
 # Isolated development environments using Docker
 brew "docker-compose"
+# Classic UNIX line editor
+brew "ed"
+# GNU Emacs text editor
+brew "emacs"
 # Perl lib for reading and writing EXIF metadata
 brew "exiftool"
 # Open-source framework for augmenting humans using AI
 brew "fabric-ai"
 # Simple, fast and user-friendly alternative to find
 brew "fd"
+# Utility to determine file types
+brew "file-formula"
 # Collection of GNU find, xargs, and locate
 brew "findutils"
 # User-friendly command-line shell for UNIX-like operating systems
 brew "fish"
 # LSP implementation for the fish shell language
 brew "fish-lsp"
+# Fast Lexical Analyzer, generates Scanners (tokenizers)
+brew "flex"
 # Command-line fuzzy finder written in Go
 brew "fzf"
+# GNU awk utility
+brew "gawk"
 # Disk usage analyzer with console interface written in Go
 brew "gdu"
 # GitHub command-line tool
@@ -83,8 +105,14 @@ brew "git-ignore"
 brew "git-lfs"
 # Render markdown on the CLI
 brew "glow"
+# C code prettifier
+brew "gnu-indent"
 # GNU implementation of the famous stream editor
 brew "gnu-sed"
+# GNU version of the tar archiving utility
+brew "gnu-tar"
+# GNU implementation of which utility
+brew "gnu-which"
 # GNU Privacy Guard (OpenPGP)
 brew "gnupg"
 # Open source programming language to build simple/reliable/efficient software
@@ -95,6 +123,12 @@ brew "gofumpt"
 brew "goimports"
 # Language server for the Go language
 brew "gopls"
+# Apply a diff file to an original
+brew "gpatch"
+# GNU grep, egrep and fgrep
+brew "grep"
+# Popular GNU data compression program
+brew "gzip"
 # Post-modern modal text editor
 brew "helix"
 # Instant coding answers via the command-line
@@ -107,6 +141,10 @@ brew "imagemagick"
 brew "katana"
 # Simple terminal UI for git commands
 brew "lazygit"
+# Pager program similar to more
+brew "less"
+# Version of the SSL/TLS protocol forked from OpenSSL
+brew "libressl"
 # Generic machine emulator and virtualizer
 brew "qemu"
 # Additional guest agents for Lima
@@ -129,6 +167,8 @@ brew "luajit"
 brew "luarocks"
 # Security and system auditing tool to harden systems
 brew "lynis"
+# Utility for directing compilation
+brew "make"
 # CLI for Node.js style checker and lint tool for Markdown files
 brew "markdownlint-cli"
 # Language Server Protocol for Markdown
@@ -143,6 +183,8 @@ brew "mise"
 brew "mole"
 # Collection of tools that nobody wrote when UNIX was young
 brew "moreutils"
+# Free (GNU) replacement for the Pico text editor
+brew "nano"
 # Interactive cheatsheet tool for the command-line
 brew "navi"
 # Incremental parsing library
@@ -151,6 +193,10 @@ brew "tree-sitter"
 brew "neovim"
 # Create, run, and share large language models (LLMs)
 brew "ollama", restart_service: :changed
+# OpenBSD freely-licensed SSH connectivity tools
+brew "openssh"
+# Highly capable, feature-rich programming language
+brew "perl"
 # Parallel gzip
 brew "pigz"
 # Paste PNG into files
@@ -161,6 +207,8 @@ brew "podman"
 brew "prettier"
 # Search tool like grep and The Silver Searcher
 brew "ripgrep"
+# Utility that provides fast incremental file transfer
+brew "rsync"
 # Powerful, clean, object-oriented scripting language
 brew "ruby", link: false
 # Extremely fast Python linter, written in Rust
@@ -169,6 +217,8 @@ brew "ruff"
 brew "rust"
 # Experimental Rust compiler front-end for IDEs
 brew "rust-analyzer"
+# Terminal multiplexer with VT100/ANSI terminal emulation
+brew "screen"
 # Blazing-fast modern Lua linter
 brew "selene"
 # Keccak, SHA-3, SHAKE, and RawSHAKE checksum utilities
@@ -209,12 +259,20 @@ brew "tree"
 brew "tree-sitter-cli"
 # Network diagnostic tool, inspired by mtr
 brew "trippy"
+# Extraction utility for .zip compressed archives
+brew "unzip"
+# Vi 'workalike' with many additional features
+brew "vim"
 # Tool for creating isolated virtual python environments
 brew "virtualenv"
 # Language servers for HTML, CSS, JavaScript, and JSON extracted from vscode
 brew "vscode-langservers-extracted"
 # LSP wrapper for typescript extension of vscode
 brew "vtsls"
+# Executes a program periodically, showing output fullscreen
+brew "watch"
+# Display word differences between text files
+brew "wdiff"
 # Convert HTML to PDF
 brew "weasyprint"
 # Internet file retriever

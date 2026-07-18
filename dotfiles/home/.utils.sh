@@ -24,9 +24,6 @@ help() {
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
-# Use `bat` as a colorized pager for `man`
-# export MANPAGER="bat -plman"
-
 ### ---- fabric ----
 # https://github.com/danielmiessler/Fabric
 alias fabric='fabric-ai'
@@ -109,7 +106,7 @@ fi
 export NOTES_DIRECTORY # set in ~/.env
 
 # pnpm
-export PNPM_HOME="/Users/ms/.config/local/share/pnpm"
+export PNPM_HOME="${HOME}/.config/local/share/pnpm"
 case ":$PATH:" in
 *":$PNPM_HOME/bin:"*) ;;
 *) export PATH="$PNPM_HOME/bin:$PATH" ;;
@@ -138,5 +135,9 @@ source "${HOME}/.aliases.sh" # local specific aliases
 if [ -z "$mise_toggled" ]; then
   tg mise
 fi
+
+# PATH fix
+validate_path
+validate_manpath
 
 # ---- End of file ----

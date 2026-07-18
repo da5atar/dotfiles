@@ -143,6 +143,22 @@ set_no_dupes_path() {
   show_path
 }
 
+# Validate and remove invalid entries in PATH
+### validate_path()
+validate_path() {
+  local dir new_path=""
+
+  while IFS= read -r dir; do
+    # skip empty entries
+    [[ -z $dir ]] && continue
+    [[ -d $dir ]] && new_path+="${dir}:"
+  done < <(printf '%s' "$PATH" | tr ':' '\n')
+
+  # remove trailing colon
+  PATH=${new_path%:}
+  export PATH
+}
+
 # ---- Reload shell ----
 
 # Usage: reload
