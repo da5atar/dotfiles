@@ -47,10 +47,6 @@ link_files "${SCRIPT_DIR}/dotfiles/.config" "${HOME}/.config"
 link_files "${SCRIPT_DIR}/dotfiles/home/.colima" "${HOME}/.colima"
 # ~/.local/bin
 link_files "${SCRIPT_DIR}/dotfiles/home/.local/bin" "${HOME}/.local/bin"
-# ~/.tabby
-link_files "${SCRIPT_DIR}/dotfiles/home/.tabby" "${HOME}/.tabby"
-# ~/.tabby-client/agent
-link_files "${SCRIPT_DIR}/dotfiles/home/.tabby-client/agent" "${HOME}/.tabby-client/agent"
 # ~/.vim
 link_files "${SCRIPT_DIR}/dotfiles/home/.vim" "${HOME}/.vim"
 

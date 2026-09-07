@@ -94,9 +94,11 @@ if [[ "${MACHINE}" == "Linux" ]]; then
   source "${PROJECT_ROOT}/env/linux/aliases-linux.sh"
 elif [[ "${MACHINE}" == "Mac" ]]; then
   # shellcheck source=/dev/null
-  source "${PROJECT_ROOT}/env/macos/exports-mac.sh"
+  source "${PROJECT_ROOT}/env/mac/exports-mac.sh"
   # shellcheck source=/dev/null
-  source "${PROJECT_ROOT}/env/macos/aliases-mac.sh"
+  source "${PROJECT_ROOT}/env/mac/aliases-mac.sh"
+  # shellcheck source=/dev/null
+  source "${PROJECT_ROOT}/env/mac/fn-mac.sh"
 fi
 
 # Source all remaining files in the shared env folder

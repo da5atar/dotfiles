@@ -1,6 +1,12 @@
 Changelog
 =========
 
+2026-07-16
+----------
+- Add additional GNU binaries
+- Add bat-extras
+- Add manpath functions for mac
+
 2026-05-16
 ----------
 - Add kitty config
