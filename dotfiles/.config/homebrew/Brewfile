@@ -39,8 +39,6 @@ brew "bat-extras"
 brew "binutils"
 # Parser generator
 brew "bison"
-# Open source, extensible AI agent that goes beyond code suggestions
-brew "block-goose-cli"
 # Yet another cross-platform graphical process/system monitor
 brew "bottom"
 # Core application library for C
@@ -297,8 +295,6 @@ brew "arthur-ficial/tap/apfel-gui"
 brew "quarkdown-labs/quarkdown/quarkdown"
 # Terminal-based internet radio player
 brew "shinokada/tera/tera"
-# Tabby: AI Coding Assistant
-brew "tabbyml/tabby/tabby", link: false
 # Convert images into ascii art
 brew "thezoraiz/ascii-image-converter/ascii-image-converter"
 # Android SDK component
@@ -333,8 +329,6 @@ cask "browsers-software/tap/browsers"
 cask "bruno"
 # E-books management software
 cask "calibre"
-# Terminal-based AI coding assistant
-cask "claude-code"
 # Client for the Dropbox cloud storage service
 cask "dropbox"
 # Web browser focusing on privacy
@@ -343,6 +337,8 @@ cask "duckduckgo"
 cask "duplicati"
 # Collaborative team software
 cask "figma"
+# Web browser
+cask "firefox"
 cask "font-3270-nerd-font"
 cask "font-fira-code-nerd-font"
 cask "font-hack-nerd-font"
@@ -355,6 +351,8 @@ cask "freefilesync"
 cask "freeplane"
 # Terminal emulator that uses platform-native UI and GPU acceleration
 cask "ghostty"
+# Free and open-source image editor
+cask "gimp"
 # Web browser
 cask "google-chrome"
 # Client for the Google Drive storage service
@@ -376,11 +374,13 @@ cask "kitty"
 # Menu bar app for running local LLMs
 cask "llama-app"
 # Privacy-first, open-source platform for knowledge sharing and management
-cask "logseq"
+cask "logseq-og"
 # Open-source firewall to block unknown outgoing connections
 cask "lulu"
 # Clipboard manager
 cask "maccy"
+# Markdown editor
+cask "mark-text"
 # Neovim Client
 cask "neovide-app"
 # Reverse proxy, secure introspectable tunnels to localhost
@@ -411,12 +411,8 @@ cask "stats"
 cask "swiftbar"
 # Virtual machines UI using QEMU
 cask "utm"
-# Web browser with built-in email client focusing on customization and control
-cask "vivaldi"
 # Multimedia player
 cask "vlc"
-# AI code editor
-cask "void"
 # Binary releases of VS Code without MS branding/telemetry/licensing
 cask "vscodium"
 # Multiplayer code editor
@@ -460,6 +456,7 @@ vscode "fabiospampinato.vscode-todo-plus"
 vscode "formulahendry.auto-close-tag"
 vscode "formulahendry.auto-rename-tag"
 vscode "foxundermoon.shell-format"
+vscode "ggml-org.llama-vscode"
 vscode "gruntfuggly.todo-tree"
 vscode "jgclark.vscode-todo-highlight"
 vscode "johnnymorganz.stylua"
@@ -494,8 +491,6 @@ vscode "rust-lang.rust-analyzer"
 vscode "shyykoserhiy.vscode-spotify"
 vscode "sleistner.vscode-fileutils"
 vscode "sumneko.lua"
-vscode "tabbyml.pochi"
-vscode "tabbyml.vscode-tabby"
 vscode "tamasfe.even-better-toml"
 vscode "tanhakabir.rest-book"
 vscode "timonwong.shellcheck"
@@ -519,4 +514,3 @@ vscode "zokugun.sync-settings"
 go "cmd/go"
 go "cmd/gofmt"
 cargo "somo"
-npm "standard"

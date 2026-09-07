@@ -45,6 +45,7 @@ validate_manpath() {
 }
 
 # View man pages from GNU-installed packages
+# This function takes on optional argument to specify a man page
 gnuman() {
   local new_manpath=""
   if command -v manpath &>/dev/null; then
@@ -58,7 +59,7 @@ gnuman() {
     [[ -n "${new_manpath}" ]] && export MANPATH="${new_manpath%:}"
 
     if command -v batman &>/dev/null; then
-      batman
+      batman "$@"
     else
       echo "batman is not installed - use 'brew install bat-extras' or regular 'man' command"
     fi
@@ -66,6 +67,7 @@ gnuman() {
 }
 
 # View man pages from BSD/native packages (not from Homebrew)
+# This function takes on optional argument to specify a man page
 bsdman() {
   local new_manpath=""
   if command -v manpath &>/dev/null; then
@@ -79,7 +81,7 @@ bsdman() {
     [[ -n "${new_manpath}" ]] && export MANPATH="${new_manpath%:}"
 
     if command -v batman &>/dev/null; then
-      batman
+      batman "$@"
     else
       echo "batman is not installed - use 'brew install bat-extras' or regular 'man' command"
     fi

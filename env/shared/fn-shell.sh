@@ -49,6 +49,8 @@ cmd_info() {
   return 0
 }
 
+alias c="cmd_info"
+
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see fn-dirs.sh) cross-platform.
 if [[ ! "$(uname -s)" = 'Darwin' ]]; then

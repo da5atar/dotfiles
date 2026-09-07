@@ -397,6 +397,9 @@ set laststatus=2
 
 " Enable system clipboard for pasting
 " (Disables xclip/xsel integration if you have it set up elsewhere)
-set clipboard=
+set clipboard=unnamedplus
 
-" }}}
+" To use fzf in Vim
+set rtp+=/opt/homebrew/opt/fzf
+
+"}}}
