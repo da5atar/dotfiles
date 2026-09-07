@@ -9,12 +9,10 @@ local prev_delimiter = "?['\"`<\\(\\{\\[]"
 --
 set("n", "<leader><leader>", ":", { desc = "Enter command" })
 
---
+----
 
--- Images
-set("n", "<Leader>i", "", { desc = "[I]mages" })
+-- Insert mode
 --
-
 -- Quickly move out of pairs
 set(
   "i",
@@ -64,13 +62,14 @@ set("i", "<C-l>", "<cmd>lua EscapePair('after')<CR>", { noremap = true, silent =
 -- Exit insert mode after creating a new line above or below the current line.
 set("n", "o", "o<Esc>", { desc = "Open new line below" })
 set("n", "O", "O<Esc>", { desc = "Open new line above" })
---
+
+-- AI
+set("n", "<leader>a", "", { desc = "AI" })
 
 -- Images
 set("n", "<Leader>i", "", { desc = "[I]mages" })
---
 
---
+----
 
 -- Visual mode
 --
@@ -78,4 +77,4 @@ set("n", "<Leader>i", "", { desc = "[I]mages" })
 set("v", "J", ":m '>+1<CR>gv==kgvo<esc>=kgvo", { desc = "move highlighted text down" })
 set("v", "K", ":m '<-2<CR>gv==jgvo<esc>=jgvo", { desc = "move highlighted text up" })
 
---
+----

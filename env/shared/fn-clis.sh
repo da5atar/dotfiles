@@ -17,6 +17,7 @@ _select_nvim_config() {
     return
   fi
   # Print the selected config name
+  # shellcheck disable=SC2005
   echo "$(basename "$choice")"
 }
 
@@ -49,10 +50,10 @@ clean_nvim() {
   [[ -z $config ]] && echo "No config selected" && return
   export NVIM_APPNAME=$config
   [ -d "$HOME/.config/$NVIM_APPNAME" ] && rm -v "$HOME/.config/$NVIM_APPNAME"
-  [ -d "$HOME/.config/local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.config/local/share/$NVIM_APPNAME"
-  [ -d "$HOME/.local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.local/share/$NVIM_APPNAME"
-  [ -d "$HOME/.local/state/$NVIM_APPNAME" ] && rm -v "$HOME/.local/state/$NVIM_APPNAME"
-  [ -d "$HOME/.cache/$NVIM_APPNAME" ] && rm -v "$HOME/.cache/$NVIM_APPNAME"
+  # [ -d "$HOME/.config/local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.config/local/share/$NVIM_APPNAME"
+  # [ -d "$HOME/.local/share/$NVIM_APPNAME" ] && rm -v "$HOME/.local/share/$NVIM_APPNAME"
+  # [ -d "$HOME/.local/state/$NVIM_APPNAME" ] && rm -v "$HOME/.local/state/$NVIM_APPNAME"
+  # [ -d "$HOME/.cache/$NVIM_APPNAME" ] && rm -v "$HOME/.cache/$NVIM_APPNAME"
   echo "Done."
 }
 
