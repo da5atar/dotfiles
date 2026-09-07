@@ -49,6 +49,8 @@ cmd_info() {
   return 0
 }
 
+alias c="cmd_info"
+
 # Normalize `open` across Linux, macOS, and Windows.
 # This is needed to make the `o` function (see fn-dirs.sh) cross-platform.
 if [[ ! "$(uname -s)" = 'Darwin' ]]; then
@@ -141,6 +143,22 @@ set_no_dupes_path() {
   PATH=$(_no_dupes_path)
   export PATH
   show_path
+}
+
+# Validate and remove invalid entries in PATH
+### validate_path()
+validate_path() {
+  local dir new_path=""
+
+  while IFS= read -r dir; do
+    # skip empty entries
+    [[ -z $dir ]] && continue
+    [[ -d $dir ]] && new_path+="${dir}:"
+  done < <(printf '%s' "$PATH" | tr ':' '\n')
+
+  # remove trailing colon
+  PATH=${new_path%:}
+  export PATH
 }
 
 # ---- Reload shell ----

@@ -10,25 +10,60 @@ else
   echo "Homebrew is already installed"
 fi
 
+# Shell completion
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Install GNU core utilities (those that come with macOS are outdated).
-brew install coreutils
-# Don't forget to add `$(brew --prefix coreutils)/libexec/gnubin` to `$PATH`.
-# echo 'export PATH="$(brew --prefix coreutils)/libexec/gnubin:$PATH"' >> ~/.zshrc
+ln -s "${HOMEBREW_PREFIX}/bin/gsha256sum" "${HOMEBREW_PREFIX}/bin/sha256sum"
 
-ln -s "${BREW_PREFIX}/bin/gsha256sum" "${BREW_PREFIX}/bin/sha256sum"
+# Install useful binaries.
+
+# GNU programs non-existing in macOS
+brew install "autoconf"
+brew install "watch"
+brew install wget                        # download tool
+brew install "wdiff"
+
+# GNU programs whose BSD counterpart is installed in macOS
+brew install "coreutils"
+brew install "binutils"
+brew install "diffutils"
+brew install "ed"
+brew install "findutils" # Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed
+brew install "gawk"
+brew install "gnu-indent"
+brew install "gnu-sed"
+brew install "gnu-tar"
+brew install "gnu-which"
+brew install "grep"
+brew install "gzip"
+brew install "screen"
+
+# GNU programs existing in macOS which are outdated
+brew install "bash"
+brew install "emacs"
+brew install "gpatch"
+brew install "less"
+brew install "m4"
+brew install "make"
+brew install "nano"
+brew install "bison"
+
+# BSD programs existing in macOS which are outdated
+brew install "flex"
+
+# Other common/preferred programs in GNU/Linux distributions
+brew install "libressl"
+brew install "file-formula"
+brew install "git"
+brew install "openssh"
+brew install "perl"
+brew install "python"
+brew install "rsync"
+brew install "unzip"
+brew install "vim"
 
 # Install some other useful utilities like `sponge`.
 brew install moreutils
-
-# Install GNU `find`, `locate`, `updatedb`, and `xargs`, `g`-prefixed.
-brew install findutils
-
-# Install GNU `sed` as gsed
-brew install gnu-sed
-
-# Install useful binaries.
 
 brew install ack                         # text search tool
 brew install atuin                       # shell history
@@ -63,6 +98,7 @@ brew install lynis                       # security auditing tool
 brew install navi                        # cli cheatsheet
 brew install neovide                     # cross-platform nvim GUI
 brew install node                        # JavaScript runtime
+brew install nvim                        # Modern Vim
 brew install ollama                      # LLM runner
 brew install openssl@3                   # OpenSSL library
 brew install pango                       # library for rendering text and images
@@ -95,7 +131,6 @@ brew install trippy                      # Network diagnostic tool
 brew install tabbyml/tabby/tabby         # Self-hosted AI coding assistant
 brew install virtualenv                  # python virtual environment manager
 brew install weasyprint                  # HTML to PDF converter
-brew install wget                        # download tool
 brew install witr                        # Why is this running?
 brew install xz                          # compression library
 brew install yazi                        # Terminal file navigator

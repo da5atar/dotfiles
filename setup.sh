@@ -13,7 +13,7 @@ esac
 if [[ "${MACHINE}" == "Linux" ]]; then
     source ./setup/linux.sh
 elif [[ "${MACHINE}" == "Mac" ]]; then
-    source ./setup/macos.sh
+    source ./setup/mac.sh
 fi
 
 # Set npm permissions and install npm binaries

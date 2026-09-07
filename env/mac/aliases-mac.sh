@@ -9,6 +9,7 @@ alias bbc="brew bundle check --global --verbose"
 
 # ---- Network ----
 alias local-ip="ipconfig getifaddr en0"
+alias nq="networkQuality"
 
 # ---- Productivity ----
 
@@ -19,8 +20,14 @@ alias bc='bc -l'
 alias copy-file='pbcopy <'   # Copy file contents to clipboard: copy-file file.txt
 alias paste-file='pbpaste >' # Paste clipboard to file: paste-file file.txt
 
+# Quicklook
+alias ql='qlmanage -p'
+
 # System
 alias os='sw_vers'
 alias sys-info='system_profiler SPHardwareDataType'
 alias updates='softwareupdate -l'
 alias ips='ifconfig | grep inet'
+
+# ---- Power Management ----
+alias batt='pmset -g batt'

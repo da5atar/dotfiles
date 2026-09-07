@@ -22,4 +22,4 @@ umask 022
 
 ulimit -n 1024
 
-# printf "PATH from .zshenv:\n %s\n" "${PATH}" >> ~/PATH.txt 2>&1
+# echo "zshenv ran in PID: $$ Process: $(ps -p "$$" -o args=) at $(date)" >> "$HOME/zsh-debug.txt"
